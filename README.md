@@ -8,5 +8,5 @@ you need to install
 
 - postgres
 
--STS or eclipse IDE
+- STS or eclipse IDE
 
