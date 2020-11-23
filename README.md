@@ -2,7 +2,11 @@
 The horbac api projects based on spring boot
 
 # to deploy the project
-create horbac database in postgres
+you need to install
 
-Type this in command line 
-mvn clean install 
+- maven
+
+- postgres
+
+-STS or eclipse IDE
+
