@@ -12,7 +12,7 @@ public class HorbacApplication {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(HorbacApplication.class, args);
 	}

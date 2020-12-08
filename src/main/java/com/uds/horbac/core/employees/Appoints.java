@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import com.uds.horbac.core.organizations.Organization;
+import com.uds.horbac.core.organizations.entities.Organization;
 import com.uds.horbac.core.units.AministrativeUnit;
 
 import lombok.Data;
