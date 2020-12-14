@@ -48,5 +48,7 @@ public class SpringFoxConfig {
 	        .apis((Predicate<RequestHandler>) RequestHandlerSelectors.basePackage("com.uds.horbac"))
 	        .build();
 	}
+	
+	
 
 }

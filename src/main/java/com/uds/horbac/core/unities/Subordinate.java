@@ -1,4 +1,4 @@
-package com.uds.horbac.core.units;
+package com.uds.horbac.core.unities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
