@@ -20,9 +20,9 @@ public class Subordinate
     /** Associations */
 	
 	@ManyToOne
-    private AministrativeUnit subordinate;
+    private AdministrativeUnit subordinate;
 	
 	@ManyToOne
-    private AministrativeUnit superior;
+    private AdministrativeUnit superior;
 }
 

@@ -35,7 +35,7 @@ public class Request
 	private Emitter emitter;
 	
 	@ManyToOne
-	private Vue vue;
+	private Vue view;
 	
 	@ManyToOne
 	private Resource resource;
@@ -46,6 +46,7 @@ public class Request
 	@ManyToOne
 	private Action action;
 	
+	private Decision decision;
 	
 	
 	
