@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -31,6 +32,7 @@ public class AuthGrant {
 	/**
 	 * scopes granted by users
 	 */
-	@OneToMany(mappedBy="grant")
+	@OneToMany
+	@JoinColumn(name = "auth_id")
 	private List<Scope> grantedScopes;
 }
