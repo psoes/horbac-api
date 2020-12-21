@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.sun.istack.NotNull;
+
 import lombok.Data;
 
 @Data
@@ -19,6 +21,7 @@ public class Organization {
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     
+	@NotNull
     private String name;
     
     private String description;
@@ -33,7 +36,14 @@ public class Organization {
 	 */
 	private Date cessationDate;
     
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     private OrganizationType type;
+    
+    private String website;
+    
+    private String localization;
+    
+    @ManyToOne(cascade=CascadeType.MERGE)
+    private SocialReason socialReason;
 }
 

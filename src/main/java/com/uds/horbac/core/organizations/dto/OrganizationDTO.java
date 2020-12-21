@@ -2,7 +2,11 @@ package com.uds.horbac.core.organizations.dto;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToOne;
+
 import com.sun.istack.NotNull;
+import com.uds.horbac.core.organizations.entities.SocialReason;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -33,4 +37,10 @@ public class OrganizationDTO {
 	private Date cessationDate;
 	
 	private OrganizationTypeDTO type;
+	
+	private String website;
+    
+    private String localization;
+    
+    private SocialReason socialReason;
 }
