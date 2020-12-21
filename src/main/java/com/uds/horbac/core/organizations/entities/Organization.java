@@ -39,7 +39,7 @@ public class Organization {
     @ManyToOne(cascade=CascadeType.MERGE)
     private OrganizationType type;
     
-    private String website;
+    private String url;
     
     private String localization;
     

@@ -1,6 +1,8 @@
 package com.uds.horbac.core.resources;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -16,6 +18,7 @@ public class Uses
      * 
      */
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     /** Associations */
 	
