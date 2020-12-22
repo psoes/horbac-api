@@ -49,7 +49,5 @@ public class Request
 	private Decision decision;
 	
 	
-	
-	
 }
 

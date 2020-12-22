@@ -1,4 +1,4 @@
-package com.uds.horbac.core.activities.entities;
+package com.uds.horbac.core.resources_servers;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,17 +9,16 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Activity
-
-{
-    /** Attributes */
-    /**
-     * 
-     */
+public class Scope {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+	private Long id;
 	
+	/**
+	 * the name of the scope like read
+	 */
 	private String name;
-}
+	
+	private String description;
 
+}

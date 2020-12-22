@@ -2,9 +2,9 @@ package com.uds.horbac.core.employees;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
-import com.uds.horbac.core.units.OperationalUnit;
+import com.uds.horbac.core.unities.OperationalUnit;
 
 import lombok.Data;
 
@@ -20,10 +20,10 @@ public class Employs
 	@Id
     private Long id;
     /** Associations */
-	@OneToOne
+	@ManyToOne
     private WorkEmployee employee;
     
-	@OneToOne
+	@ManyToOne
     private OperationalUnit operationalUnit;
 }
 

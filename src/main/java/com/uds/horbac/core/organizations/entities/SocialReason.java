@@ -1,4 +1,4 @@
-package com.uds.horbac.core.activities.entities;
+package com.uds.horbac.core.organizations.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,17 +9,14 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Activity
-
-{
-    /** Attributes */
-    /**
-     * 
-     */
+public class SocialReason {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+	private Long id;
 	
 	private String name;
-}
+	
+	private String description;
 
+}

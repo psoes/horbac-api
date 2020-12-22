@@ -1,4 +1,4 @@
-package com.uds.horbac.core.activities.entities;
+package com.uds.horbac.core.users.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,28 +10,17 @@ import com.uds.horbac.core.organizations.entities.Organization;
 
 import lombok.Data;
 
-@Entity
 @Data
-public class Consider
-
-{
-    /** Attributes */
-    /**
-     * 
-     */
+@Entity
+public class ExternalIdentity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+	private Long id;
 	
-	@ManyToOne
-	private Activity activity;
-	
-	@ManyToOne
-	private Action action;
-	
+	private String subject;
+	/*
+	 * Organization to whom belongs the external identity of user
+	 */
 	@ManyToOne
 	private Organization organization;
-	
-	
 }
-
