@@ -1,48 +1,35 @@
-package com.uds.horbac.core.resources;
+package com.uds.horbac.core.unities;
 
+import java.net.URL;
+
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
 import com.uds.horbac.core.contexts.Location;
 
-import inet.ipaddr.IPAddress;
 import lombok.Data;
 
-/**
- * 
- * @author fidele
- * 
- * here Vue represents a domain in which we have resources
- *
- */
 @Data
 @Entity
-public class Vue
-
-{
-    /** Attributes */
-   
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name="type")
+public class OrgUnit {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-  
-    private String name;
-    
-    private IPAddress ipAddress;
-    
-    /**
-     * extension can be .org, .edu
-     */
-    private String exention;
-    
-    @OneToOne
-    private Location location;
-    
-    
-    
-    
-}
 
+    private String name;
+	
+	@OneToOne
+    private Location location;
+
+	private URL url;
+
+}

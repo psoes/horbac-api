@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import com.uds.horbac.core.organizations.entities.Organization;
-import com.uds.horbac.core.unities.AministrativeUnit;
+import com.uds.horbac.core.unities.AdministrativeUnit;
 
 import lombok.Data;
 
@@ -25,7 +25,7 @@ public class Appoints
     private WorkEmployee employee;
 	
 	@OneToOne
-	private AministrativeUnit adminUnit;
+	private AdministrativeUnit adminUnit;
 	
 	@OneToOne
 	private Organization organization;

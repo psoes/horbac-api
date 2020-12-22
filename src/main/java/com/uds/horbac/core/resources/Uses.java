@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.uds.horbac.core.organizations.entities.Organization;
+
 import lombok.Data;
 
 @Data
@@ -27,6 +29,9 @@ public class Uses
 	
 	@ManyToOne
     private Vue vue;
+	
+	@ManyToOne
+	private Organization organization;
 	
 	
 }

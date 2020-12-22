@@ -6,6 +6,7 @@ import javax.persistence.ManyToOne;
 
 import com.uds.horbac.core.activities.entities.Action;
 import com.uds.horbac.core.employees.WorkEmployee;
+import com.uds.horbac.core.organizations.entities.Organization;
 import com.uds.horbac.core.resources.Resource;
 
 import lombok.Data;
@@ -34,5 +35,8 @@ public class Define
 	
 	@ManyToOne
 	private Resource resource;
+	
+	@ManyToOne
+	private Organization organization;
 }
 

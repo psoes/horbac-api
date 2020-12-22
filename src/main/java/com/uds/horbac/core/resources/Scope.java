@@ -1,4 +1,4 @@
-package com.uds.horbac.core.resources_servers;
+package com.uds.horbac.core.resources;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +15,7 @@ public class Scope {
 	private Long id;
 	
 	/**
-	 * the name of the scope like read
+	 * the name of the scope like read, write
 	 */
 	private String name;
 	

@@ -1,4 +1,4 @@
-package com.uds.horbac.core.resources_servers;
+package com.uds.horbac.core.permissions;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.uds.horbac.core.clients.entities.Client;
+import com.uds.horbac.core.resources.Scope;
 import com.uds.horbac.core.users.entities.User;
 
 import lombok.Data;

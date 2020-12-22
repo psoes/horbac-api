@@ -1,5 +1,6 @@
 package com.uds.horbac.core.organizations.entities;
 
+import java.net.URL;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -8,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.sun.istack.NotNull;
+import com.uds.horbac.core.contexts.Location;
 
 import lombok.Data;
 
@@ -39,9 +42,10 @@ public class Organization {
     @ManyToOne(cascade=CascadeType.MERGE)
     private OrganizationType type;
     
-    private String url;
+    private URL url;
     
-    private String localization;
+    @OneToOne
+    private Location location;
     
     @ManyToOne(cascade=CascadeType.MERGE)
     private SocialReason socialReason;
