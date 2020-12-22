@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class AministrativeUnit
+public class AdministrativeUnit
 
 {
     /** Attributes */

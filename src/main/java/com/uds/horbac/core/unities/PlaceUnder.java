@@ -22,7 +22,7 @@ public class PlaceUnder
     private Long id;
 	
 	@ManyToOne
-    private AministrativeUnit superior;
+    private AdministrativeUnit superior;
     
 	@ManyToOne
     private OperationalUnit subordinate ;
