@@ -3,7 +3,7 @@ package com.uds.horbac.core.permissions.entities;
 import javax.persistence.ManyToOne;
 
 import com.uds.horbac.core.activities.entities.Action;
-import com.uds.horbac.core.employees.Emitter;
+import com.uds.horbac.core.employees.entities.Emitter;
 import com.uds.horbac.core.resources.Resource;
 
 import lombok.AllArgsConstructor;

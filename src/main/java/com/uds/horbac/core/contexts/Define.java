@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.uds.horbac.core.activities.entities.Action;
-import com.uds.horbac.core.employees.WorkEmployee;
+import com.uds.horbac.core.employees.entities.Employee;
 import com.uds.horbac.core.organizations.entities.Organization;
 import com.uds.horbac.core.resources.Resource;
 
@@ -25,7 +25,7 @@ public class Define
     /** Associations */
 	
 	@ManyToOne
-    private WorkEmployee employee;
+    private Employee employee;
 
 	@ManyToOne
     private Context context;

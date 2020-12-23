@@ -1,15 +1,14 @@
-package com.uds.horbac.core.employees;
 
+package com.uds.horbac.core.emp_healthInfo.entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper=false)
 @Data
 @Entity
-public class Approver extends WorkEmployee
+public class MedecinSpeciality
+
 {
     /** Attributes */
     /**
@@ -17,5 +16,9 @@ public class Approver extends WorkEmployee
      */
 	@Id
     private Long id;
+    /**
+     * 
+     */
+    private String name;
 }
 

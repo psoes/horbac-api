@@ -1,4 +1,4 @@
-package com.uds.horbac.core.employees;
+package com.uds.horbac.core.employees.entities;
 
 import javax.persistence.Entity;
 
@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 @Data
 @Entity
-public class Emitter extends WorkEmployee
+public class Emitter extends Employee
 {
 
 }

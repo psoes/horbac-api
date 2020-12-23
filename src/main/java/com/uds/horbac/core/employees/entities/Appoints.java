@@ -1,4 +1,4 @@
-package com.uds.horbac.core.employees;
+package com.uds.horbac.core.employees.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,7 +22,7 @@ public class Appoints
     private Long id;
     /** Associations */
 	@OneToOne
-    private WorkEmployee employee;
+    private Employee employee;
 	
 	@OneToOne
 	private AdministrativeUnit adminUnit;

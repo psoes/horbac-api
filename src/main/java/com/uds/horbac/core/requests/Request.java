@@ -6,8 +6,8 @@ import javax.persistence.ManyToOne;
 import com.uds.horbac.core.activities.entities.Action;
 import com.uds.horbac.core.activities.entities.Activity;
 import com.uds.horbac.core.contexts.Context;
-import com.uds.horbac.core.employees.Approver;
-import com.uds.horbac.core.employees.Emitter;
+import com.uds.horbac.core.employees.entities.Approver;
+import com.uds.horbac.core.employees.entities.Emitter;
 import com.uds.horbac.core.resources.Resource;
 import com.uds.horbac.core.resources.Vue;
 
