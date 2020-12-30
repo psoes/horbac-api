@@ -7,6 +7,5 @@ import com.uds.horbac.core.activities.entities.Action;
 
 @Repository
 public interface ActionRepository extends JpaRepository<Action, Long>{
-	
 
 }
