@@ -50,9 +50,9 @@ public class OrganizationController {
 	
 	@PostMapping("/organizations")
 	@ResponseStatus(value=HttpStatus.CREATED)
-	public OrganizationDTO createOrganization(@RequestBody OrganizationDTO OrganizationDTO){
-		
-		Organization organization = modelMapper.map(OrganizationDTO, Organization.class);
+	public OrganizationDTO createOrganization(@RequestBody OrganizationDTO orgDTO){
+		//if(orgDTO.getUrl() != null) {orgDTO.setUrl(new URL(orgDTO.getUrl()));
+		Organization organization = modelMapper.map(orgDTO, Organization.class);
 		
 		return modelMapper.map(organizationService.save(organization), OrganizationDTO.class);
 	}

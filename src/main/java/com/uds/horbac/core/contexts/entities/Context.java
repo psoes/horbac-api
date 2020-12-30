@@ -1,4 +1,4 @@
-package com.uds.horbac.core.contexts;
+package com.uds.horbac.core.contexts.entities;
 
 import java.time.Duration;
 import java.time.Period;

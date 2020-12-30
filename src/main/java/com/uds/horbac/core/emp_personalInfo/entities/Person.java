@@ -100,7 +100,7 @@ public class Person
      * 
      */
     @OneToMany
-    private List<PartenaireConjugal> partners;
+    private List<PartenaireConjugal> partnerships;
     /**
      * 
      */
@@ -121,5 +121,7 @@ public class Person
      */
     @OneToOne
     private BiometricCaracteristics biometricCaracteristics;
+    
+    private Regime regime;
 }
 

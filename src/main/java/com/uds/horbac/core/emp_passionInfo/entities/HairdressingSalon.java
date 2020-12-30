@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.uds.horbac.core.contexts.Location;
+import com.uds.horbac.core.contexts.entities.Location;
 
 import lombok.Data;
 

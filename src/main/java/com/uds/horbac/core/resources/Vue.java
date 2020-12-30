@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import com.uds.horbac.core.contexts.Location;
+import com.uds.horbac.core.contexts.entities.Location;
 
 import inet.ipaddr.IPAddress;
 import lombok.Data;

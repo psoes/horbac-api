@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.uds.horbac.core.employees.entities.Employee;
 
@@ -13,6 +14,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name="ho_user")
 public class User {
 	
 	@Id

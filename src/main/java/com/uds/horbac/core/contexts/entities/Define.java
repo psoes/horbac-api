@@ -1,4 +1,4 @@
-package com.uds.horbac.core.contexts;
+package com.uds.horbac.core.contexts.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.sun.istack.NotNull;
-import com.uds.horbac.core.contexts.Location;
+import com.uds.horbac.core.contexts.entities.Location;
 
 import lombok.Data;
 
@@ -42,9 +42,9 @@ public class Organization {
     @ManyToOne(cascade=CascadeType.MERGE)
     private OrganizationType type;
     
-    private URL url;
+    private String url;
     
-    @OneToOne
+    @OneToOne(cascade=CascadeType.PERSIST)
     private Location location;
     
     @ManyToOne(cascade=CascadeType.MERGE)

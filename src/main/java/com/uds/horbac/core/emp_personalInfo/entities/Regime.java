@@ -1,7 +1,5 @@
 package com.uds.horbac.core.emp_personalInfo.entities;
 
-public enum ContactType {
-	
-	HOME, WORK
-
+public enum Regime {
+	POLYGAMY, MONOGAMY
 }
