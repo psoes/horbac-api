@@ -18,7 +18,7 @@ public interface CarrosserieService {
 	 * @param id 
 	 * @return 
 	 */	
-	public void delete(Long id); 
+	public void delete(String id); 
 	
 	/**
 	 * get all Carrosserie
@@ -31,5 +31,5 @@ public interface CarrosserieService {
 	 * @param id 
 	 * @return Return the Carrosserie found or null
 	 */	
-	public Carrosserie getCarrosserie(Long id);
+	public Carrosserie getCarrosserie(String id);
 }

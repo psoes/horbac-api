@@ -4,11 +4,6 @@ import java.awt.Color;
 import java.util.Date;
 import java.util.List;
 
-import com.uds.horbac.core.emp_ownershipInfo.entities.Carrosserie;
-import com.uds.horbac.core.emp_ownershipInfo.entities.Manufacturer;
-import com.uds.horbac.core.emp_ownershipInfo.entities.Repairer;
-import com.uds.horbac.core.emp_ownershipInfo.entities.VehiculeType;
-import com.uds.horbac.core.emp_ownershipInfo.entities.Wheel;
 import com.uds.horbac.core.emp_personalInfo.entities.Person;
 
 import lombok.AllArgsConstructor;
@@ -26,7 +21,7 @@ public class VehiculeDTO {
    
     private String brand;
   
-    private VehiculeType type;
+    private VehiculeTypeDTO type;
 
     private Color color;
     
@@ -36,15 +31,15 @@ public class VehiculeDTO {
  
     private int numberOfRoues;
   
-    private Manufacturer manufacturer;
+    private ManufacturerDTO manufacturer;
    
-    private List<Repairer> repairers;
+    private List<RepairerDTO> repairers;
    
     private Date PurchaseDate;
 
     private Person driver;
     
-    private Carrosserie corrosserie;
+    private CarrosserieDTO corrosserie;
     
-    private Wheel wheel;
+    private WheelDTO wheel;
 }

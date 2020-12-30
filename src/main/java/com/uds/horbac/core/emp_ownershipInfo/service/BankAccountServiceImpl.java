@@ -20,8 +20,8 @@ public class BankAccountServiceImpl implements BankAccountService {
 	}
 
 	@Override
-	public void delete(Long id) {
-		bankAccountRepository.deleteById(id);
+	public void delete(String code) {
+		bankAccountRepository.deleteById(code);
 	}
 
 	@Override
@@ -30,8 +30,8 @@ public class BankAccountServiceImpl implements BankAccountService {
 	}
 
 	@Override
-	public BankAccount getBankAccount(Long id) {
-		return bankAccountRepository.getOne(id);
+	public BankAccount getBankAccount(String code) {
+		return bankAccountRepository.getOne(code);
 	}
 
 }

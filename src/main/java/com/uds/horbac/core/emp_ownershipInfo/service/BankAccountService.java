@@ -15,10 +15,10 @@ public interface BankAccountService {
 	
 	/**
 	 * delete a Bank Account 
-	 * @param id 
+	 * @param code
 	 * @return 
 	 */	
-	public void delete(Long id); 
+	public void delete(String code); 
 	
 	/**
 	 * get all Bank Account 
@@ -27,9 +27,9 @@ public interface BankAccountService {
 	public List<BankAccount> getAll();
 	
 	/**
-	 * find a Bank Account by Id
-	 * @param id 
+	 * find a Bank Account by code
+	 * @param code
 	 * @return Return the BankAccount found or null
 	 */	
-	public BankAccount getBankAccount(Long id);
+	public BankAccount getBankAccount(String code);
 }

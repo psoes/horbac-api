@@ -1,7 +1,5 @@
 package com.uds.horbac.core.emp_ownershipInfo.dto;
 
-import com.uds.horbac.core.emp_ownershipInfo.entities.Manufacturer;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +15,5 @@ public class CarrosserieDTO {
    
     private String marque;
     
-    private Manufacturer manufacturer;
+    private ManufacturerDTO manufacturer;
 }

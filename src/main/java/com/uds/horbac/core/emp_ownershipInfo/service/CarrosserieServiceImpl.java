@@ -20,7 +20,7 @@ public class CarrosserieServiceImpl implements CarrosserieService {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(String id) {
 		carrosserieRepository.deleteById(id);
 	}
 
@@ -30,7 +30,7 @@ public class CarrosserieServiceImpl implements CarrosserieService {
 	}
 
 	@Override
-	public Carrosserie getCarrosserie(Long id) {
+	public Carrosserie getCarrosserie(String id) {
 		return carrosserieRepository.getOne(id);
 	}
 
