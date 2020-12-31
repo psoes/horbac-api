@@ -16,53 +16,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uds.horbac.core.emp_ownershipInfo.dto.VehiculeDTO;
+import com.uds.horbac.core.emp_ownershipInfo.dto.VehicleDTO;
 import com.uds.horbac.core.emp_ownershipInfo.entities.Vehicle;
-import com.uds.horbac.core.emp_ownershipInfo.service.VehiculeService;
+import com.uds.horbac.core.emp_ownershipInfo.service.VehicleService;
 
 @RestController
 @RequestMapping(produces="application/json")
-public class VehiculeController {
+public class VehicleController {
 	@Autowired
 	ModelMapper modelMapper;
 	
 	@Autowired
-	private VehiculeService vehiculeService;
+	private VehicleService vehicleService;
 	
-	@GetMapping("/vehicule")
+	@GetMapping("/vehicles")
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<VehiculeDTO> getVehicule() {
-		List<Vehicle> vehicule = vehiculeService.getAll();
-		List<VehiculeDTO> vehiculeDTO = vehicule.stream()
-					.map(elt -> modelMapper.map(elt, VehiculeDTO.class))
+	public List<VehicleDTO> getVehicles() {
+		List<Vehicle> vehicle = vehicleService.getAll();
+		List<VehicleDTO> vehicleDTO = vehicle.stream()
+					.map(elt -> modelMapper.map(elt, VehicleDTO.class))
 					.collect(Collectors.toList());
-		return vehiculeDTO;
+		return vehicleDTO;
 	}
 	
-	@GetMapping("/vehicule/{id}")
+	@GetMapping("/vehicles/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
-	public VehiculeDTO getVehiculeById(@PathVariable Long id) {
-		Vehicle vehicule = vehiculeService.getVehicule(id);
-		return modelMapper.map(vehicule, VehiculeDTO.class);
+	public VehicleDTO getVehicleById(@PathVariable Long id) {
+		Vehicle vehicle = vehicleService.getVehicle(id);
+		return modelMapper.map(vehicle, VehicleDTO.class);
 	}
 	
-	@PostMapping("/vehicule")
+	@PostMapping("/vehicles")
 	@ResponseStatus(value=HttpStatus.OK)
-	public VehiculeDTO createVehicule(@RequestBody VehiculeDTO vehiculeDTO ) {
-		Vehicle vehicule = modelMapper.map(vehiculeDTO, Vehicle.class);
-		return modelMapper.map(vehiculeService.save(vehicule), VehiculeDTO.class);
+	public VehicleDTO createVehicle(@RequestBody VehicleDTO vehicleDTO ) {
+		Vehicle vehicle = modelMapper.map(vehicleDTO, Vehicle.class);
+		return modelMapper.map(vehicleService.save(vehicle), VehicleDTO.class);
 	}
 	
-	@PutMapping("/vehicule")
+	@PutMapping("/vehicles")
 	@ResponseStatus(value=HttpStatus.OK)
-	public VehiculeDTO updateVehicule(@RequestBody VehiculeDTO vehiculeDTO ) {
-		Vehicle vehicule = modelMapper.map(vehiculeDTO, Vehicle.class);
-		return modelMapper.map(vehiculeService.save(vehicule), VehiculeDTO.class);
+	public VehicleDTO updateVehicle(@RequestBody VehicleDTO vehicleDTO ) {
+		Vehicle vehicle = modelMapper.map(vehicleDTO, Vehicle.class);
+		return modelMapper.map(vehicleService.save(vehicle), VehicleDTO.class);
 	}
 	
-	@DeleteMapping(value = "/vehicule/{id}")
+	@DeleteMapping(value = "/vehicles/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
-		vehiculeService.delete(id);
+		vehicleService.delete(id);
 	}
 }

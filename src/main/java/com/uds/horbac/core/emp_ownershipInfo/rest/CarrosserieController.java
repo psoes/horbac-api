@@ -29,9 +29,9 @@ public class CarrosserieController {
 	@Autowired
 	private CarrosserieService carrosserieService;
 	
-	@GetMapping("/carrosserie")
+	@GetMapping("/carrosseries")
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<CarrosserieDTO> getCarrosserie() {
+	public List<CarrosserieDTO> getCarrosseries() {
 		List<Carrosserie> carrosserie = carrosserieService.getAll();
 		List<CarrosserieDTO> carrosserieDTO = carrosserie.stream()
 					.map(elt -> modelMapper.map(elt, CarrosserieDTO.class))
@@ -39,28 +39,28 @@ public class CarrosserieController {
 		return carrosserieDTO;
 	}
 	
-	@GetMapping("/carrosserie/{id}")
+	@GetMapping("/carrosseries/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public CarrosserieDTO getCarrosserieById(@PathVariable String id) {
 		Carrosserie carrosserie = carrosserieService.getCarrosserie(id);
 		return modelMapper.map(carrosserie, CarrosserieDTO.class);
 	}
 	
-	@PostMapping("/carrosserie")
+	@PostMapping("/carrosseries")
 	@ResponseStatus(value=HttpStatus.OK)
 	public CarrosserieDTO createCarrosserie(@RequestBody CarrosserieDTO carrosserieDTO ) {
 		Carrosserie carrosserie = modelMapper.map(carrosserieDTO, Carrosserie.class);
 		return modelMapper.map(carrosserieService.save(carrosserie), CarrosserieDTO.class);
 	}
 	
-	@PutMapping("/carrosserie")
+	@PutMapping("/carrosseries")
 	@ResponseStatus(value=HttpStatus.OK)
 	public CarrosserieDTO updateCarrosserie(@RequestBody CarrosserieDTO carrosserieDTO ) {
 		Carrosserie carrosserie = modelMapper.map(carrosserieDTO, Carrosserie.class);
 		return modelMapper.map(carrosserieService.save(carrosserie), CarrosserieDTO.class);
 	}
 	
-	@DeleteMapping(value = "/carrosserie/{id}")
+	@DeleteMapping(value = "/carrosseries/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable String id) {
 		carrosserieService.delete(id);

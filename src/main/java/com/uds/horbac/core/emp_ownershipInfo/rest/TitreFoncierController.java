@@ -29,9 +29,9 @@ public class TitreFoncierController {
 	@Autowired
 	private TitreFoncierService titreFoncierService;
 	
-	@GetMapping("/titre-foncier")
+	@GetMapping("/titre-fonciers")
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<TitreFoncierDTO> getTitreFoncier() {
+	public List<TitreFoncierDTO> getTitreFonciers() {
 		List<TitreFoncier> titreFoncier = titreFoncierService.getAll();
 		List<TitreFoncierDTO> titreFoncierDTO = titreFoncier.stream()
 					.map(elt -> modelMapper.map(elt, TitreFoncierDTO.class))
@@ -39,28 +39,28 @@ public class TitreFoncierController {
 		return titreFoncierDTO;
 	}
 	
-	@GetMapping("/titre-foncier/{id}")
+	@GetMapping("/titre-fonciers/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public TitreFoncierDTO getTitreFoncierById(@PathVariable Long id) {
 		TitreFoncier titreFoncier = titreFoncierService.getTitreFoncier(id);
 		return modelMapper.map(titreFoncier, TitreFoncierDTO.class);
 	}
 	
-	@PostMapping("/titre-foncier")
+	@PostMapping("/titre-fonciers")
 	@ResponseStatus(value=HttpStatus.OK)
 	public TitreFoncierDTO createTitreFoncier(@RequestBody TitreFoncierDTO titreFoncierDTO ) {
 		TitreFoncier titreFoncier = modelMapper.map(titreFoncierDTO, TitreFoncier.class);
 		return modelMapper.map(titreFoncierService.save(titreFoncier), TitreFoncierDTO.class);
 	}
 	
-	@PutMapping("/titre-foncier")
+	@PutMapping("/titre-fonciers")
 	@ResponseStatus(value=HttpStatus.OK)
 	public TitreFoncierDTO updateTitreFoncier(@RequestBody TitreFoncierDTO titreFoncierDTO ) {
 		TitreFoncier titreFoncier = modelMapper.map(titreFoncierDTO, TitreFoncier.class);
 		return modelMapper.map(titreFoncierService.save(titreFoncier), TitreFoncierDTO.class);
 	}
 	
-	@DeleteMapping(value = "/titre-foncier/{id}")
+	@DeleteMapping(value = "/titre-fonciers/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
 		titreFoncierService.delete(id);

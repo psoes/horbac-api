@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.uds.horbac.core.emp_ownershipInfo.entities.Vehicle;
 
 @Repository
-public interface VehiculeRepository extends JpaRepository<Vehicle, Long> {
+public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
 }

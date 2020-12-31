@@ -29,9 +29,9 @@ public class BankAccountProviderController {
 	@Autowired
 	private BankAccountProviderService bankAccountProviderService;
 	
-	@GetMapping("/bank-account-provider")
+	@GetMapping("/bank-account-providers")
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<BankAccountProviderDTO> getBankAccountProvider() {
+	public List<BankAccountProviderDTO> getBankAccountProviders() {
 		List<BankAccountProvider> bankAccountProvider = bankAccountProviderService.getAll();
 		List<BankAccountProviderDTO> bankAccountProviderDTO = bankAccountProvider.stream()
 					.map(elt -> modelMapper.map(elt, BankAccountProviderDTO.class))
@@ -39,28 +39,28 @@ public class BankAccountProviderController {
 		return bankAccountProviderDTO;
 	}
 	
-	@GetMapping("/bank-account-provider/{id}")
+	@GetMapping("/bank-account-providers/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public BankAccountProviderDTO getBankAccountProviderById(@PathVariable Long id) {
 		BankAccountProvider bankAccountProvider = bankAccountProviderService.getBankAccountProvider(id);
 		return modelMapper.map(bankAccountProvider, BankAccountProviderDTO.class);
 	}
 	
-	@PostMapping("/bank-account-provider")
+	@PostMapping("/bank-account-providers")
 	@ResponseStatus(value=HttpStatus.OK)
 	public BankAccountProviderDTO createBankAccountProvider(@RequestBody BankAccountProviderDTO bankAccountProviderDTO ) {
 		BankAccountProvider bankAccountProvider = modelMapper.map(bankAccountProviderDTO, BankAccountProvider.class);
 		return modelMapper.map(bankAccountProviderService.save(bankAccountProvider), BankAccountProviderDTO.class);
 	}
 	
-	@PutMapping("/bank-account-provider")
+	@PutMapping("/bank-account-providers")
 	@ResponseStatus(value=HttpStatus.OK)
 	public BankAccountProviderDTO updateBankAccountProvider(@RequestBody BankAccountProviderDTO bankAccountProviderDTO ) {
 		BankAccountProvider bankAccountProvider = modelMapper.map(bankAccountProviderDTO, BankAccountProvider.class);
 		return modelMapper.map(bankAccountProviderService.save(bankAccountProvider), BankAccountProviderDTO.class);
 	}
 	
-	@DeleteMapping(value = "/bank-account-provider/{id}")
+	@DeleteMapping(value = "/bank-account-providers/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
 		bankAccountProviderService.delete(id);

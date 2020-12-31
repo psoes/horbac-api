@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.uds.horbac.core.emp_ownershipInfo.entities.Vehicle;
 
-public interface VehiculeService {
+public interface VehicleService {
 	
 	/**
 	 * Save a Vehicle
 	 * @param Vehicule the Vehicle to save 
 	 * @return Return the saved Vehicle
 	 */	
-	public Vehicle save(Vehicle vehicule);
+	public Vehicle save(Vehicle vehicle);
 	
 	/**
 	 * delete a Vehicle
@@ -31,5 +31,5 @@ public interface VehiculeService {
 	 * @param id 
 	 * @return Return the Vehicle found or null
 	 */	
-	public Vehicle getVehicule(Long id);
+	public Vehicle getVehicle(Long id);
 }

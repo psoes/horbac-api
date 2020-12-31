@@ -29,9 +29,9 @@ public class DeviceController {
 	@Autowired
 	private DeviceService deviceService;
 	
-	@GetMapping("/device")
+	@GetMapping("/devices")
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<DeviceDTO> getDevice() {
+	public List<DeviceDTO> getDevices() {
 		List<Device> device = deviceService.getAll();
 		List<DeviceDTO> deviceDTO = device.stream()
 					.map(elt -> modelMapper.map(elt, DeviceDTO.class))
@@ -39,28 +39,28 @@ public class DeviceController {
 		return deviceDTO;
 	}
 	
-	@GetMapping("/device/{id}")
+	@GetMapping("/devices/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public DeviceDTO getDeviceById(@PathVariable Long id) {
 		Device device = deviceService.getDevice(id);
 		return modelMapper.map(device, DeviceDTO.class);
 	}
 	
-	@PostMapping("/device")
+	@PostMapping("/devices")
 	@ResponseStatus(value=HttpStatus.OK)
 	public DeviceDTO createDevice(@RequestBody DeviceDTO deviceDTO ) {
 		Device device = modelMapper.map(deviceDTO, Device.class);
 		return modelMapper.map(deviceService.save(device), DeviceDTO.class);
 	}
 	
-	@PutMapping("/device")
+	@PutMapping("/devices")
 	@ResponseStatus(value=HttpStatus.OK)
 	public DeviceDTO updateDevice(@RequestBody DeviceDTO deviceDTO ) {
 		Device device = modelMapper.map(deviceDTO, Device.class);
 		return modelMapper.map(deviceService.save(device), DeviceDTO.class);
 	}
 	
-	@DeleteMapping(value = "/device/{id}")
+	@DeleteMapping(value = "/devices/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
 		deviceService.delete(id);

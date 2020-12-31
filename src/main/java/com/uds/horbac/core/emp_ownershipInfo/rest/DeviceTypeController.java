@@ -29,9 +29,9 @@ public class DeviceTypeController {
 	@Autowired
 	private DeviceTypeService deviceTypeService;
 	
-	@GetMapping("/device-type")
+	@GetMapping("/device-types")
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<DeviceTypeDTO> getDeviceType() {
+	public List<DeviceTypeDTO> getDeviceTypes() {
 		List<DeviceType> deviceType = deviceTypeService.getAll();
 		List<DeviceTypeDTO> deviceTypeDTO = deviceType.stream()
 					.map(elt -> modelMapper.map(elt, DeviceTypeDTO.class))
@@ -39,28 +39,28 @@ public class DeviceTypeController {
 		return deviceTypeDTO;
 	}
 	
-	@GetMapping("/device-type/{id}")
+	@GetMapping("/device-types/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public DeviceTypeDTO getDeviceTypeById(@PathVariable Long id) {
 		DeviceType deviceType = deviceTypeService.getDeviceType(id);
 		return modelMapper.map(deviceType, DeviceTypeDTO.class);
 	}
 	
-	@PostMapping("/device-type")
+	@PostMapping("/device-types")
 	@ResponseStatus(value=HttpStatus.OK)
 	public DeviceTypeDTO createDeviceType(@RequestBody DeviceTypeDTO deviceTypeDTO ) {
 		DeviceType deviceType = modelMapper.map(deviceTypeDTO, DeviceType.class);
 		return modelMapper.map(deviceTypeService.save(deviceType), DeviceTypeDTO.class);
 	}
 	
-	@PutMapping("/device-type")
+	@PutMapping("/device-types")
 	@ResponseStatus(value=HttpStatus.OK)
 	public DeviceTypeDTO updateDeviceType(@RequestBody DeviceTypeDTO deviceTypeDTO ) {
 		DeviceType deviceType = modelMapper.map(deviceTypeDTO, DeviceType.class);
 		return modelMapper.map(deviceTypeService.save(deviceType), DeviceTypeDTO.class);
 	}
 	
-	@DeleteMapping(value = "/device-type/{id}")
+	@DeleteMapping(value = "/device-types/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
 		deviceTypeService.delete(id);

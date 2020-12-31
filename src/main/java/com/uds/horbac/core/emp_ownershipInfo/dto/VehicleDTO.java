@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VehiculeDTO {
+public class VehicleDTO {
 	
 	private Long id;
 	

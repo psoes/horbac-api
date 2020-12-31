@@ -5,33 +5,33 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.uds.horbac.core.emp_ownershipInfo.dao.VehiculeRepository;
+import com.uds.horbac.core.emp_ownershipInfo.dao.VehicleRepository;
 import com.uds.horbac.core.emp_ownershipInfo.entities.Vehicle;
 
 @Service
-public class VehiculeServiceImpl implements VehiculeService {
+public class VehicleServiceImpl implements VehicleService {
 
 	@Autowired
-	VehiculeRepository vehiculeRepository; 
+	VehicleRepository vehicleRepository; 
 	
 	@Override
 	public Vehicle save(Vehicle vehicule) {
-		return vehiculeRepository.save(vehicule);
+		return vehicleRepository.save(vehicule);
 	}
 
 	@Override
 	public void delete(Long id) {
-		vehiculeRepository.deleteById(id);
+		vehicleRepository.deleteById(id);
 	}
 
 	@Override
 	public List<Vehicle> getAll() {
-		return vehiculeRepository.findAll();
+		return vehicleRepository.findAll();
 	}
 
 	@Override
-	public Vehicle getVehicule(Long id) {
-		return vehiculeRepository.getOne(id);
+	public Vehicle getVehicle(Long id) {
+		return vehicleRepository.getOne(id);
 	}
 
 }

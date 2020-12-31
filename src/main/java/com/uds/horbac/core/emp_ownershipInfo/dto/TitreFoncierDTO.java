@@ -1,6 +1,6 @@
 package com.uds.horbac.core.emp_ownershipInfo.dto;
 
-import com.uds.horbac.core.emp_personalInfo.entities.Person;
+import com.uds.horbac.core.emp_personalInfo.dto.PersonDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class TitreFoncierDTO {
 
     private String signaturePlace;
 
-    private Person notary;
+    private PersonDTO notary;
 
-    private Person seller;
+    private PersonDTO seller;
 }

@@ -30,9 +30,9 @@ public class WheelController {
 	@Autowired
 	private WheelService wheelService;
 	
-	@GetMapping("/wheel")
+	@GetMapping("/wheels")
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<WheelDTO> getwheel() {
+	public List<WheelDTO> getWheels() {
 		List<Wheel> wheel = wheelService.getAll();
 		List<WheelDTO> wheelDTO = wheel.stream()
 					.map(elt -> modelMapper.map(elt, WheelDTO.class))
@@ -40,28 +40,28 @@ public class WheelController {
 		return wheelDTO;
 	}
 	
-	@GetMapping("/wheel/{id}")
+	@GetMapping("/wheels/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
-	public WheelDTO getwheelId(@PathVariable Long id) {
+	public WheelDTO getWheelId(@PathVariable Long id) {
 		Wheel wheel = wheelService.getWheel(id);
 		return modelMapper.map(wheel, WheelDTO.class);
 	}
 	
-	@PostMapping("/wheel")
+	@PostMapping("/wheels")
 	@ResponseStatus(value=HttpStatus.OK)
-	public WheelDTO createwheel(@RequestBody WheelDTO wheelDTO ) {
+	public WheelDTO createWheel(@RequestBody WheelDTO wheelDTO ) {
 		Wheel wheel = modelMapper.map(wheelDTO, Wheel.class);
 		return modelMapper.map(wheelService.save(wheel), WheelDTO.class);
 	}
 	
-	@PutMapping("/wheel")
+	@PutMapping("/wheels")
 	@ResponseStatus(value=HttpStatus.OK)
-	public WheelDTO updatewheel(@RequestBody WheelDTO wheelDTO ) {
+	public WheelDTO updateWheel(@RequestBody WheelDTO wheelDTO ) {
 		Wheel wheel = modelMapper.map(wheelDTO, Wheel.class);
 		return modelMapper.map(wheelService.save(wheel), WheelDTO.class);
 	}
 	
-	@DeleteMapping(value = "/wheel/{id}")
+	@DeleteMapping(value = "/wheels/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
 		wheelService.delete(id);

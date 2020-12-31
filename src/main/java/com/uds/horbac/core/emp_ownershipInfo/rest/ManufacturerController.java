@@ -29,9 +29,9 @@ public class ManufacturerController {
 	@Autowired
 	private ManufacturerService manufacturerService;
 	
-	@GetMapping("/manufacturerr")
+	@GetMapping("/manufacturers")
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<ManufacturerDTO> getManufacturer() {
+	public List<ManufacturerDTO> getManufacturers() {
 		List<Manufacturer> manufacturer = manufacturerService.getAll();
 		List<ManufacturerDTO> manufacturerDTO = manufacturer.stream()
 					.map(elt -> modelMapper.map(elt, ManufacturerDTO.class))
@@ -39,28 +39,28 @@ public class ManufacturerController {
 		return manufacturerDTO;
 	}
 	
-	@GetMapping("/manufacturerr/{id}")
+	@GetMapping("/manufacturers/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public ManufacturerDTO getManufacturerById(@PathVariable Long id) {
 		Manufacturer manufacturer = manufacturerService.getManufacturer(id);
 		return modelMapper.map(manufacturer, ManufacturerDTO.class);
 	}
 	
-	@PostMapping("/manufacturerr")
+	@PostMapping("/manufacturers")
 	@ResponseStatus(value=HttpStatus.OK)
 	public ManufacturerDTO createManufacturer(@RequestBody ManufacturerDTO manufacturerDTO ) {
 		Manufacturer manufacturer = modelMapper.map(manufacturerDTO, Manufacturer.class);
 		return modelMapper.map(manufacturerService.save(manufacturer), ManufacturerDTO.class);
 	}
 	
-	@PutMapping("/manufacturerr")
+	@PutMapping("/manufacturers")
 	@ResponseStatus(value=HttpStatus.OK)
 	public ManufacturerDTO updateManufacturer(@RequestBody ManufacturerDTO manufacturerDTO ) {
 		Manufacturer manufacturer = modelMapper.map(manufacturerDTO, Manufacturer.class);
 		return modelMapper.map(manufacturerService.save(manufacturer), ManufacturerDTO.class);
 	}
 	
-	@DeleteMapping(value = "/manufacturerr/{id}")
+	@DeleteMapping(value = "/manufacturers/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
 		manufacturerService.delete(id);

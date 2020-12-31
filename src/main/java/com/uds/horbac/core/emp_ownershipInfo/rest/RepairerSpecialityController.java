@@ -29,9 +29,9 @@ public class RepairerSpecialityController {
 	@Autowired
 	private RepairerSpecialityService repairerSpecialityService;
 	
-	@GetMapping("/repairer-speciality")
+	@GetMapping("/repairer-specialities")
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<RepairerSpecialityDTO> getRepairerSpeciality() {
+	public List<RepairerSpecialityDTO> getRepairerSpecialities() {
 		List<RepairerSpeciality> repairerSpeciality = repairerSpecialityService.getAll();
 		List<RepairerSpecialityDTO> repairerSpecialityDTO = repairerSpeciality.stream()
 					.map(elt -> modelMapper.map(elt, RepairerSpecialityDTO.class))
@@ -39,28 +39,28 @@ public class RepairerSpecialityController {
 		return repairerSpecialityDTO;
 	}
 	
-	@GetMapping("/repairer-speciality/{id}")
+	@GetMapping("/repairer-specialities/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public RepairerSpecialityDTO getRepairerSpecialityById(@PathVariable Long id) {
 		RepairerSpeciality repairerSpeciality = repairerSpecialityService.getRepairerSpeciality(id);
 		return modelMapper.map(repairerSpeciality, RepairerSpecialityDTO.class);
 	}
 	
-	@PostMapping("/repairer-speciality")
+	@PostMapping("/repairer-specialities")
 	@ResponseStatus(value=HttpStatus.OK)
 	public RepairerSpecialityDTO createRepairerSpeciality(@RequestBody RepairerSpecialityDTO repairerSpecialityDTO ) {
 		RepairerSpeciality repairerSpeciality = modelMapper.map(repairerSpecialityDTO, RepairerSpeciality.class);
 		return modelMapper.map(repairerSpecialityService.save(repairerSpeciality), RepairerSpecialityDTO.class);
 	}
 	
-	@PutMapping("/repairer-speciality")
+	@PutMapping("/repairer-specialities")
 	@ResponseStatus(value=HttpStatus.OK)
 	public RepairerSpecialityDTO updateRepairerSpeciality(@RequestBody RepairerSpecialityDTO repairerSpecialityDTO ) {
 		RepairerSpeciality repairerSpeciality = modelMapper.map(repairerSpecialityDTO, RepairerSpeciality.class);
 		return modelMapper.map(repairerSpecialityService.save(repairerSpeciality), RepairerSpecialityDTO.class);
 	}
 	
-	@DeleteMapping(value = "/repairer-speciality/{id}")
+	@DeleteMapping(value = "/repairer-specialities/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
 		repairerSpecialityService.delete(id);

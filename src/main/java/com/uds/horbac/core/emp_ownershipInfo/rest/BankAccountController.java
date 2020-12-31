@@ -30,9 +30,9 @@ public class BankAccountController {
 	@Autowired
 	private BankAccountService bankAccountService;
 	
-	@GetMapping("/bank-account")
+	@GetMapping("/bank-accounts")
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<BankAccountDTO> getBankAccount() {
+	public List<BankAccountDTO> getBankAccounts() {
 		List<BankAccount> bankAccount = bankAccountService.getAll();
 		List<BankAccountDTO> bankAccountDTO = bankAccount.stream()
 					.map(elt -> modelMapper.map(elt, BankAccountDTO.class))
@@ -40,28 +40,28 @@ public class BankAccountController {
 		return bankAccountDTO;
 	}
 	
-	@GetMapping("/bank-account/{code}")
+	@GetMapping("/bank-accounts/{code}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public BankAccountDTO getBankAccountByCode(@PathVariable String code) {
 		BankAccount bankAccount = bankAccountService.getBankAccount(code);
 		return modelMapper.map(bankAccount, BankAccountDTO.class);
 	}
 	
-	@PostMapping("/bank-account")
+	@PostMapping("/bank-accounts")
 	@ResponseStatus(value=HttpStatus.OK)
 	public BankAccountDTO createBankAccount(@RequestBody BankAccountDTO bankAccountDTO ) {
 		BankAccount bankAccount = modelMapper.map(bankAccountDTO, BankAccount.class);
 		return modelMapper.map(bankAccountService.save(bankAccount), BankAccountDTO.class);
 	}
 	
-	@PutMapping("/bank-account")
+	@PutMapping("/bank-accounts")
 	@ResponseStatus(value=HttpStatus.OK)
 	public BankAccountDTO updateBankAccount(@RequestBody BankAccountDTO bankAccountDTO ) {
 		BankAccount bankAccount = modelMapper.map(bankAccountDTO, BankAccount.class);
 		return modelMapper.map(bankAccountService.save(bankAccount), BankAccountDTO.class);
 	}
 	
-	@DeleteMapping(value = "/bank-account/{code}")
+	@DeleteMapping(value = "/bank-accounts/{code}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable String code) {
 		bankAccountService.delete(code);

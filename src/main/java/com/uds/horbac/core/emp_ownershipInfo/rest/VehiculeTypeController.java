@@ -30,9 +30,9 @@ public class VehiculeTypeController {
 	@Autowired
 	private VehiculeTypeService vehiculeTypeService;
 	
-	@GetMapping("/vehicule-type")
+	@GetMapping("/vehicule-types")
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<VehiculeTypeDTO> getVehiculeType() {
+	public List<VehiculeTypeDTO> getVehiculeTypes() {
 		List<VehiculeType> vehiculeType = vehiculeTypeService.getAll();
 		List<VehiculeTypeDTO> vehiculeTypeDTO = vehiculeType.stream()
 					.map(elt -> modelMapper.map(elt, VehiculeTypeDTO.class))
@@ -40,28 +40,28 @@ public class VehiculeTypeController {
 		return vehiculeTypeDTO;
 	}
 	
-	@GetMapping("/vehicule-type/{id}")
+	@GetMapping("/vehicule-types/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public VehiculeTypeDTO getVehiculeTypeById(@PathVariable Long id) {
 		VehiculeType vehiculeType = vehiculeTypeService.getVehiculeType(id);
 		return modelMapper.map(vehiculeType, VehiculeTypeDTO.class);
 	}
 	
-	@PostMapping("/vehicule-type")
+	@PostMapping("/vehicule-types")
 	@ResponseStatus(value=HttpStatus.OK)
 	public VehiculeTypeDTO createVehiculeType(@RequestBody VehiculeTypeDTO vehiculeTypeDTO ) {
 		VehiculeType vehiculeType = modelMapper.map(vehiculeTypeDTO, VehiculeType.class);
 		return modelMapper.map(vehiculeTypeService.save(vehiculeType), VehiculeTypeDTO.class);
 	}
 	
-	@PutMapping("/vehicule-type")
+	@PutMapping("/vehicule-types")
 	@ResponseStatus(value=HttpStatus.OK)
-	public VehiculeTypeDTO updatevehiculeType(@RequestBody VehiculeTypeDTO vehiculeTypeDTO ) {
+	public VehiculeTypeDTO updateVehiculeType(@RequestBody VehiculeTypeDTO vehiculeTypeDTO ) {
 		VehiculeType vehiculeType = modelMapper.map(vehiculeTypeDTO, VehiculeType.class);
 		return modelMapper.map(vehiculeTypeService.save(vehiculeType), VehiculeTypeDTO.class);
 	}
 	
-	@DeleteMapping(value = "/vehicule-type/{id}")
+	@DeleteMapping(value = "/vehicule-types/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
 		vehiculeTypeService.delete(id);
