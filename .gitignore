@@ -48,6 +48,8 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+TelosysTools/
+debug.log
 
 # External tool builders
 .externalToolBuilders/

@@ -16,6 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<!--  <speedment.version>3.0.1</speedment.version> -->
 	</properties>
 
 	<dependencies>
@@ -42,7 +43,11 @@
 		    <artifactId>springfox-swagger-ui</artifactId>
 		    <version>2.9.2</version>
 		</dependency>
-
+		<!--  <dependency>
+    		<groupId>org.springframework.boot</groupId
+    		<artifactId>spring-boot-starter-data-rest</artifactId>
+    	</dependency>
+    	-->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -62,8 +67,11 @@
 		<dependency>
     		<groupId>org.springframework.boot</groupId>
     		<artifactId>spring-boot-starter-data-jpa</artifactId>
-    		<version>2.4.0</version>
-		</dependency>
+    	</dependency>
+    	<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-validation</artifactId>
+    	</dependency>
 		<!-- 
 		<dependency>
     		<groupId>org.keycloak</groupId>
@@ -75,6 +83,25 @@
 			<artifactId>ipaddress</artifactId>
 			<version>2.0.1</version>
 		  </dependency>
+		  <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-jpa</artifactId>
+           </dependency>
+           <!-- <dependency>
+	            <groupId>com.speedment</groupId>
+	            <artifactId>runtime</artifactId>
+	            <version>${speedment.version}</version>
+	            <type>pom</type>
+        	</dependency>
+        	-->
+       <!--  
+        <dependency>
+            <groupId>com.speedment.plugins</groupId>
+            <artifactId>spring-generator</artifactId>
+            <version>${speedment.version}</version>
+        </dependency>
+        --> 
+           
 		
 	</dependencies>
 
@@ -84,6 +111,51 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.cmeza</groupId>
+				<artifactId>spring-data-generator</artifactId>
+				<version>1.1.8</version>
+				<configuration>
+					<entity-package>
+					    <param>com.uds.horbac.core.entities</param>
+					</entity-package>
+					<repository-package>com.uds.horbac.core.dao</repository-package>
+					<repository-postfix>Repository</repository-postfix>
+					<manager-package>com.uds.horbac.core.service</manager-package>
+					<manager-postfix>Service</manager-postfix>
+					<only-annotations>false</only-annotations>
+					<overwrite>false</overwrite>
+					<additional-extends>
+	                    <param>org.springframework.data.querydsl.QuerydslPredicateExecutor</param>
+	                </additional-extends>
+				</configuration>
+			</plugin> 
+			<!--        
+            <plugin>
+                <groupId>com.speedment</groupId>
+                <artifactId>speedment-maven-plugin</artifactId>
+                <version>${speedment.version}</version>
+                
+                <dependencies>
+                    <dependency>
+                        <groupId>com.speedment.plugins</groupId>
+                        <artifactId>spring-generator</artifactId>
+                        <version>${speedment.version}</version>
+                    </dependency>
+                    <dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>RELEASE</version>
+					</dependency>
+                </dependencies>
+                
+                <configuration>
+                    <components>                       
+						<component>com.speedment.plugins.spring.SpringGeneratorBundle</component>
+                    </components>
+                </configuration>
+            </plugin>
+            --> 			
 		</plugins>
 	</build>
 	<!--  
