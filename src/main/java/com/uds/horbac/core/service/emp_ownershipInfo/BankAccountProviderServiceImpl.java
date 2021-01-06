@@ -1,12 +1,12 @@
-package com.uds.horbac.core.emp_ownershipInfo.service;
+package com.uds.horbac.core.service.emp_ownershipInfo;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.uds.horbac.core.emp_ownershipInfo.dao.BankAccountProviderRepository;
-import com.uds.horbac.core.emp_ownershipInfo.entities.BankAccountProvider;
+import com.uds.horbac.core.dao.emp_ownershipInfo.BankAccountProviderRepository;
+import com.uds.horbac.core.entities.emp_ownershipInfo.BankAccountProvider;
 
 @Service
 public class BankAccountProviderServiceImpl implements BankAccountProviderService {

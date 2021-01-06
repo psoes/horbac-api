@@ -1,12 +1,12 @@
-package com.uds.horbac.core.emp_ownershipInfo.service;
+package com.uds.horbac.core.service.emp_ownershipInfo;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.uds.horbac.core.emp_ownershipInfo.dao.ManufacturerRepository;
-import com.uds.horbac.core.emp_ownershipInfo.entities.Manufacturer;
+import com.uds.horbac.core.dao.emp_ownershipInfo.ManufacturerRepository;
+import com.uds.horbac.core.entities.emp_ownershipInfo.Manufacturer;
 
 @Service
 public class ManufacturerServiceImpl implements ManufacturerService {

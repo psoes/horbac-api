@@ -1,12 +1,12 @@
-package com.uds.horbac.core.emp_ownershipInfo.service;
+package com.uds.horbac.core.service.emp_ownershipInfo;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.uds.horbac.core.emp_ownershipInfo.dao.BiensImmobiliersRepository;
-import com.uds.horbac.core.emp_ownershipInfo.entities.BiensImmobiliers;
+import com.uds.horbac.core.dao.emp_ownershipInfo.BiensImmobiliersRepository;
+import com.uds.horbac.core.entities.emp_ownershipInfo.BiensImmobiliers;
 
 @Service
 public class BiensImmobiliersServiceImpl implements BiensImmobiliersService {
