@@ -43,7 +43,6 @@ public class Organization {
     @ManyToOne(cascade=CascadeType.MERGE)
     private OrganizationType type;
     
-    @URL
     private String url;
     
     @OneToOne(cascade=CascadeType.PERSIST)
