@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import com.uds.horbac.core.entities.clients.Client;
 import com.uds.horbac.core.entities.resources.Scope;
@@ -19,7 +18,6 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="ho_auth_grant")
 public class AuthGrant {
 
 	@Id
