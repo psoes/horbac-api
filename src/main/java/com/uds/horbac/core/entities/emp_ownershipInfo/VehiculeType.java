@@ -1,6 +1,8 @@
 
 package com.uds.horbac.core.entities.emp_ownershipInfo;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Data;
@@ -15,6 +17,7 @@ public class VehiculeType
      * 
      */
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     /**
      * 
