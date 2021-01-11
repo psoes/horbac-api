@@ -21,4 +21,15 @@ public class UserService {
 		return userRepository.findAll(); 
 	}
 
+	public User getUser(Long id) {
+		return userRepository.getOne(id);
+	}
+
+	public Object save(User eid) {
+		return userRepository.save(eid);
+	}
+
+	public void delete(Long id) {
+		userRepository.deleteById(id);
+	}
 }

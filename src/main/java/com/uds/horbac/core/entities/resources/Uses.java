@@ -28,7 +28,7 @@ public class Uses
     private Resource resource;
 	
 	@ManyToOne
-    private Vue vue;
+    private Vue view;
 	
 	@ManyToOne
 	private Organization organization;

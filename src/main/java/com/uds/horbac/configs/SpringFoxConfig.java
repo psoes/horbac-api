@@ -8,9 +8,6 @@ import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.google.common.base.Predicate;
-
-import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
@@ -45,7 +42,7 @@ public class SpringFoxConfig {
 	                .build())
 	        )
 	        .select()
-	        .apis((Predicate<RequestHandler>) RequestHandlerSelectors.basePackage("com.uds.horbac"))
+	        .apis(RequestHandlerSelectors.any())
 	        .build();
 	}
 	

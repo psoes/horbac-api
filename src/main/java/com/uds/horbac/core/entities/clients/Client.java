@@ -1,5 +1,6 @@
 package com.uds.horbac.core.entities.clients;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +29,7 @@ public class Client {
 	/**
 	 * a type of client can be web, desktop, mobile...
 	 */
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.MERGE)
 	private ClientType type;
 
 

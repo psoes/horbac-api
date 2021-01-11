@@ -20,4 +20,16 @@ public class UsesService {
 		return usesRepository.findAll();
 	}
 
+	public Object save(Uses clt) {
+		return usesRepository.save(clt);
+	}
+
+	public void delete(Long id) {
+		usesRepository.deleteById(id);;
+	}
+
+	public Object getUses(Long id) {
+		return usesRepository.getOne(id);
+	}
+
 }

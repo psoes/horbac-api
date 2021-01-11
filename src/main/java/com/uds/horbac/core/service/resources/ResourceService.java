@@ -20,4 +20,16 @@ public class ResourceService {
 		return resourceRepository.findAll();
 	}
 
+	public Resource getResource(Long id) {
+		return resourceRepository.findById(id).orElse(null);
+	}
+
+	public Resource save(Resource rs) {
+		return resourceRepository.save(rs);
+	}
+
+	public void delete(Long id) {
+		resourceRepository.deleteById(id);		
+	}
+
 }

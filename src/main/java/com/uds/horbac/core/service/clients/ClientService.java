@@ -22,4 +22,16 @@ public class ClientService {
 		return clientRepository.findAll();
 	}
 
+	public void delete(Long id) {
+		clientRepository.deleteById(id);		
+	}
+
+	public Client save(Client clt) {
+		return clientRepository.save(clt);
+	}
+
+	public Client getClient(Long id) {
+		return clientRepository.findById(id).orElse(null);
+	}
+
 }

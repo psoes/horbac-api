@@ -1,6 +1,6 @@
 package com.uds.horbac.core.service.users;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,8 +17,20 @@ public class ExternalIdentityService {
 	@Autowired
 	private ExternalIdentityRepository externalIdentityRepository;
 
-	public Collection<ExternalIdentity> getAll() {
+	public List<ExternalIdentity> getAll() {
 		return externalIdentityRepository.findAll();
+	}
+
+	public ExternalIdentity getExternalId(Long id) {
+		return externalIdentityRepository.getOne(id);
+	}
+
+	public ExternalIdentity save(ExternalIdentity eid) {
+		return externalIdentityRepository.save(eid);
+	}
+
+	public void delete(Long id) {
+		externalIdentityRepository.deleteById(id);
 	}
 
 }
