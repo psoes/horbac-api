@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.uds.horbac.core.entities.employees.Employee;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -46,5 +48,8 @@ public class OccupiedFunction
      */
     @ManyToOne
     private Company company;
+    
+    @ManyToOne
+    private Employee employee;
 }
 

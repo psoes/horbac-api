@@ -10,7 +10,9 @@ public class PhoneNumberDTO
 {
     private String phone;
    
-	private PhoneOperatorDTO operator;
+	private String operator;
+	
+	private String code;
 	
     private ContactType type;
 }

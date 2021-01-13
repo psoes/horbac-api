@@ -5,18 +5,19 @@ import lombok.Data;
 public class AddressDTO
 
 {
-  
     private Long id;
-
-    private CityDTO city;
-    /**
-     * 
-     */
+	
+    private String city;
+   
     private String postalCode;
     
     private String street;
     
     private String state;
+    
+    private String region;
+  
+    private String continent;
     
 }
 

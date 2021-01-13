@@ -2,6 +2,8 @@
 package com.uds.horbac.core.dto.emp_workInfo;
 import java.util.Date;
 
+import com.uds.horbac.core.dto.employees.EmployeeCrudDTO;
+
 import lombok.Data;
 
 @Data
@@ -32,5 +34,7 @@ public class OccupiedFunctionDTO
     private Double salaryPerMonth;
   
     private CompanyDTO company;
+    
+    private EmployeeCrudDTO employee;
 }
 

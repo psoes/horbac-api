@@ -9,15 +9,9 @@ import lombok.Data;
 public class Email
 
 {
-    /** Attributes */
-    /**
-     * 
-     */
-	@Id
+	@Id 	
     private String email;
-    /**
-     * 
-     */    
+  
     private ContactType type;
 }
 

@@ -2,7 +2,6 @@
 package com.uds.horbac.core.entities.emp_personalInfo;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
@@ -11,17 +10,14 @@ import lombok.Data;
 public class PhoneNumber
 
 {
-    /** Attributes */
-    /**
-     * 
-     */
-	@Id
+	@Id	
     private String phone;
+	
+	private String code;
     /**
      * 
      */
-	@ManyToOne
-	private PhoneOperator operator;
+	private String operator;
 	
     private ContactType type;
 }

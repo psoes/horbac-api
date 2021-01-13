@@ -10,9 +10,7 @@ public class CompanyDTO
 
 {
     private Long id;
-    /**
-     * 
-     */
+
     private String name;
    
     private PersonDTO employer;
@@ -20,9 +18,7 @@ public class CompanyDTO
     private LocationDTO location;
     
     private AddressDTO address;
-    /**
-     * 
-     */
+    
     private String registrationCode;
 }
 
