@@ -1,11 +1,12 @@
 
 package com.uds.horbac.core.entities.emp_passionInfo;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.uds.horbac.core.entities.contexts.HOLocation;
 
@@ -16,24 +17,21 @@ import lombok.Data;
 public class Visit
 
 {
-    /** Attributes */
-    /**
-     * 
-     */
 	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
     private long id;
-    /**
-     * 
-     */
+
     private Date startDate;
-    /**
-     * 
-     */
+ 
     private Date endDate;
+  
+    @OneToOne
+    private HOLocation place;
+    
     /**
-     * 
+     * the order of the visit 1er, 2, 3
      */
-    @OneToMany
-    private List<HOLocation> places;
+    private int order;
+    
 }
 

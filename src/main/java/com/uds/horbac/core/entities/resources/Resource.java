@@ -1,6 +1,5 @@
 package com.uds.horbac.core.entities.resources;
 
-import java.net.URL;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -27,10 +26,15 @@ public class Resource
 	
 	private String name;
 	
-	private URL url;
-	
+	/**
+	 * The uri of the resource
+	 */
+	private String uri;
+	/**
+	 * The list of require scopes for the resource
+	 */
 	@OneToMany
-	@JoinColumn(name = "resource_server_id")
+	@JoinColumn(name = "resource_id") 
 	private List<Scope> scopes;  
     
 }

@@ -15,10 +15,6 @@ import lombok.Data;
 public class Uses
 
 {
-    /** Attributes */
-    /**
-     * 
-     */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -28,7 +24,7 @@ public class Uses
     private Resource resource;
 	
 	@ManyToOne
-    private Vue view;
+    private Vue vue;
 	
 	@ManyToOne
 	private Organization organization;

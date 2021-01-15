@@ -1,5 +1,6 @@
 package com.uds.horbac.core.entities.resources;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,8 +28,8 @@ public class Vue
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-  
-    private String name;
+	
+	private String name;
     
     private String ipAddress;
     
@@ -37,10 +38,8 @@ public class Vue
      */
     private String exention;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private HOLocation location;
-    
-    
     
     
 }

@@ -14,8 +14,7 @@ import lombok.Data;
 @Data
 public class VueDTO
 
-{
- 
+{ 
     private Long id;
   
     private String name;
