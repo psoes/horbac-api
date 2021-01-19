@@ -6,19 +6,12 @@ import lombok.Data;
 public class SpecialIdentityDTO
 
 {
-    
     private String nationalID;
-    /**
-     * 
-     */
+  
     private String passportID;
-    /**
-     * 
-     */
+  
     private String drivingLicense;
-    /**
-     * 
-     */
+
     private String socialSecurityCode;
 }
 

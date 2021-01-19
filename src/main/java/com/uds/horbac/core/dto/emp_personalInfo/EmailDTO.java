@@ -7,11 +7,8 @@ import lombok.Data;
 public class EmailDTO
 
 {
-   
     private String email;
-    /**
-     * 
-     */    
+   
     private ContactType type;
 }
 

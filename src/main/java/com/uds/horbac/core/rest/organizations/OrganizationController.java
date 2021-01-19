@@ -30,9 +30,7 @@ public class OrganizationController {
 	ModelMapper modelMapper;
 	
 	@Autowired
-	private OrganizationService organizationService;
-
-	
+	private OrganizationService organizationService;	
 	@GetMapping("/organizations")
 	@ResponseStatus(value=HttpStatus.OK)
 	public List<OrganizationDTO> getOrganizations() {

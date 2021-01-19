@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.uds.horbac.core.entities.contexts.HOLocation;
+import com.uds.horbac.core.entities.emp_personalInfo.Address;
 
 import lombok.Data;
 
@@ -46,7 +47,12 @@ public class Organization {
     @OneToOne(cascade=CascadeType.PERSIST)
     private HOLocation location;
     
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(cascade=CascadeType.PERSIST)
     private SocialReason socialReason;
+    
+    @OneToOne(cascade=CascadeType.PERSIST)
+    private Address address;
+    
+    private String logo;
 }
 

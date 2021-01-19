@@ -21,54 +21,25 @@ import lombok.Data;
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="type")
-public class Person
-
-{
-    /** Attributes */
-    /**
-     * 
-     */
+public class Person {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    /**
-     * 
-     */
     private String firstName;
-    /**
-     * 
-     */
     private String lastName;
-    /**
-     * 
-     */
     private String middleName;
-    /**
-     * 
-     */
     private String pseudo;
-    /**
-     * 
-     */
     private Date birthDate;
-    /**
-     * 
-     */
     private Gender sex;
-    /**
-     * 
-     */
     //@ElementCollection
     @OneToMany(cascade = CascadeType.ALL)
     private List<PhoneNumber> phones = new ArrayList<PhoneNumber>();
- 
     //@ElementCollection
     @OneToMany(cascade = CascadeType.ALL)
     private List<Email> emails = new ArrayList<Email>();
-    
     private Title title;
-    
     @OneToOne(cascade = CascadeType.PERSIST)
     private Address address;
+    private String avatar;
 }
 

@@ -57,11 +57,11 @@ public class EmployeeController {
    	public EmployeeCrudDTO createEmployee(@Valid @RequestBody EmployeeCrudDTO employeeDTO){
    		List<Email> emails = new ArrayList<Email>();
    		List<PhoneNumber> phones = new ArrayList<PhoneNumber>();
-   		if(! employeeDTO.getEmails().isEmpty()) {
+   		if(employeeDTO.getEmails()!= null && !employeeDTO.getEmails().isEmpty()) {
    			emails = this.emailRepository.saveAll(employeeDTO.getEmails().stream().map(
    					em -> modelMapper.map(em, Email.class)).collect(Collectors.toList()));
    		}
-   		if(! employeeDTO.getPhones().isEmpty()) {
+   		if(employeeDTO.getPhones()!= null &&  !employeeDTO.getPhones().isEmpty()) {
    			phones = this.phoneNumberRepository.saveAll(employeeDTO.getPhones().stream().map(
    					phone -> modelMapper.map(phone, PhoneNumber.class)).collect(Collectors.toList()));
    		}

@@ -12,39 +12,17 @@ import lombok.Data;
 public class PersonDTO
 
 {
-
     private Long id;
-    /**
-     * 
-     */
     private String firstName;
-    /**
-     * 
-     */
     private String lastName;
-    /**
-     * 
-     */
     private String middleName;
-    /**
-     * 
-     */
     private String pseudo;
-    /**
-     * 
-     */
     private Date birthDate;
-    /**
-     * 
-     */
     private Gender sex;
-
     private List<PhoneNumberDTO> phones;
-
     private List<EmailDTO> emails;
-    
     private Title title;
-    
     private AddressDTO address;
+    private String avatar;
 }
 

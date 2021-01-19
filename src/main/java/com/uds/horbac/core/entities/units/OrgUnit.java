@@ -29,5 +29,7 @@ public class OrgUnit {
     private HOLocation location;
 
 	private String url;
+	
+	private String description;
 
 }

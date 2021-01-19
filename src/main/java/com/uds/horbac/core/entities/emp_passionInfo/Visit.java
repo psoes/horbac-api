@@ -18,13 +18,10 @@ public class Visit
 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-    private long id;
-
-    private Date startDate;
- 
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private Date startDate; 
     private Date endDate;
-  
     @OneToOne
     private HOLocation place;
     
