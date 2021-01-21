@@ -27,5 +27,7 @@ public class Address
   
     private String continent;
     
+    private ContactType type;
+    
 }
 

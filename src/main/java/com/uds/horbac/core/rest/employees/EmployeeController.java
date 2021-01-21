@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uds.horbac.core.dao.emp_personalInfo.AddressRepository;
 import com.uds.horbac.core.dao.emp_personalInfo.EmailRepository;
 import com.uds.horbac.core.dao.emp_personalInfo.PhoneNumberRepository;
 import com.uds.horbac.core.dto.employees.EmployeeCrudDTO;
 import com.uds.horbac.core.dto.employees.EmployeeDTO;
+import com.uds.horbac.core.entities.emp_personalInfo.Address;
 import com.uds.horbac.core.entities.emp_personalInfo.Email;
 import com.uds.horbac.core.entities.emp_personalInfo.PhoneNumber;
 import com.uds.horbac.core.entities.employees.Employee;
@@ -38,6 +40,7 @@ public class EmployeeController {
     protected @Autowired ModelMapper modelMapper;
     protected @Autowired EmailRepository emailRepository;
     protected @Autowired PhoneNumberRepository phoneNumberRepository;
+    protected @Autowired AddressRepository addressRepository;
     
     @RequestMapping(value = "/employees", method = GET)
     public List<EmployeeDTO> getAll(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
@@ -57,6 +60,7 @@ public class EmployeeController {
    	public EmployeeCrudDTO createEmployee(@Valid @RequestBody EmployeeCrudDTO employeeDTO){
    		List<Email> emails = new ArrayList<Email>();
    		List<PhoneNumber> phones = new ArrayList<PhoneNumber>();
+   		List<Address> addresses = new ArrayList<Address>();
    		if(employeeDTO.getEmails()!= null && !employeeDTO.getEmails().isEmpty()) {
    			emails = this.emailRepository.saveAll(employeeDTO.getEmails().stream().map(
    					em -> modelMapper.map(em, Email.class)).collect(Collectors.toList()));
@@ -65,9 +69,14 @@ public class EmployeeController {
    			phones = this.phoneNumberRepository.saveAll(employeeDTO.getPhones().stream().map(
    					phone -> modelMapper.map(phone, PhoneNumber.class)).collect(Collectors.toList()));
    		}
+   		if(employeeDTO.getAddresses()!= null && employeeDTO.getAddresses().isEmpty()) {
+   			addresses = this.addressRepository.saveAll(employeeDTO.getAddresses().stream().map(
+   					adr -> modelMapper.map(adr, Address.class)).collect(Collectors.toList()));
+   		}
    		Employee emp = modelMapper.map(employeeDTO, Employee.class); 
    		emp.setEmails(emails);
    		emp.setPhones(phones);
+   		emp.setAddresses(addresses);
    		return modelMapper.map(service.save(emp), EmployeeCrudDTO.class);
    	}
    	

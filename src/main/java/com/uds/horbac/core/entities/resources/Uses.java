@@ -18,7 +18,6 @@ public class Uses
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    /** Associations */
 	
 	@ManyToOne
     private Resource resource;

@@ -1,27 +1,14 @@
 package com.uds.horbac.core.entities.units;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-import lombok.Data;
-
-@Data
 @Entity
-public class AdministrativeUnit
-
+@DiscriminatorValue("ADMINISTRATIVE")
+public class AdministrativeUnit extends OrgUnit
 {
-    /** Attributes */
-    /**
-     * 
-     */
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
-    /**
-     * 
-     */
-    private String name;
+	public AdministrativeUnit() {
+		super();
+	}
 }
 

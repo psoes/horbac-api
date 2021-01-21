@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import lombok.Data;
 
@@ -38,8 +37,8 @@ public class Person {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Email> emails = new ArrayList<Email>();
     private Title title;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private Address address;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Address> addresses;
     private String avatar;
 }
 

@@ -22,7 +22,7 @@ public class PersonDTO
     private List<PhoneNumberDTO> phones;
     private List<EmailDTO> emails;
     private Title title;
-    private AddressDTO address;
+    private List<AddressDTO> addresses;
     private String avatar;
 }
 
