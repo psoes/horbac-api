@@ -38,7 +38,7 @@ public class Person {
     private List<Email> emails = new ArrayList<Email>();
     private Title title;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Address> addresses;
+    private List<Address> addresses = new ArrayList<Address>();
     private String avatar;
 }
 

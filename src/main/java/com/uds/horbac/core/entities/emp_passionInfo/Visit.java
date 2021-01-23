@@ -28,7 +28,7 @@ public class Visit
     /**
      * the order of the visit 1er, 2, 3
      */
-    private int order;
+    private int visitOrder;
     
 }
 

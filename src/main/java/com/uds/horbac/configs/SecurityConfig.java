@@ -30,7 +30,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                .addResourceLocations("classpath:/META-INF/resources/webjars/");
    }
    
-   @Bean
+ /*  @Bean
    public FilterRegistrationBean corsFilter() {
        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
        CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
@@ -39,5 +39,6 @@ public class SecurityConfig implements WebMvcConfigurer {
        bean.setOrder(0);
        return bean;
    }
+   */
     
 }

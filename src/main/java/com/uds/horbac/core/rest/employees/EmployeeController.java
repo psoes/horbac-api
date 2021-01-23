@@ -69,7 +69,7 @@ public class EmployeeController {
    			phones = this.phoneNumberRepository.saveAll(employeeDTO.getPhones().stream().map(
    					phone -> modelMapper.map(phone, PhoneNumber.class)).collect(Collectors.toList()));
    		}
-   		if(employeeDTO.getAddresses()!= null && employeeDTO.getAddresses().isEmpty()) {
+   		if(employeeDTO.getAddresses()!= null && !employeeDTO.getAddresses().isEmpty()) {
    			addresses = this.addressRepository.saveAll(employeeDTO.getAddresses().stream().map(
    					adr -> modelMapper.map(adr, Address.class)).collect(Collectors.toList()));
    		}
@@ -77,6 +77,10 @@ public class EmployeeController {
    		emp.setEmails(emails);
    		emp.setPhones(phones);
    		emp.setAddresses(addresses);
+   		
+   		for (Address address : addresses) {
+			System.out.println("ADRESS "+address.getCity());
+		}
    		return modelMapper.map(service.save(emp), EmployeeCrudDTO.class);
    	}
    	

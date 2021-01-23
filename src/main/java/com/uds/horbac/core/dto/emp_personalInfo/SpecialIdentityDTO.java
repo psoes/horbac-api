@@ -6,6 +6,8 @@ import lombok.Data;
 public class SpecialIdentityDTO
 
 {
+	private Long id;
+	
     private String nationalID;
   
     private String passportID;
