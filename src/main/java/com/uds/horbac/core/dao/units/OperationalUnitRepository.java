@@ -3,6 +3,8 @@ package com.uds.horbac.core.dao.units;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.uds.horbac.core.entities.units.OperationalUnit;
 
@@ -13,6 +15,9 @@ import io.swagger.annotations.Api;
 */
 @Api(tags = "OperationalUnit Entity")
 @RepositoryRestResource(path = "operational-units", exported = true)
+@CrossOrigin(origins = "http://localhost:4200",
+	methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
+maxAge = 3600)
 public interface OperationalUnitRepository extends JpaRepository<OperationalUnit, Long>, JpaSpecificationExecutor<OperationalUnit> {
 
 }

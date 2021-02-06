@@ -34,5 +34,10 @@ public class OrganizationServiceImpl implements OrganizationService{
 		return organizationRepository.getOne(id);
 	}
 
+	@Override
+	public void updateLogo(String logo, Long id) {
+		organizationRepository.updateLogo(logo, id);
+	}
+
 
 }

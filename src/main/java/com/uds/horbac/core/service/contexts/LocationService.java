@@ -10,7 +10,7 @@ import com.uds.horbac.core.dao.contexts.LocationRepository;
 */
 @Component
 public class LocationService {
-
+	
 	private LocationRepository locationRepository;
 
 	@Autowired

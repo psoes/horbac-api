@@ -13,7 +13,6 @@ import lombok.Data;
 @Data
 @Entity
 public class Uses
-
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,8 +25,7 @@ public class Uses
     private Vue vue;
 	
 	@ManyToOne
-	private Organization organization;
-	
+	private Organization organization;	
 	
 }
 
