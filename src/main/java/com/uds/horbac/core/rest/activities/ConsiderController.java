@@ -49,10 +49,10 @@ public class ConsiderController {
 	@PostMapping("/considers")
 	@ResponseStatus(value=HttpStatus.CREATED)
 	public ConsiderDTO createConsider(@RequestBody ConsiderDTO ConsiderDTO){
-		Consider Consider = modelMapper.map(ConsiderDTO, Consider.class);
-		Consider respConsider = considerService.save(Consider);
+		Consider consider = modelMapper.map(ConsiderDTO, Consider.class);
+		//Consider respConsider = considerService.save(Consider);
 		
-		return modelMapper.map(respConsider, ConsiderDTO.class);
+		return modelMapper.map(considerService.save(consider), ConsiderDTO.class);
 	}
 	
 	@PutMapping("/considers")

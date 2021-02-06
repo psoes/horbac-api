@@ -20,6 +20,7 @@ public class Action
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 	
-	private String name;
+    private String name;
+    private String description;
 }
 

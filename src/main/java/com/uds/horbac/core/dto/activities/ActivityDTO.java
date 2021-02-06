@@ -14,4 +14,6 @@ public class ActivityDTO {
 	
 	@ApiModelProperty(name="The label of activity", example="view")
 	private String name;
+	
+	private String description;
 }
