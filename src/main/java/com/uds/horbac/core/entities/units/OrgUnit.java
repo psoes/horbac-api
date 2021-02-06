@@ -1,6 +1,7 @@
 package com.uds.horbac.core.entities.units;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
+
+import org.hibernate.validator.constraints.URL;
 
 import com.uds.horbac.core.entities.contexts.HOLocation;
 import com.uds.horbac.core.entities.emp_personalInfo.Address;
@@ -24,9 +27,11 @@ public class OrgUnit {
     
 	@OneToOne(cascade = CascadeType.PERSIST)
     private HOLocation location;
-
+	
+	@URL
 	private String url;
 	
+	@Column(columnDefinition="TEXT")
 	private String description;
 	
     @OneToOne(cascade = CascadeType.PERSIST)

@@ -32,4 +32,6 @@ public interface OrganizationService {
 	 * @return return the Organization found or null;
 	 */
 	public Organization getOrganization(Long id);
+	
+	public void updateLogo(String logo, Long id);
 }
