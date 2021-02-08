@@ -32,5 +32,9 @@ public class PlaceUnderService {
 	public void delete(Long id) {
 		placeUnderRepository.deleteById(id);		
 	}
+	
+	public List<PlaceUnder> saveAll(List<PlaceUnder> subs) {
+		return placeUnderRepository.saveAll(subs);
+	}
 
 }

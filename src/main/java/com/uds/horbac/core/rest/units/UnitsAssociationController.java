@@ -65,6 +65,18 @@ public class UnitsAssociationController {
 		underService.delete(id);
 	}
 	
+	@PostMapping("/place-unders/many")
+	@ResponseStatus(value=HttpStatus.CREATED)
+	public List<PlaceUnderDTO> createManyPlaceUnders(@Valid @RequestBody List<PlaceUnderDTO> defDTOs){	
+		List<PlaceUnder> subs = defDTOs.stream()
+				.map(def -> modelMapper.map(def, PlaceUnder.class))
+				.collect(Collectors.toList());
+		
+		return underService.saveAll(subs).stream()
+				.map(def -> modelMapper.map(def, PlaceUnderDTO.class))
+				.collect(Collectors.toList());
+	}
+	
 	
 	/*
 	 * Subordinates entry points
@@ -87,10 +99,20 @@ public class UnitsAssociationController {
 	@ResponseStatus(value=HttpStatus.CREATED)
 	public SubordinateDTO create(@Valid @RequestBody SubordinateDTO defDTO){
 		Subordinate def = modelMapper.map(defDTO, Subordinate.class);
-		System.out.println("PRINTLN..................: "+def.toString());
 		def = subService.save(def);
-		System.out.println("PRINTLN..................: "+def.toString());
 		return modelMapper.map(def, SubordinateDTO.class);
+	}
+	
+	@PostMapping("/subordinates/many")
+	@ResponseStatus(value=HttpStatus.CREATED)
+	public List<SubordinateDTO> createMany(@Valid @RequestBody List<SubordinateDTO> defDTOs){	
+		List<Subordinate> subs = defDTOs.stream()
+				.map(def -> modelMapper.map(def, Subordinate.class))
+				.collect(Collectors.toList());
+		
+		return subService.saveAll(subs).stream()
+				.map(def -> modelMapper.map(def, SubordinateDTO.class))
+				.collect(Collectors.toList());
 	}
 	
 	@PutMapping("/subordinates")

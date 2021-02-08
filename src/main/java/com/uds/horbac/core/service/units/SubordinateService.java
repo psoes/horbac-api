@@ -33,4 +33,8 @@ public class SubordinateService {
 		subordinateRepository.deleteById(id);		
 	}
 
+	public List<Subordinate> saveAll(List<Subordinate> subs) {
+		return subordinateRepository.saveAll(subs);
+	}
+
 }
