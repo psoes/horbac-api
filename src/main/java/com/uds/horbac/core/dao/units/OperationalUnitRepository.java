@@ -15,8 +15,7 @@ import io.swagger.annotations.Api;
 */
 @Api(tags = "OperationalUnit Entity")
 @RepositoryRestResource(path = "operational-units", exported = true)
-@CrossOrigin(origins = "http://localhost:4200",
-	methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
+@CrossOrigin(methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
 maxAge = 3600)
 public interface OperationalUnitRepository extends JpaRepository<OperationalUnit, Long>, JpaSpecificationExecutor<OperationalUnit> {
 

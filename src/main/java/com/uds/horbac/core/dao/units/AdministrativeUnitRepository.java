@@ -16,8 +16,7 @@ import io.swagger.annotations.Api;
 */
 @Api(tags = "AdministrativeUnit Controller", produces = MediaType.APPLICATION_JSON_VALUE)
 @RepositoryRestResource(path = "admin-units", exported = true)
-@CrossOrigin(origins = "http://localhost:4200",
-	methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
+@CrossOrigin(methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
 maxAge = 3600)
 public interface AdministrativeUnitRepository extends JpaRepository<AdministrativeUnit, Long>, JpaSpecificationExecutor<AdministrativeUnit> {
 }
