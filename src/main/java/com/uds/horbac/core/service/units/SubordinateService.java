@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.uds.horbac.core.dao.units.SubordinateRepository;
+import com.uds.horbac.core.entities.organizations.Organization;
 import com.uds.horbac.core.entities.units.Subordinate;
 
 /**
@@ -35,6 +36,16 @@ public class SubordinateService {
 
 	public List<Subordinate> saveAll(List<Subordinate> subs) {
 		return subordinateRepository.saveAll(subs);
+	}
+
+	public List<Subordinate> findByOrganization(Organization org) {
+		List<Subordinate> res = null;
+		try {
+			res = subordinateRepository.findByOrganizationId(org.getId()); 
+		}catch(Exception e) {
+			System.out.println("ERRROOOROROOROR");
+		}
+		return res;
 	}
 
 }

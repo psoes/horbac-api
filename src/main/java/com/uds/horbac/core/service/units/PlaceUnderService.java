@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.uds.horbac.core.dao.units.PlaceUnderRepository;
+import com.uds.horbac.core.entities.organizations.Organization;
 import com.uds.horbac.core.entities.units.PlaceUnder;
 
 /**
@@ -35,6 +36,10 @@ public class PlaceUnderService {
 	
 	public List<PlaceUnder> saveAll(List<PlaceUnder> subs) {
 		return placeUnderRepository.saveAll(subs);
+	}
+
+	public List<PlaceUnder> findByOrganization(Organization org) {
+		return placeUnderRepository.findByOrganizationId(org.getId());
 	}
 
 }

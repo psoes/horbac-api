@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uds.horbac.core.dto.contexts.DefineDTO;
 import com.uds.horbac.core.dto.units.PlaceUnderDTO;
 import com.uds.horbac.core.dto.units.SubordinateDTO;
+import com.uds.horbac.core.entities.organizations.Organization;
+import com.uds.horbac.core.entities.units.OrgTree;
 import com.uds.horbac.core.entities.units.PlaceUnder;
 import com.uds.horbac.core.entities.units.Subordinate;
+import com.uds.horbac.core.exceptions.ApiException;
+import com.uds.horbac.core.service.organizations.OrganizationService;
+import com.uds.horbac.core.service.units.OrgTreeService;
 import com.uds.horbac.core.service.units.PlaceUnderService;
 import com.uds.horbac.core.service.units.SubordinateService;
 
@@ -30,6 +36,9 @@ import com.uds.horbac.core.service.units.SubordinateService;
 public class UnitsAssociationController {	
 	protected @Autowired SubordinateService subService;  
 	protected @Autowired PlaceUnderService underService;
+	protected @Autowired OrgTreeService orgTreeService;	
+	protected @Autowired OrganizationService orgService;
+	
     protected @Autowired ModelMapper modelMapper;
     
     @GetMapping(value = "/place-unders")
@@ -90,7 +99,6 @@ public class UnitsAssociationController {
     }
     
     @GetMapping("/subordinates/{id}")
-	@ResponseStatus(value=HttpStatus.OK)
 	public SubordinateDTO getOneById(@PathVariable Long id){
 		return modelMapper.map(subService.getOne(id), SubordinateDTO.class);
 	}
@@ -128,5 +136,26 @@ public class UnitsAssociationController {
 		subService.delete(id);
 	}
 	
+	@GetMapping(value = "/tree/organization/{id}")
+	public ResponseEntity<OrgTree> getOrgTree(@PathVariable Long id){
+		Organization org = orgService.getOrganization(id);
+		if(org == null) {
+			throw new ApiException("organization with id "+id+" not found");
+		}	
+		
+		OrgTree res = orgTreeService.getOrgTree(org);
+		traverse(res);
+		return  ResponseEntity.ok(res);
+	}
+	
+	private void traverse(OrgTree child) {
+		for(OrgTree t: child.getChildren()) {
+			System.out.println(child.getData().getName());
+			System.out.println(t.getData().getName());
+			traverse(t);
+		}
+		System.out.println("\n");
+		
+	}
 
 }

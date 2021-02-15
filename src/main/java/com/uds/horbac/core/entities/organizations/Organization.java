@@ -3,11 +3,11 @@ package com.uds.horbac.core.entities.organizations;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
@@ -29,7 +29,7 @@ public class Organization {
 	@NotNull(message="The organization name should'nt be blank")
     private String name;
     
-	@Lob
+	@Column(columnDefinition = "TEXT")
     private String description;
     
     /**
@@ -44,8 +44,7 @@ public class Organization {
     
     @ManyToOne(cascade=CascadeType.MERGE)
     private OrganizationType type;
-    
-    @Lob
+ 
     private String url;
     
     @OneToOne(cascade=CascadeType.PERSIST)
