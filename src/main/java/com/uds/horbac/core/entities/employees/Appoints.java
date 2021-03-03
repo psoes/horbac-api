@@ -1,8 +1,11 @@
 package com.uds.horbac.core.entities.employees;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import com.uds.horbac.core.entities.organizations.Organization;
 import com.uds.horbac.core.entities.units.AdministrativeUnit;
@@ -14,20 +17,17 @@ import lombok.Data;
 public class Appoints
 
 {
-    /** Attributes */
-    /**
-     * 
-     */
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    /** Associations */
-	@OneToOne
+	
+	@ManyToOne(fetch =FetchType.EAGER)
     private Employee employee;
 	
-	@OneToOne
+	@ManyToOne(fetch =FetchType.EAGER)
 	private AdministrativeUnit adminUnit;
 	
-	@OneToOne
+	@ManyToOne(fetch =FetchType.EAGER)
 	private Organization organization;
 }
 

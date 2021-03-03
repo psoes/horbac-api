@@ -10,7 +10,7 @@ import com.uds.horbac.core.entities.organizations.OrganizationType;
 import io.swagger.annotations.Api;
 
 @Api(tags = "Organization Type Entity")
-@CrossOrigin(origins = "http://localhost:4200",
+@CrossOrigin(origins = "*",
 	methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
 maxAge = 3600)
 @RepositoryRestResource(path = "org-types", exported = true)

@@ -3,6 +3,8 @@ package com.uds.horbac.core.dao.employees;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.uds.horbac.core.entities.employees.Appoints;
 
@@ -13,6 +15,9 @@ import io.swagger.annotations.Api;
 */
 @Api(tags = "Appoints Entity")
 @RepositoryRestResource(path = "appoints", exported = true)
+@CrossOrigin(origins = "*",
+methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
+maxAge = 3600)
 public interface AppointsRepository extends JpaRepository<Appoints, Long>, JpaSpecificationExecutor<Appoints>{
 
 }

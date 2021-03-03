@@ -29,12 +29,12 @@ public class OrgTreeServiceImpl implements OrgTreeService{
 	public OrgTree getOrgTree(Organization org) {
 		List<Subordinate> subordinates = subordinateService.findByOrganization(org);
 		List<PlaceUnder> unders = placeUnderService.findByOrganization(org);
-		OrgUnit root = getRoot(subordinates);		
+		AdministrativeUnit root = getRoot(subordinates);		
 		return  build(root, subordinates, unders);
 	}
 	
-	private OrgUnit getRoot(List<Subordinate> subs) {	
-		OrgUnit root = null;		
+	private AdministrativeUnit getRoot(List<Subordinate> subs) {	
+		AdministrativeUnit root = null;		
 		for (Subordinate subordinate : subs) {
 			AdministrativeUnit rootFind = subordinate.getSuperior();
 			boolean ok = subs.stream().anyMatch(item -> item.getSubordinate().getId() == rootFind.getId());
@@ -47,7 +47,7 @@ public class OrgTreeServiceImpl implements OrgTreeService{
 		
 	}	
 	
-	public OrgTree build(OrgUnit root, List<Subordinate> subs, List<PlaceUnder> places) { 
+	public OrgTree build(AdministrativeUnit root, List<Subordinate> subs, List<PlaceUnder> places) { 
 		List<OrgTree> res = new ArrayList<OrgTree>();
 		ArrayDeque<OrgTree> queue = new ArrayDeque<OrgTree>();
 		queue.add(new OrgTree(root));
@@ -70,7 +70,18 @@ public class OrgTreeServiceImpl implements OrgTreeService{
 			res.add(current);  
 		   
 		}
+		if(res.get(0).getData() != null) traverse(res.get(0));
 		return res.get(0);
+	}
+	
+	void traverse(OrgTree child) {
+		System.out.println(child.getData().getName());
+		System.out.println("\t");
+		for (OrgTree tree: child.getChildren()) {
+			System.out.println(tree.getData().getName());
+			traverse(tree);
+		}
+		
 	}
 	
 

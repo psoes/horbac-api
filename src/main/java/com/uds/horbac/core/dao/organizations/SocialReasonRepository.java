@@ -10,7 +10,7 @@ import com.uds.horbac.core.entities.organizations.SocialReason;
 import io.swagger.annotations.Api;
 
 @Api(tags = "Social Reason Entity")
-@CrossOrigin(origins = "http://localhost:4200",
+@CrossOrigin(origins = "*",
 	methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
 maxAge = 3600)
 @RepositoryRestResource(path = "social-reasons", exported = true)
