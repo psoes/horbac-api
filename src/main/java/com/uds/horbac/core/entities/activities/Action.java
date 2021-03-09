@@ -12,14 +12,12 @@ import lombok.Data;
 public class Action
 
 {
-    /** Attributes */
-    /**
-     * 
-     */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 	
 	private String name;
+	
+	private String description;
 }
 

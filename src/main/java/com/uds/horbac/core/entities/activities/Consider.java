@@ -15,10 +15,6 @@ import lombok.Data;
 public class Consider
 
 {
-    /** Attributes */
-    /**
-     * 
-     */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;

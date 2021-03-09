@@ -21,5 +21,7 @@ public class Activity
     private Long id;
 	
 	private String name;
+	
+	private String description;
 }
 

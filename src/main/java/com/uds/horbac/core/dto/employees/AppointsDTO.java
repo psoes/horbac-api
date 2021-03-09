@@ -12,8 +12,7 @@ public class AppointsDTO
    
     private Long id;
    
-    private EmployeeDTO employee;
-	
+    private EmployeeDTO employee;	
 
 	private AdministrativeUnitDTO adminUnit;
 

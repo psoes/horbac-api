@@ -10,12 +10,7 @@ import com.uds.horbac.core.dao.employees.ApproverRepository;
 */
 @Component
 public class ApproverService {
-
-	private ApproverRepository approverRepository;
-
 	@Autowired
-	public ApproverService(ApproverRepository approverRepository) {
-		this.approverRepository = approverRepository;
-	}
+	private ApproverRepository approverRepository;
 
 }

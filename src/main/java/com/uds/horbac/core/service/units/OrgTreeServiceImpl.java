@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.uds.horbac.core.entities.organizations.Organization;
 import com.uds.horbac.core.entities.units.AdministrativeUnit;
 import com.uds.horbac.core.entities.units.OrgTree;
-import com.uds.horbac.core.entities.units.OrgUnit;
 import com.uds.horbac.core.entities.units.PlaceUnder;
 import com.uds.horbac.core.entities.units.Subordinate;
 
@@ -75,10 +74,7 @@ public class OrgTreeServiceImpl implements OrgTreeService{
 	}
 	
 	void traverse(OrgTree child) {
-		System.out.println(child.getData().getName());
-		System.out.println("\t");
 		for (OrgTree tree: child.getChildren()) {
-			System.out.println(tree.getData().getName());
 			traverse(tree);
 		}
 		
