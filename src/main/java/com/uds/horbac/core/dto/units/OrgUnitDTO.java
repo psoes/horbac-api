@@ -1,6 +1,6 @@
 package com.uds.horbac.core.dto.units;
 
-import com.uds.horbac.core.dto.contexts.LocationDTO;
+import com.uds.horbac.core.dto.contexts.HOLocationDTO;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ public class OrgUnitDTO {
 
     private String name;
 
-    private LocationDTO location;
+    private HOLocationDTO location;
 
 	private String url;
 

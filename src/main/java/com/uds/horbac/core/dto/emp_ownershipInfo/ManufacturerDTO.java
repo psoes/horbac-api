@@ -1,6 +1,6 @@
 
 package com.uds.horbac.core.dto.emp_ownershipInfo;
-import com.uds.horbac.core.dto.contexts.LocationDTO;
+import com.uds.horbac.core.dto.contexts.HOLocationDTO;
 
 import lombok.Data;
 
@@ -15,7 +15,7 @@ public class ManufacturerDTO
      */
     private String name;
 
-    private LocationDTO location;
+    private HOLocationDTO location;
     /**
      * 
      */

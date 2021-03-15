@@ -2,7 +2,7 @@
 package com.uds.horbac.core.dto.emp_passionInfo;
 import java.util.Date;
 
-import com.uds.horbac.core.dto.contexts.LocationDTO;
+import com.uds.horbac.core.dto.contexts.HOLocationDTO;
 
 import lombok.Data;
 
@@ -17,7 +17,7 @@ public class VisitDTO
     
     private Date endDate;
 
-    private LocationDTO place;
+    private HOLocationDTO place;
     
     private int order;
 }

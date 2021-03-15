@@ -2,7 +2,7 @@
 package com.uds.horbac.core.dto.emp_famillyInfo;
 import java.util.Date;
 
-import com.uds.horbac.core.dto.contexts.LocationDTO;
+import com.uds.horbac.core.dto.contexts.HOLocationDTO;
 import com.uds.horbac.core.dto.emp_personalInfo.PersonDTO;
 
 import lombok.Data;
@@ -17,9 +17,9 @@ public class PartenaireConjugalDTO
      */
     private Date weddingDate;
  
-    private LocationDTO weddingPlace;
+    private HOLocationDTO weddingPlace;
 
-    private LocationDTO weddingChurch;
+    private HOLocationDTO weddingChurch;
 
     private PersonDTO person;
 }

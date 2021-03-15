@@ -8,7 +8,7 @@ public interface DeviceService {
 	
 	/**
 	 * Save a Device
-	 * @param Device the Device to save 
+	 * @param AcceptedDevice the Device to save 
 	 * @return Return the saved Device
 	 */	
 	public Device save(Device device);

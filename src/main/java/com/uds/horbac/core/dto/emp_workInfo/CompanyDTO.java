@@ -1,5 +1,5 @@
 package com.uds.horbac.core.dto.emp_workInfo;
-import com.uds.horbac.core.dto.contexts.LocationDTO;
+import com.uds.horbac.core.dto.contexts.HOLocationDTO;
 import com.uds.horbac.core.dto.emp_personalInfo.AddressDTO;
 import com.uds.horbac.core.dto.emp_personalInfo.PersonDTO;
 
@@ -15,7 +15,7 @@ public class CompanyDTO
    
     private PersonDTO employer;
     
-    private LocationDTO location;
+    private HOLocationDTO location;
     
     private AddressDTO address;
     

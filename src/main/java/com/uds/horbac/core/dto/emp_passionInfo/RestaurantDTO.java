@@ -2,7 +2,7 @@
 package com.uds.horbac.core.dto.emp_passionInfo;
 import java.util.List;
 
-import com.uds.horbac.core.dto.contexts.LocationDTO;
+import com.uds.horbac.core.dto.contexts.HOLocationDTO;
 
 import lombok.Data;
 
@@ -17,7 +17,7 @@ public class RestaurantDTO
      */
     private String name;
 
-    private LocationDTO location;
+    private HOLocationDTO location;
 
     private List<FoodDTO> favoritesFoods;
 }

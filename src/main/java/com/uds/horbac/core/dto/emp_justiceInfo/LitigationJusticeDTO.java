@@ -2,7 +2,7 @@
 package com.uds.horbac.core.dto.emp_justiceInfo;
 import java.util.Date;
 
-import com.uds.horbac.core.dto.contexts.LocationDTO;
+import com.uds.horbac.core.dto.contexts.HOLocationDTO;
 
 import lombok.Data;
 
@@ -24,6 +24,6 @@ public class LitigationJusticeDTO
      */
     private Date endDate;
  
-    private LocationDTO location;
+    private HOLocationDTO location;
 }
 

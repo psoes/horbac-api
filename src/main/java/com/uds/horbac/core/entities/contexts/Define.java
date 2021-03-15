@@ -15,17 +15,10 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Define
-
-{
-    /** Attributes */
-    /**
-     * 
-     */
+public class Define {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
-    /** Associations */
 	
 	@ManyToOne
     private Employee employee;

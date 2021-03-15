@@ -2,7 +2,7 @@
 package com.uds.horbac.core.dto.emp_personalInfo;
 import java.util.Date;
 
-import com.uds.horbac.core.dto.contexts.LocationDTO;
+import com.uds.horbac.core.dto.contexts.HOLocationDTO;
 
 import lombok.Data;
 
@@ -21,7 +21,7 @@ public class ReligionDTO
      */
     private Date startDate;
     
-    private LocationDTO location;
+    private HOLocationDTO location;
   
 }
 

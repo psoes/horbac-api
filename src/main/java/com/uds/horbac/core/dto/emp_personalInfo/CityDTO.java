@@ -1,5 +1,5 @@
 package com.uds.horbac.core.dto.emp_personalInfo;
-import com.uds.horbac.core.dto.contexts.LocationDTO;
+import com.uds.horbac.core.dto.contexts.HOLocationDTO;
 
 import lombok.Data;
 
@@ -14,7 +14,7 @@ public class CityDTO
      */
     private String name;
   
-    private LocationDTO location;
+    private HOLocationDTO location;
   
     private CountryDTO country;
 }

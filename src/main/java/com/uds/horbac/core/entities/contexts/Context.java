@@ -1,7 +1,5 @@
 package com.uds.horbac.core.entities.contexts;
 
-import java.time.Duration;
-import java.time.Period;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -21,18 +19,21 @@ public class Context
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 	
+	private String name;
 	/**
-	 * the period (begin, and end)
+	 * The period (begin, and end)
 	 */
-	private Period period;
-	
-	/**
-	 * duration in seconds, minutes or hours
-	 */
-	private Duration duration;
-		
+	@OneToMany
+	private List<HOPeriod> periods;
 	
 	@OneToMany
 	private List<HOLocation> locations; 
+	
+	/**
+	 * The list of devices
+	 */
+	@OneToMany
+	private List<AcceptedDevice> devices; 
+	
 }
 

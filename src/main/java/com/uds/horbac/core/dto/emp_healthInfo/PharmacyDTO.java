@@ -1,6 +1,6 @@
 
 package com.uds.horbac.core.dto.emp_healthInfo;
-import com.uds.horbac.core.dto.contexts.LocationDTO;
+import com.uds.horbac.core.dto.contexts.HOLocationDTO;
 
 import lombok.Data;
 
@@ -15,6 +15,6 @@ public class PharmacyDTO
      */
     public String name;
 
-    public LocationDTO location;
+    public HOLocationDTO location;
 }
 

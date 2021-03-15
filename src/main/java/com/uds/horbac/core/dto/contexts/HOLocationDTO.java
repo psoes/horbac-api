@@ -3,7 +3,7 @@ package com.uds.horbac.core.dto.contexts;
 import lombok.Data;
 
 @Data
-public class LocationDTO {
+public class HOLocationDTO {
 	private Long id;
     private String name;
     private double longitude;

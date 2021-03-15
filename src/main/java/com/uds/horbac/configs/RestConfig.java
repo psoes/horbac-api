@@ -5,6 +5,9 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
 
+import com.uds.horbac.core.entities.contexts.AcceptedDevice;
+import com.uds.horbac.core.entities.contexts.HOLocation;
+import com.uds.horbac.core.entities.contexts.HOPeriod;
 import com.uds.horbac.core.entities.employees.Appoints;
 import com.uds.horbac.core.entities.employees.Employs;
 import com.uds.horbac.core.entities.organizations.OrganizationType;
@@ -27,5 +30,8 @@ public class RestConfig implements RepositoryRestConfigurer {
         config.exposeIdsFor(PlaceUnder.class);
         config.exposeIdsFor(Appoints.class);
         config.exposeIdsFor(Employs.class);
+        config.exposeIdsFor(HOLocation.class);
+        config.exposeIdsFor(AcceptedDevice.class);
+        config.exposeIdsFor(HOPeriod.class);
       }
 }

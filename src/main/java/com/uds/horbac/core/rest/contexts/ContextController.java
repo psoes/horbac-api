@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContextException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,9 +50,12 @@ public class ContextController {
 		return modelMapper.map(service.save(ctx), ContextDTO.class);
 	}
 	
-	@PutMapping("/contexts")
+	@PutMapping("/contexts/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
-	public ContextDTO  updateContext(@Valid @RequestBody ContextDTO ctxDTO) {		
+	public ContextDTO  updateContext(@PathVariable("id") Long id, @Valid @RequestBody ContextDTO ctxDTO) {		
+		if(service.getContext(id) == null) {
+			throw new ApplicationContextException("object not found");
+		}
 		Context ctx = modelMapper.map(ctxDTO, Context.class);		
 		return modelMapper.map(service.save(ctx), ContextDTO.class);
 	}

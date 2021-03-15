@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.URL;
 
-import com.uds.horbac.core.dto.contexts.LocationDTO;
+import com.uds.horbac.core.dto.contexts.HOLocationDTO;
 import com.uds.horbac.core.dto.emp_personalInfo.AddressDTO;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -42,7 +42,7 @@ public class OrganizationDTO {
 	@URL
 	private String url;
     
-    private LocationDTO location;
+    private HOLocationDTO location;
     
     private SocialReasonDTO socialReason;
     
