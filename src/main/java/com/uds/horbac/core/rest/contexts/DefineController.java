@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uds.horbac.core.dto.contexts.DefineDTO;
 import com.uds.horbac.core.entities.contexts.Define;
+import com.uds.horbac.core.exceptions.ApiException;
 import com.uds.horbac.core.service.contexts.DefineService;
 
 @RestController
@@ -48,9 +49,12 @@ public class DefineController {
 		return modelMapper.map(service.save(def), DefineDTO.class);
 	}
 	
-	@PutMapping("/defines")
+	@PutMapping("/defines/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
-	public DefineDTO  updateDefine(@Valid @RequestBody DefineDTO defDTO) {		
+	public DefineDTO  updateDefine(@PathVariable("id") Long id,  @Valid @RequestBody DefineDTO defDTO) {		
+		if(service.getDefine(id) == null) {
+			throw new ApiException("DEFINE OF ID "+id+" NOT FOUND");
+		}
 		Define def = modelMapper.map(defDTO, Define.class);		
 		return modelMapper.map(service.save(def), DefineDTO.class);
 	}

@@ -12,6 +12,8 @@ import com.uds.horbac.core.entities.employees.Appoints;
 import com.uds.horbac.core.entities.employees.Employs;
 import com.uds.horbac.core.entities.organizations.OrganizationType;
 import com.uds.horbac.core.entities.organizations.SocialReason;
+import com.uds.horbac.core.entities.resources.Resource;
+import com.uds.horbac.core.entities.resources.Vue;
 import com.uds.horbac.core.entities.units.AdministrativeUnit;
 import com.uds.horbac.core.entities.units.OperationalUnit;
 import com.uds.horbac.core.entities.units.PlaceUnder;
@@ -33,5 +35,7 @@ public class RestConfig implements RepositoryRestConfigurer {
         config.exposeIdsFor(HOLocation.class);
         config.exposeIdsFor(AcceptedDevice.class);
         config.exposeIdsFor(HOPeriod.class);
+        config.exposeIdsFor(Resource.class);
+        config.exposeIdsFor(Vue.class);
       }
 }
