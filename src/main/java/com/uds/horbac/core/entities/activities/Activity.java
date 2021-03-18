@@ -12,10 +12,6 @@ import lombok.Data;
 public class Activity
 
 {
-    /** Attributes */
-    /**
-     * 
-     */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;

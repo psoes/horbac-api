@@ -10,13 +10,10 @@ import lombok.Data;
 
 @Data
 public class AuthGrantDTO {
-
 	
-	private Long id;
-	
+	private Long id;	
 
 	private UserDTO user;
-	
 
 	private ClientDTO client;
 	

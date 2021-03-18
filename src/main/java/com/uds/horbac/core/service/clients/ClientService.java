@@ -18,7 +18,6 @@ public class ClientService {
 	private ClientRepository clientRepository;
 
 	public List<Client> getAll() {
-		// TODO Auto-generated method stubs
 		return clientRepository.findAll();
 	}
 

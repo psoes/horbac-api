@@ -19,14 +19,12 @@ import lombok.Data;
 public class OperationalPermission
 
 {
-    /** Attributes */
-    /**
-     * 
-     */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    /** Associations */
+	
+	private String name;
+	 
 	@ManyToOne
     private Activity activity;
 	

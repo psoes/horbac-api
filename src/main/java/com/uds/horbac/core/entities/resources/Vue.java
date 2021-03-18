@@ -1,13 +1,9 @@
 package com.uds.horbac.core.entities.resources;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
-import com.uds.horbac.core.entities.contexts.HOLocation;
 
 import lombok.Data;
 
@@ -30,16 +26,10 @@ public class Vue
     private Long id;
 	
 	private String name;
-    
-    private String ipAddress;
-    
-    /**
-     * extension can be .org, .edu
-     */
-    private String exention;
-    
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private HOLocation location;
+	
+	private String Desription;
+
+    private String domain;
     
     
 }

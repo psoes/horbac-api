@@ -15,21 +15,12 @@ public class OperationalPermissionDTO
 {
     
     private Long id;
- 
-
-    private ActivityDTO activity;
-	
-	
-    private VueDTO vue;
-	
-	
+    private String name;
+    private ActivityDTO activity;	
+    private VueDTO vue;	
     private ContextDTO context;
-	
-
     private OperationalUnitDTO unit;
-
-	private OrganizationDTO organization;
-	
+	private OrganizationDTO organization;	
 	private TreatmentMode mode;
 	
 }
