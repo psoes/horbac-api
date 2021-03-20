@@ -48,8 +48,7 @@ public class ActionController {
 	@ResponseStatus(value=HttpStatus.CREATED)
 	public ActionDTO createAction(@RequestBody ActionDTO actionDTO){
 		Action action = modelMapper.map(actionDTO, Action.class);
-		Action respaction = actionService.save(action);
-		
+		Action respaction = actionService.save(action);		
 		return modelMapper.map(respaction, ActionDTO.class);
 	}
 	
@@ -57,8 +56,7 @@ public class ActionController {
 	@ResponseStatus(value=HttpStatus.OK)
 	public ActionDTO updateAction(@RequestBody ActionDTO actionDTO) {
 		Action action = modelMapper.map(actionDTO, Action.class);
-		Action respaction = actionService.save(action);
-		
+		Action respaction = actionService.save(action);		
 		return modelMapper.map(respaction, ActionDTO.class);
 	}
 	
@@ -66,7 +64,6 @@ public class ActionController {
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable Long id){
 		actionService.delete(id);
-	}
-	
+	}	
 
 }

@@ -9,13 +9,9 @@ import com.uds.horbac.core.dto.users.UserDTO;
 import lombok.Data;
 
 @Data
-public class AuthGrantDTO {
-	
-	private Long id;	
-
+public class AuthGrantDTO {	
+	private Long id;
 	private UserDTO user;
-
-	private ClientDTO client;
-	
+	private ClientDTO client;	
 	private List<ScopeDTO> grantedScopes;
 }

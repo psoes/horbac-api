@@ -39,8 +39,7 @@ public class UnitsAssociationController {
 	protected @Autowired OrgTreeService orgTreeService;	
 	protected @Autowired OrganizationService orgService;
 	
-    protected @Autowired ModelMapper modelMapper;
-    
+    protected @Autowired ModelMapper modelMapper;    
     @GetMapping(value = "/place-unders")
     public List<PlaceUnderDTO> getAllPlaceUnders(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
     	return underService.getAll().stream()

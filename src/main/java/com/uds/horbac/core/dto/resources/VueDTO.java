@@ -17,7 +17,7 @@ public class VueDTO
 	
 	private String name;
 	
-	private String Desription;
+	private String desription;
    
     private String domain;    
 }

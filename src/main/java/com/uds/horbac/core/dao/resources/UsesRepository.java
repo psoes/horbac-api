@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import com.uds.horbac.core.entities.organizations.Organization;
+import com.uds.horbac.core.entities.resources.Resource;
 import com.uds.horbac.core.entities.resources.Uses;
 
 /**
@@ -11,5 +13,7 @@ import com.uds.horbac.core.entities.resources.Uses;
 */
 @Repository
 public interface UsesRepository extends JpaRepository<Uses, Long>, JpaSpecificationExecutor<Uses> {
+
+	Uses findAllByOrganizationAndResource(Organization org, Resource resource);
 
 }

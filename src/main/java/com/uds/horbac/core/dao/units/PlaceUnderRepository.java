@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import com.uds.horbac.core.entities.organizations.Organization;
+import com.uds.horbac.core.entities.units.AdministrativeUnit;
+import com.uds.horbac.core.entities.units.OperationalUnit;
 import com.uds.horbac.core.entities.units.PlaceUnder;
 
 /**
@@ -15,5 +18,8 @@ import com.uds.horbac.core.entities.units.PlaceUnder;
 public interface PlaceUnderRepository extends JpaRepository<PlaceUnder, Long>, JpaSpecificationExecutor<PlaceUnder>{
 	
 	List<PlaceUnder> findByOrganizationId(Long id);
+
+	PlaceUnder findAllByOrganizationAndSuperiorAndSubordinate(Organization org, AdministrativeUnit au,
+			OperationalUnit ou);
 
 }

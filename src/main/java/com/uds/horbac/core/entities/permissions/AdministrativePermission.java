@@ -18,17 +18,14 @@ import lombok.Data;
 @Data
 @Entity
 public class AdministrativePermission
-
 {
-  
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    private String name;
+    private String name; 
     
     @ManyToOne
-    private Activity activity;
+    private Activity activity; 
     
     @ManyToOne
     private Context context;

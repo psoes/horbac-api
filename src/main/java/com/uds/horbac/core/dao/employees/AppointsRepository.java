@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.uds.horbac.core.entities.employees.Appoints;
+import com.uds.horbac.core.entities.employees.Approver;
+import com.uds.horbac.core.entities.organizations.Organization;
 
 import io.swagger.annotations.Api;
 
@@ -19,4 +21,5 @@ import io.swagger.annotations.Api;
 methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
 maxAge = 3600)
 public interface AppointsRepository extends JpaRepository<Appoints, Long>, JpaSpecificationExecutor<Appoints>{
+	Appoints findAllByOrganizationAndEmployee(Organization org, Approver approver);
 }

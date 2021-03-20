@@ -26,6 +26,8 @@ public class Resource
 	
 	private String name;
 	
+	private String description;
+	
 	/**
 	 * The uri of the resource
 	 */

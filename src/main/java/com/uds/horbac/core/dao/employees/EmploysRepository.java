@@ -4,7 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import com.uds.horbac.core.entities.employees.Emitter;
 import com.uds.horbac.core.entities.employees.Employs;
+import com.uds.horbac.core.entities.organizations.Organization;
 
 import io.swagger.annotations.Api;
 
@@ -14,5 +16,9 @@ import io.swagger.annotations.Api;
 @Api(tags = "Employs Entity")
 @RepositoryRestResource(path = "employs", exported = true)
 public interface EmploysRepository extends JpaRepository<Employs, Long>, JpaSpecificationExecutor<Employs>{
+
+	Employs findAllByOrganizationIdAndEmployeeId(Long orgId, Long empId);
+
+	Employs findAllByOrganizationAndEmployee(Organization org, Emitter emitter);
 
 }
