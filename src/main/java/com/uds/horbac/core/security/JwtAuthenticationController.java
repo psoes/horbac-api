@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +50,7 @@ public class JwtAuthenticationController {
 	@Autowired
 	private UserService userService;
 
+	protected final Log logger = LogFactory.getLog(JwtAuthenticationController.class);
 	
 	@PostMapping("/authenticate")
 	@ResponseStatus(value=HttpStatus.OK)
@@ -91,22 +94,25 @@ public class JwtAuthenticationController {
 			
 			return JWTStatus.AUTHENTICATED;
 		} catch (DisabledException e) {
+			logger.warn(e.getMessage());
 			e.printStackTrace();
 			return JWTStatus.USER_DISABLED;
 		} catch (BadCredentialsException e) {
-			
+			logger.warn(e.getMessage());
 			//e.printStackTrace();
 			return JWTStatus.BAD_CREDENTIALS;
 		}catch(LockedException e) {
+			logger.warn(e.getMessage());
 			//e.printStackTrace();
 			return JWTStatus.ACCOUNT_LOCKED;
 		}catch(AccountExpiredException e) {
-			
+			logger.warn(e.getMessage());
 			//e.printStackTrace();
 			return JWTStatus.ACCOUNT_EXPIRED;			
 		}
 		catch(Exception e) {
-			//e.printStackTrace(); 
+			//e.printStackTrace();
+			logger.warn(e.getMessage());
 			return JWTStatus.ACCOUNT_NOT_FOUND;
 		}
 	}

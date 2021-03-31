@@ -17,14 +17,14 @@ public class AuthenticationEventListener {
 
     @EventListener
     public void authenticationFailed(AuthenticationFailureBadCredentialsEvent event) {
-    	System.out.println("BAD CRED.....");
+    	
         String username = (String) event.getAuthentication().getPrincipal();
         atpService.updatePasswordRetryAttempts(username, PropertyUtils.getLoginAttendLimits());
     }
     
     @EventListener
     public void authenticationSucceed(AuthenticationSuccessEvent event) {
-    	System.out.println("GOOD CRED.....");
+  
         User user = (User) event.getAuthentication().getPrincipal();
         atpService.resetPasswordRetryAttempts(user.getUsername());
     }
