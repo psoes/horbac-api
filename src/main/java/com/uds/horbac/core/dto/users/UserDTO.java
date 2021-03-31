@@ -9,17 +9,13 @@ public class UserDTO {
 
 	private Long id;
 
-	private String username;
-	
+	private String username;	
 
-	private String hashed_password;
+	private String password;
 	
-	/**
-	 * the user's picture
-	 */
 	private String picture;
 	
-	private Boolean active;
+	private boolean active;
 
 	private EmployeeDTO employee;
 	

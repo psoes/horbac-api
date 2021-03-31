@@ -1,7 +1,5 @@
 package com.uds.horbac.core.rest.users;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,15 +12,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uds.horbac.core.dto.users.UserDTO;
+import com.uds.horbac.core.dto.users.UserPasswordDTO;
 import com.uds.horbac.core.entities.users.User;
+import com.uds.horbac.core.exceptions.ApiException;
 import com.uds.horbac.core.service.users.UserService;
 
 /**
@@ -35,40 +33,79 @@ import com.uds.horbac.core.service.users.UserService;
 @RestController
 public class UserController {
     
-	protected @Autowired UserService service;    
-    protected @Autowired ModelMapper modelMapper;
-    
-    @RequestMapping(value = "/users", method = GET)
-    public List<UserDTO> getAll(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
-    	return service.getAll().stream()
-				.map(clt -> modelMapper.map(clt, UserDTO.class))
-				.collect(Collectors.toList());
-    }
-    
-    @GetMapping("/users/{id}")
-   	@ResponseStatus(value=HttpStatus.OK)
-   	public UserDTO getExternelIdById(@PathVariable Long id){
-   		return modelMapper.map(service.getUser(id), UserDTO.class);
-   	}
-   	
-   	@PostMapping("/users")
-   	@ResponseStatus(value=HttpStatus.CREATED)
-   	public UserDTO createUser(@Valid @RequestBody UserDTO userDTO){
-   		User clt = modelMapper.map(userDTO, User.class);
-   		
-   		return modelMapper.map(service.save(clt), UserDTO.class);
-   	}
-   	
-   	@PutMapping("/users")
-   	@ResponseStatus(value=HttpStatus.OK)
-   	public UserDTO  updateUser(@Valid @RequestBody UserDTO userDTO) {		
-   		User clt = modelMapper.map(userDTO, User.class);		
-   		return modelMapper.map(service.save(clt), UserDTO.class);
-   	}
-   	
-   	@DeleteMapping(value = "/users/{id}")
-   	@ResponseStatus(value=HttpStatus.OK)
-   	public void delete(@PathVariable Long id){
-   		service.delete(id);
-   	}
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Autowired
+	private UserService userService;
+	
+	@PostMapping("/users")
+	@ResponseStatus(value=HttpStatus.CREATED)
+	public UserDTO saveUser(@RequestBody UserDTO userDTO){
+		User user = modelMapper.map(userDTO, User.class);
+		user = userService.create(user);
+		return modelMapper.map(user, UserDTO.class);
+	}
+	
+	@GetMapping("/users")
+	@ResponseStatus(value=HttpStatus.OK)
+	public List<UserDTO> getAll() throws ApiException {
+		return userService.getAll()
+			.stream()
+			.filter(User::getActive)
+			.map(user -> modelMapper.map(user, UserDTO.class))
+			.collect(Collectors.toList());
+	}
+	@GetMapping("/users/all")
+	@ResponseStatus(value=HttpStatus.OK)
+	public List<UserDTO> getAllWIthAdmin() throws ApiException {
+		return userService.getAll()
+			.stream()
+			.map(user -> modelMapper.map(user, UserDTO.class))
+			.collect(Collectors.toList());
+	}
+	
+	@GetMapping("/users/filter")
+	@ResponseStatus(value=HttpStatus.OK)
+	public List<UserDTO> filterUsers(@RequestParam("query") String query) {
+		return userService.filterUsers(query)
+			.stream()
+			.filter(User::getActive)
+			.map(user -> modelMapper.map(user, UserDTO.class))
+			.collect(Collectors.toList());
+	}
+		
+	@PostMapping("/users/activate/toggle/{id}")
+	@ResponseStatus(value=HttpStatus.OK)
+	public UserDTO toggleActive(@PathVariable(name="id") Long idUser) throws ApiException {
+		User user = userService.toggleActive(idUser);
+		return modelMapper.map(user, UserDTO.class);
+	}
+	
+	@DeleteMapping("/users/{id}")
+	@ResponseStatus(value=HttpStatus.OK)
+	public void deleteUser(@PathVariable(name="id") Long idUser) throws ApiException {
+		if(!userService.remove(idUser)) {
+			throw new ApiException("Account not found");
+		}
+	}
+
+	@PostMapping("/users/password/update/{id}")
+	@ResponseStatus(value=HttpStatus.OK)
+	public UserDTO updatePassword(@PathVariable(name="id") Long idUser, @Valid @RequestBody UserPasswordDTO userPasswordDTO) throws ApiException {
+		if(userPasswordDTO.getOldPassword() != null && !userPasswordDTO.getOldPassword().isEmpty()) {
+			User user = userService.updatePassword(idUser, userPasswordDTO.getOldPassword(), userPasswordDTO.getNewPassword());
+			return modelMapper.map(user, UserDTO.class);
+		} else {
+			throw new ApiException("Old password is required");
+		}		
+	}
+
+	@PostMapping("/users/password/reset/{id}")
+	@ResponseStatus(value=HttpStatus.OK)
+	public UserDTO resetPassword(@PathVariable(name="id") Long idUser, @Valid @RequestBody UserPasswordDTO userPasswordDTO) throws ApiException {
+		User user = userService.resetPassword(idUser, userPasswordDTO.getNewPassword());
+		return modelMapper.map(user, UserDTO.class);
+	}
+
 }

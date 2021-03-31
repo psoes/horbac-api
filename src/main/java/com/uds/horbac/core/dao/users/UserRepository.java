@@ -1,9 +1,14 @@
 package com.uds.horbac.core.dao.users;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.uds.horbac.core.entities.employees.Employee;
 import com.uds.horbac.core.entities.users.User;
 
 /**
@@ -12,4 +17,12 @@ import com.uds.horbac.core.entities.users.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
+	boolean existsByUsername(String username);
+
+	Optional<User> findByUsername(String username);
+	
+	@Query(value="SELECT u FROM User u WHERE u.username LIKE %?1%")
+	List<User> filterUsers(String query);
+
+	Optional<User> findByEmployee(Employee employee);
 }

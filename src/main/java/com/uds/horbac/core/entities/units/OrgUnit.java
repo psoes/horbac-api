@@ -15,9 +15,12 @@ import org.hibernate.validator.constraints.URL;
 import com.uds.horbac.core.entities.contexts.HOLocation;
 import com.uds.horbac.core.entities.emp_personalInfo.Address;
 
+import lombok.Data;
+
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public class OrgUnit {
+@Data
+public class OrgUnit{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -114,5 +117,6 @@ public class OrgUnit {
 		return "OrgUnit [id=" + id + ", name=" + name + ", location=" + location + ", url=" + url + ", description="
 				+ description + ", address=" + address + "]";
 	}
+
 
 }

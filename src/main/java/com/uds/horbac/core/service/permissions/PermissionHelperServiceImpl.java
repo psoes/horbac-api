@@ -13,16 +13,12 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.uds.horbac.core.dao.activities.ConsiderRepository;
-import com.uds.horbac.core.dao.contexts.ContextRepository;
 import com.uds.horbac.core.dao.contexts.DefineRepository;
 import com.uds.horbac.core.dao.employees.AppointsRepository;
 import com.uds.horbac.core.dao.employees.EmploysRepository;
-import com.uds.horbac.core.dao.organizations.OrganizationRepository;
 import com.uds.horbac.core.dao.permissions.AdministrativePermissionRepository;
 import com.uds.horbac.core.dao.permissions.OperationalPermissionRepository;
 import com.uds.horbac.core.dao.resources.UsesRepository;
-import com.uds.horbac.core.dao.units.AdministrativeUnitRepository;
-import com.uds.horbac.core.dao.units.OperationalUnitRepository;
 import com.uds.horbac.core.dao.units.PlaceUnderRepository;
 import com.uds.horbac.core.entities.activities.Activity;
 import com.uds.horbac.core.entities.activities.Consider;
@@ -44,14 +40,6 @@ import com.uds.horbac.core.entities.units.PlaceUnder;
 @Service
 public class PermissionHelperServiceImpl implements PermissionHelperService{
 	
-	@Autowired 
-	private OrganizationRepository orgRepository;
-	
-	@Autowired
-	private AdministrativeUnitRepository adminRepository;
-	
-	@Autowired
-	private OperationalUnitRepository OperationalUnitRepository;
 	
 	@Autowired
 	private AdministrativePermissionRepository adminPermissionRepository;
@@ -65,17 +53,14 @@ public class PermissionHelperServiceImpl implements PermissionHelperService{
 	@Autowired
 	private AppointsRepository appointsRepository;
 	
-	@Autowired
-	private DefineRepository DefineRepository;
+
 	
 	@Autowired 
 	private UsesRepository usesRepository;
 	
 	@Autowired
 	private ConsiderRepository considerRepository;
-	
-	@Autowired
-	private ContextRepository contextRepository;
+
 	
 	@Autowired
 	private DefineRepository defineRepository;
@@ -100,9 +85,7 @@ public class PermissionHelperServiceImpl implements PermissionHelperService{
 		Context c = def != null ? def.getContext() : null;
 			
 		Specification<OperationalPermission> secSpec = new Specification<OperationalPermission>() {
-	 		/**
-			 * 
-			 */
+
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -110,12 +93,20 @@ public class PermissionHelperServiceImpl implements PermissionHelperService{
 					CriteriaBuilder criteriaBuilder) {
 				List<Predicate> predicates = new ArrayList<Predicate>();
 	            if(ou != null)predicates.add(criteriaBuilder.equal(root.get("unit").get("id"), ou.getId()));
+	           
 	            if(a != null)predicates.add(criteriaBuilder.equal(root.get("activity").get("id"), a.getId()));
+	            
 	            if(v != null)predicates.add(criteriaBuilder.equal(root.get("vue").get("id"), v.getId()));
+	           
 	            if(c != null)predicates.add(criteriaBuilder.equal(root.get("context").get("id"), c.getId()));
+	            
 	            return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}		 		
 		};
+		if(ou == null) return null;
+		if(a == null) return null;
+		if(v == null) return null;
+		
 		List<OperationalPermission> ops = opPermissionRepository.findAll(secSpec);		
 		return ops;
 			
@@ -159,6 +150,10 @@ public class PermissionHelperServiceImpl implements PermissionHelperService{
 	            return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}		 		
 		};
+		if(ou1 == null) return null;
+		if(au == null) return null;
+		if(a == null) return null;
+		if(v == null) return null;
 		List<AdministrativePermission> ops = adminPermissionRepository.findAll(secSpec);		
 		return ops;
 			
