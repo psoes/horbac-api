@@ -25,7 +25,7 @@ public class LoginAttemptService {
 	public LoginAttempt getByUsername(String username) {
 		LoginAttempt loga = new LoginAttempt();
 		try {
-			loga = logaRepository.findByUserName(username).get();
+			loga = logaRepository.findByUsername(username).get();
 		}catch(NoSuchElementException e) {}
 		
 		return loga;
@@ -41,7 +41,7 @@ public class LoginAttemptService {
 		else if(at == null){
 			at = new LoginAttempt();
 			at.setAttempts(1);
-			at.setUserName(username);
+			at.setUsername(username);
 			logaRepository.save(at);
 		}
 		
@@ -52,7 +52,7 @@ public class LoginAttemptService {
 		if(at != null) {
 			at = new LoginAttempt();
 			at.setAttempts(0);
-			at.setUserName(username);
+			at.setUsername(username);
 			logaRepository.save(at);
 		}
 	}

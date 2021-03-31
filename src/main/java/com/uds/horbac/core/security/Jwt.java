@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
 
 import com.uds.horbac.core.entities.permissions.CanSuggest;
 import com.uds.horbac.core.entities.users.User;
@@ -16,7 +19,8 @@ import com.uds.horbac.core.entities.users.User;
 import lombok.Data;
 
 @Data
-@RedisHash("Jwt")
+//@RedisHash("Jwt")
+@Entity
 public class Jwt implements Serializable{
 	
 	private static final long serialVersionUID = -8091879091924046844L;
@@ -45,9 +49,11 @@ public class Jwt implements Serializable{
 	private final Date issueTime;
 	
 	// the user details information
+	@ManyToOne
 	private User user;
 	
 	//the user privileges
+	@Transient
 	private Collection<CanSuggest> privileges;
 
 	public Jwt(String id, JWTStatus jwtStatus, String ip, String agent, String jwttoken, Date expirationTime,
