@@ -50,10 +50,7 @@ public class LoginAttemptService {
 	public void resetPasswordRetryAttempts(String username) {
 		LoginAttempt at = getByUsername(username);
 		if(at != null) {
-			at = new LoginAttempt();
-			at.setAttempts(0);
-			at.setUsername(username);
-			logaRepository.save(at);
+			logaRepository.delete(at);
 		}
 	}
 }
