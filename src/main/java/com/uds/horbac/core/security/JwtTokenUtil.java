@@ -23,7 +23,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtTokenUtil implements Serializable{
 	private static final long serialVersionUID = -2550185165626007488L;
 	
-	public static long JWT_TOKEN_VALIDITY = 5 * 60;
+	public static long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 	
 	static String key = Hashing.sha512().hashString("SQGno4yKamK1EdIsMsk", StandardCharsets.UTF_8).toString();
 	
