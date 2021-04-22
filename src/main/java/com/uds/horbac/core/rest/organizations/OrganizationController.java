@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.uds.horbac.core.dto.organizations.OrganizationDTO;
 import com.uds.horbac.core.entities.organizations.Organization;
+import com.uds.horbac.core.entities.users.User;
 import com.uds.horbac.core.service.common.FileService;
 import com.uds.horbac.core.service.organizations.OrganizationService;
 
@@ -45,8 +47,10 @@ public class OrganizationController {
 	@GetMapping("/organizations")
 	@ResponseStatus(value=HttpStatus.OK)
 	public List<OrganizationDTO> getOrganizations() {
-		List<Organization> orgs = organizationService.getAll();
+		User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<Organization> orgs = organizationService.getAllByOwner(principal.getEmployee());
 		List<OrganizationDTO> orgsDTO = orgs.stream()
+				.filter(org -> org.getOwner() != null && org.getOwner().getId() == principal.getId())
 				.map(cycle -> modelMapper.map(cycle, OrganizationDTO.class))
 				.collect(Collectors.toList());
 		return orgsDTO;
@@ -63,8 +67,10 @@ public class OrganizationController {
 	@ResponseStatus(value=HttpStatus.CREATED)
 	public OrganizationDTO createOrganization(@Valid @RequestBody OrganizationDTO orgDTO){
 		//if(orgDTO.getUrl() != null) {orgDTO.setUrl(new URL(orgDTO.getUrl()));
+		User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 		Organization organization = modelMapper.map(orgDTO, Organization.class);
-		
+		organization.setOwner(principal.getEmployee());
 		return modelMapper.map(organizationService.save(organization), OrganizationDTO.class);
 	}
 	

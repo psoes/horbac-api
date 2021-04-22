@@ -2,6 +2,7 @@ package com.uds.horbac.core.service.organizations;
 
 import java.util.List;
 
+import com.uds.horbac.core.entities.employees.Employee;
 import com.uds.horbac.core.entities.organizations.Organization;
 
 public interface OrganizationService {
@@ -34,4 +35,6 @@ public interface OrganizationService {
 	public Organization getOrganization(Long id);
 	
 	public void updateLogo(String logo, Long id);
+
+	public List<Organization> getAllByOwner(Employee employee);
 }

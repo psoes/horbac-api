@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uds.horbac.core.dao.organizations.OrganizationRepository;
+import com.uds.horbac.core.entities.employees.Employee;
 import com.uds.horbac.core.entities.organizations.Organization;
 
 @Service
@@ -37,6 +38,11 @@ public class OrganizationServiceImpl implements OrganizationService{
 	@Override
 	public void updateLogo(String logo, Long id) {
 		organizationRepository.updateLogo(logo, id);
+	}
+
+	@Override
+	public List<Organization> getAllByOwner(Employee employee) {
+		return organizationRepository.findByOwner(employee);
 	}
 
 

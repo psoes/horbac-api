@@ -15,7 +15,11 @@
 # sys.path.insert(0, os.path.abspath('.'))
 import sphinx_rtd_theme
 
-extensions = ['sphinx_rtd_theme', 'recommonmark']
+extensions = ['sphinx_rtd_theme', 'recommonmark', 'rst2pdf.pdfbuilder', 'sphinx.ext.autodoc',
+    'sphinx.ext.todo',
+    'sphinx.ext.coverage',
+    'sphinx.ext.viewcode']
+pdf_documents = [('index', u'documentation', 'My Docs', u'Tsognong') ]
 # -- Project information -----------------------------------------------------
 
 project = 'horbac idp'
