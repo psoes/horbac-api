@@ -50,7 +50,7 @@ public class OrganizationController {
 		User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Organization> orgs = organizationService.getAllByOwner(principal.getEmployee());
 		List<OrganizationDTO> orgsDTO = orgs.stream()
-				.filter(org -> org.getOwner() != null && org.getOwner().getId() == principal.getId())
+				.filter(org -> org.getOwner()== null || (org.getOwner() != null && org.getOwner().getId() == principal.getId()))
 				.map(cycle -> modelMapper.map(cycle, OrganizationDTO.class))
 				.collect(Collectors.toList());
 		return orgsDTO;

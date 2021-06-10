@@ -18,10 +18,12 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -31,7 +33,10 @@ import com.uds.horbac.core.entities.users.User;
 import com.uds.horbac.core.service.users.UserService;
 import com.uds.horbac.core.utils.PropertyUtils;
 
+import io.swagger.annotations.Api;
+
 @RestController
+@Api(tags = "Organization Type Entity")
 @RequestMapping(produces="application/json")
 public class JwtAuthenticationController {
 	@Autowired
