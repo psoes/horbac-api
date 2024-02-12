@@ -3,6 +3,7 @@ package com.uds.horbac.core.service.units;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,14 +57,14 @@ public class OrgTreeServiceImpl implements OrgTreeService{
 			List<OrgTree> othersChildren = null;
 			
 			if(current.getData() instanceof AdministrativeUnit) {
-				children =  subs.stream().filter(item -> item.getSuperior().getId() == current.getData().getId())
+				children =  subs.stream().filter(item -> Objects.equals(item.getSuperior().getId(), current.getData().getId()))
 				.map(item -> {OrgTree t = new OrgTree(item.getSubordinate()); t = current.addChild(t); return t;}).collect(Collectors.toList());
 		    	
-				othersChildren = places.stream().filter(item -> item.getSuperior().getId() == current.getData().getId())
+				othersChildren = places.stream().filter(item -> Objects.equals(item.getSuperior().getId(), current.getData().getId()))
 						.map(item -> {OrgTree t = new OrgTree(item.getSubordinate()); t = current.addChild(t); return t;}).collect(Collectors.toList());
-				
-				if(children != null )queue.addAll(children);
-				if(othersChildren != null )queue.addAll(othersChildren);
+
+                queue.addAll(children);
+                queue.addAll(othersChildren);
 			
 			}
 			res.add(current);  

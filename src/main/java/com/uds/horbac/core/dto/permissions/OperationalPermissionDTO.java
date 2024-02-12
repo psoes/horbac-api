@@ -22,6 +22,17 @@ public class OperationalPermissionDTO
     private OperationalUnitDTO unit;
 	private OrganizationDTO organization;	
 	private TreatmentMode mode;
+
+    private Boolean requiredApproval;
+
+    private Integer approvalLevel;
+
+    private Integer priority;
+
+    private Integer timeout;
+
+    private long duration;
+    private String decision;
 	
 }
 

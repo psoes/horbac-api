@@ -12,7 +12,10 @@ import com.uds.horbac.core.entities.organizations.Organization;
 import com.uds.horbac.core.entities.resources.Vue;
 import com.uds.horbac.core.entities.units.OperationalUnit;
 
+import com.uds.horbac.core.entities.units.OrgUnit;
 import lombok.Data;
+
+import java.time.Duration;
 
 @Data
 @Entity
@@ -35,12 +38,20 @@ public class OperationalPermission
     private Context context;
 	
 	@ManyToOne
-    private OperationalUnit unit;
+    private OrgUnit unit;
 	
 	@ManyToOne
 	private Organization organization;
 	
 	private TreatmentMode mode;
+
+	private Boolean requiredApproval;
+
+	private Integer approvalLevel;
+
+	private Integer priority;
+
+	private Integer timeout;
 	
 }
 

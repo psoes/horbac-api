@@ -1,4 +1,5 @@
 package com.uds.horbac.core.entities.emp_educationInfo;
+import java.time.Year;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -28,7 +29,11 @@ public class Diploma
     /**
      * 
      */
+
+    private Year year;
     private Date startDate;
+
+
     /**
      * 
      */

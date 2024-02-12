@@ -43,5 +43,9 @@ public class AdministrativePermission
     private Organization organisation; 
     
     private TreatmentMode mode;
+
+    private Boolean requiredApproval;
+
+    private Integer approvalLevel;
 }
 

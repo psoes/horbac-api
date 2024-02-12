@@ -1,31 +1,24 @@
 package com.uds.horbac.core.entities.users;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.uds.horbac.core.entities.employees.Employee;
 
-import lombok.Data;
-
 
 @Entity
 @Table(name="ho_user")
-@Data
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails{
 
 	/**
@@ -40,6 +33,8 @@ public class User implements UserDetails{
 	@NotNull(message="The username name is required")
 	@Column(length=150, unique=true)
 	private String username;
+
+	private String email;
 	
 	@NotNull(message="The password name is required")
 	@Column(length=150)
@@ -59,11 +54,21 @@ public class User implements UserDetails{
 	private boolean credentialsNonExpired;
 
 	private boolean enabled;
-	
-	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_role",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new LinkedHashSet<>();
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_group",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "group_id"))
+	private Set<Group> groups = new LinkedHashSet<>();
+
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {		
-		 List<GrantedAuthority> autorities = new ArrayList<>();	   
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		 List<GrantedAuthority> autorities = new ArrayList<>();
 	     return autorities;
 	}
 

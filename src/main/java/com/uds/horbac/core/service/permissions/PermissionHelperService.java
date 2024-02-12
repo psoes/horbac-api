@@ -6,10 +6,10 @@ import com.uds.horbac.core.entities.organizations.Organization;
 import com.uds.horbac.core.entities.permissions.AdministrativePermission;
 import com.uds.horbac.core.entities.permissions.CanSuggest;
 import com.uds.horbac.core.entities.permissions.CanTreat;
-import com.uds.horbac.core.entities.permissions.OperationalPermission;
+import com.uds.horbac.core.entities.requests.HelperReponse;
 
 public interface PermissionHelperService {	
 	List<AdministrativePermission> canTreat(Organization org, CanTreat cant);
-	List<OperationalPermission> canSuggest(Organization org, CanSuggest cans);
+	HelperReponse canSuggest(Organization org, CanSuggest cans);
 
 }

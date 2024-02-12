@@ -18,6 +18,6 @@ import io.swagger.annotations.Api;
 methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
 maxAge = 3600)
 @RepositoryRestResource(path = "locations", exported = true)
-public interface LocationRepository extends JpaRepository<HOLocation, Long>, JpaSpecificationExecutor<HOLocation>{
+public interface LocationRepository extends JpaRepository<HOLocation, Long>{
 
 }

@@ -40,5 +40,9 @@ public class Person {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Address> addresses = new ArrayList<Address>();
     private String avatar;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }
 

@@ -16,7 +16,7 @@ import com.uds.horbac.core.entities.users.User;
 
 import lombok.Data;
 
-@Entity
+@Entity(name = "auth_grant")
 @Data
 public class AuthGrant {
 
