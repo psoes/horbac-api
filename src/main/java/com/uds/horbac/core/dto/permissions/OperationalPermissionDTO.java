@@ -13,7 +13,13 @@ import lombok.Data;
 public class OperationalPermissionDTO
 
 {
-    
+
+    public enum ApprovalType {
+        PARALLEL,
+        SEQUENTIAL
+    }
+
+
     private Long id;
     private String name;
     private ActivityDTO activity;	
@@ -33,6 +39,9 @@ public class OperationalPermissionDTO
 
     private long duration;
     private String decision;
-	
+
+    private ApprovalType approvalType;
+
+
 }
 

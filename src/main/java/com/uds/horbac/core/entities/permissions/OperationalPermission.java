@@ -50,8 +50,9 @@ public class OperationalPermission
 	private Integer approvalLevel;
 
 	private Integer priority;
-
 	private Integer timeout;
+
+	private ApprovalType approvalType;
 	
 }
 

@@ -124,7 +124,8 @@ public class PermissionHelperServiceImpl implements PermissionHelperService {
                 .resourceId(cans.getResource().getId().toString())
                 .unit(ops.get(0).getUnit().getName())
                 .org(org.getName())
-                .status("CANREQUEST")
+                .status("ALLOWED")
+                .approvalType(ops.get(0).getApprovalType())
                 .approvers(approvers!= null ? approvers.stream().map(
                         item -> new Approver(item.getUsername(), item.getEmail(), null)
                 ).collect(Collectors.toList()) :  null);

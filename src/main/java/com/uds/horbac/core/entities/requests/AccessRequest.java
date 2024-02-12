@@ -1,5 +1,6 @@
 package com.uds.horbac.core.entities.requests;
 
+import com.uds.horbac.core.entities.permissions.ApprovalType;
 import com.uds.horbac.core.entities.users.Approver;
 import com.uds.horbac.core.entities.users.User;
 import lombok.*;
@@ -44,4 +45,5 @@ public class AccessRequest {
     private Integer priority;
     private Integer timeout;
     private transient List<Approver> approvers;
+    private ApprovalType approvalType;
 }

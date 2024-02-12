@@ -5,6 +5,7 @@ import com.uds.horbac.core.entities.requests.AppResponse;
 import com.uds.horbac.core.entities.requests.Request;
 import com.uds.horbac.core.utils.DeviceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -24,6 +25,8 @@ public class ApprovalService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Value("${approval.service.url}")
+    private String approvalBasePath;
     public ResponseEntity<AppResponse> handleApproval(AccessRequest.AccessRequestBuilder builder) {
         Client client = DeviceUtil.getClientInfo();
         builder.ipAddress(DeviceUtil.getClientIpAddress() != null ? DeviceUtil.getClientIpAddress() : "unknown");
@@ -56,7 +59,7 @@ public class ApprovalService {
 
         HttpEntity<AccessRequest> request = new HttpEntity<>(builder.build(), headers);
 
-        String url = "http://localhost:9080/process/secure/request-approval/start";
+        String url = approvalBasePath+"/process/secure/request-approval/start";
         ResponseEntity<AppResponse> response = restTemplate.postForEntity(url, request, AppResponse.class);
 
         System.out.println(response.getStatusCode());
