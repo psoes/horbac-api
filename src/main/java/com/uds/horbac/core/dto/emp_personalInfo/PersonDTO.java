@@ -2,6 +2,7 @@
 package com.uds.horbac.core.dto.emp_personalInfo;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.uds.horbac.core.entities.emp_personalInfo.Gender;
 import com.uds.horbac.core.entities.emp_personalInfo.Title;
@@ -19,6 +20,7 @@ public class PersonDTO
     private String pseudo;
     private Date birthDate;
     private Gender sex;
+    private String email;
     private List<PhoneNumberDTO> phones;
     private List<EmailDTO> emails;
     private Title title;

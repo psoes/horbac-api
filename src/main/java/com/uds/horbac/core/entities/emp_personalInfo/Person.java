@@ -30,6 +30,8 @@ public class Person {
     private String pseudo;
     private Date birthDate;
     private Gender sex;
+    private String email;
+
     //@ElementCollection
     @OneToMany(cascade = CascadeType.ALL)
     private List<PhoneNumber> phones = new ArrayList<PhoneNumber>();

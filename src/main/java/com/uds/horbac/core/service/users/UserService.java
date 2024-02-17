@@ -50,6 +50,7 @@ public class UserService implements UserDetailsService{
 		*/
 		user_new.setUsername(user0.getUsername());
 		user_new.setPassword(passwordEncoder.encode(user0.getPassword()));
+		user_new.setEmail(user0.getEmail());
 		
 		if(userRepository.existsByUsername(user0.getUsername())) {
 			

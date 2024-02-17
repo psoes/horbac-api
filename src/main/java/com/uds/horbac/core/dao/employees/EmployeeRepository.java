@@ -13,4 +13,5 @@ public interface EmployeeRepository extends
         JpaRepository<Employee, Long>,
         JpaSpecificationExecutor<Employee> {
 
+    Employee findByFirstName(String firstName);
 }

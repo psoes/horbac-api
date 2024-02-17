@@ -43,6 +43,7 @@ public class UserController {
 	@ResponseStatus(value=HttpStatus.CREATED)
 	public UserDTO saveUser(@RequestBody UserDTO userDTO){
 		User user = modelMapper.map(userDTO, User.class);
+		user.setEmail(userDTO.getUsername());
 		user = userService.create(user);
 		return modelMapper.map(user, UserDTO.class);
 	}

@@ -10,12 +10,15 @@ import javax.persistence.ManyToOne;
 import com.uds.horbac.core.entities.organizations.Organization;
 import com.uds.horbac.core.entities.units.AdministrativeUnit;
 
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Appoints
-
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

@@ -60,5 +60,7 @@ public class Organization {
     private Person owner;
     
     private String logo;
+
+    private boolean pendingApproval;
 }
 
