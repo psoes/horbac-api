@@ -19,4 +19,5 @@ import io.swagger.annotations.Api;
 @CrossOrigin(methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
 maxAge = 3600)
 public interface AdministrativeUnitRepository extends JpaRepository<AdministrativeUnit, Long>, JpaSpecificationExecutor<AdministrativeUnit> {
+    AdministrativeUnit findByKey(String parent);
 }

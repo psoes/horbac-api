@@ -1,22 +1,30 @@
 package com.uds.horbac.core.rest.organizations;
 
-import com.uds.horbac.core.dao.units.AdminUnitSimpleRepository;
+import com.uds.horbac.core.dao.units.AdministrativeUnitRepository;
+import com.uds.horbac.core.dao.units.OperationalUnitRepository;
+import com.uds.horbac.core.dao.units.PlaceUnderRepository;
 import com.uds.horbac.core.dto.organizations.NewOrganizationDTO;
 import com.uds.horbac.core.dto.organizations.OrganizationDTO;
 import com.uds.horbac.core.entities.employees.Appoints;
 import com.uds.horbac.core.entities.employees.Employee;
+import com.uds.horbac.core.entities.employees.Employs;
 import com.uds.horbac.core.entities.organizations.Organization;
 import com.uds.horbac.core.entities.permissions.ApprovalType;
 import com.uds.horbac.core.entities.requests.AccessRequest;
 import com.uds.horbac.core.entities.requests.AppResponse;
 import com.uds.horbac.core.entities.units.AdministrativeUnit;
+import com.uds.horbac.core.entities.units.OperationalUnit;
+import com.uds.horbac.core.entities.units.PlaceUnder;
 import com.uds.horbac.core.entities.users.Approver;
 import com.uds.horbac.core.entities.users.User;
 import com.uds.horbac.core.exceptions.ApiException;
 import com.uds.horbac.core.service.common.FileService;
 import com.uds.horbac.core.service.employees.AppointsService;
 import com.uds.horbac.core.service.employees.EmployeeService;
+import com.uds.horbac.core.service.employees.EmploysService;
 import com.uds.horbac.core.service.organizations.OrganizationService;
+import com.uds.horbac.core.service.units.PlaceUnderService;
+import com.uds.horbac.core.service.units.SubordinateService;
 import com.uds.horbac.core.service.users.UserService;
 import com.uds.horbac.integration.ApprovalService;
 import org.modelmapper.ModelMapper;
@@ -32,7 +40,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -55,16 +62,25 @@ public class OrganizationController {
     EmployeeService employeeService;
 
     @Autowired
-    AdminUnitSimpleRepository adminUnitSimpleRepository;
-
-    @Autowired
     AppointsService appointsService;
 
     @Autowired
     UserService userService;
 
     @Autowired
+    EmploysService employsService;
+
+    protected @Autowired SubordinateService subService;
+    protected @Autowired PlaceUnderService underService;
+
+    @Autowired
     ApprovalService approvalService;
+    @Autowired
+    private AdministrativeUnitRepository administrativeUnitRepository;
+    @Autowired
+    private OperationalUnitRepository operationalUnitRepository;
+    @Autowired
+    private PlaceUnderRepository placeUnderRepository;
 
     @GetMapping("/organizations")
     @ResponseStatus(value = HttpStatus.OK)
@@ -106,23 +122,51 @@ public class OrganizationController {
         Employee owner = modelMapper.map(orgRequest.getOwner(), Employee.class);
         AdministrativeUnit root = modelMapper.map(orgRequest.getRoot(), AdministrativeUnit.class);
 
+        OperationalUnit admin = new OperationalUnit();
+        admin.setName("Admin");
+        admin.setKey("admin");
+        admin.setDescription("The admin of the organization");
+
         owner = employeeService.save(owner);
 
         organization.setOwner(owner);
         organization.setPendingApproval(true);
 
         ResponseEntity<AppResponse> approvalResponse = triggerApproval(organization, owner);
-        if(Objects.equals(approvalResponse.getBody().getDecision(), "DENIED")){
+        if (Objects.equals(approvalResponse.getBody().getDecision(), "DENIED")) {
             throw new ApiException("Organization creation request rejected by the hierarchy");
         }
         organization.setPendingApproval(false);
         organization = organizationService.save(organization);
 
         root.setOrganization(organization);
-        root = adminUnitSimpleRepository.save(root);
+        root = administrativeUnitRepository.save(root);
+
+        admin.setOrganization(organization);
+        admin = operationalUnitRepository.save(admin);
+        User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Employee adminEmployee = employeeService.getEmployee(loggedUser.getEmployee().getId());
+
+        PlaceUnder placeUnder = new PlaceUnder();
+        placeUnder.setOrganization(organization);
+        placeUnder.setSuperior(root);
+        placeUnder.setSubordinate(admin);
+
+        underService.save(
+                placeUnder
+        );
 
         appointsService.create(
                 Appoints.builder().organization(organization).adminUnit(root).employee(owner).build()
+        );
+
+        Employs employs = new Employs();
+        employs.setOrganization(organization);
+        employs.setEmployee(adminEmployee);
+        employs.setOperationalUnit(admin);
+        //add admin user in admin units of the org
+        employsService.create(
+                employs
         );
 
         return modelMapper.map(organization, OrganizationDTO.class);

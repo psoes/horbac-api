@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,12 +39,13 @@ public class User implements UserDetails{
 	
 	@NotNull(message="The password name is required")
 	@Column(length=150)
+	@JsonIgnore
 	private String password;
 	
 	@NotNull(message="The property active is required")
 	private Boolean active;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name="employee_id")
 	private Employee employee;
 	

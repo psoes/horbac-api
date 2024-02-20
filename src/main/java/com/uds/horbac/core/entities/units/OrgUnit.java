@@ -20,6 +20,8 @@ public class OrgUnit{
     private Long id;
 
     private String name;
+
+	private String key;
     
 	@OneToOne(cascade = CascadeType.PERSIST)
     private HOLocation location;

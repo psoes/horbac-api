@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.uds.horbac.core.entities.permissions.CanSuggest;
@@ -21,6 +22,7 @@ import lombok.Data;
 @Data
 //@RedisHash("Jwt")
 @Entity
+@NoArgsConstructor(force = true)
 public class Jwt implements Serializable{
 	
 	private static final long serialVersionUID = -8091879091924046844L;
@@ -69,7 +71,5 @@ public class Jwt implements Serializable{
 		this.user = user;
 		this.privileges = privileges;
 	}
-	
-	
-	
+
 }

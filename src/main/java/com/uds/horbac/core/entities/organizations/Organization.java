@@ -2,14 +2,7 @@ package com.uds.horbac.core.entities.organizations;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.uds.horbac.core.entities.contexts.HOLocation;
@@ -56,7 +49,7 @@ public class Organization {
     @OneToOne(cascade=CascadeType.PERSIST)
     private Address address;
     
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Person owner;
     
     private String logo;
