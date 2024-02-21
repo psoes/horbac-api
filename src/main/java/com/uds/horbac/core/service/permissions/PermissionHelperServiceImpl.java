@@ -115,13 +115,14 @@ public class PermissionHelperServiceImpl implements PermissionHelperService {
             return HelperReponse.builder().decision("ALLOWED").build();
         }
 
+        String operation = String.format("User <%s> asks to apply <%s> operation on resource <%s>", cans.getEmitter().getFirstName(), cans.getAction().getName(), cans.getResource().getName());
         AccessRequest.AccessRequestBuilder builder = AccessRequest.builder().userId(username)
                 .timeout(ops.get(0).getTimeout() != null ? ops.get(0).getTimeout() : 10)
                 .priority(ops.get(0).getPriority() != null ? ops.get(0).getPriority() : 3)
                 .requiredApproval(ops.get(0).getRequiredApproval() != null ? ops.get(0).getRequiredApproval() : false)
                 .approvalLevel(ops.get(0).getApprovalLevel() != null ? ops.get(0).getApprovalLevel() : 0)
-                .operationId(cans.getAction().getId().toString())
-                .resourceId(cans.getResource().getId().toString())
+                .operationId(operation)
+                .resourceId(cans.getResource().getName())
                 .unit(ops.get(0).getUnit().getName())
                 .org(org.getName())
                 .status("ALLOWED")

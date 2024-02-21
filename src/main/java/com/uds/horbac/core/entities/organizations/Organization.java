@@ -1,5 +1,6 @@
 package com.uds.horbac.core.entities.organizations;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Organization {
+public class Organization implements Serializable {
     
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

@@ -2,6 +2,7 @@ package com.uds.horbac.core.entities.units;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.uds.horbac.core.entities.organizations.Organization;
 import org.hibernate.validator.constraints.URL;
 
@@ -10,10 +11,12 @@ import com.uds.horbac.core.entities.emp_personalInfo.Address;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @Data
-public class OrgUnit{
+public class OrgUnit implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -38,6 +41,7 @@ public class OrgUnit{
     private String logo;
 
 	@ManyToOne
+	@JsonBackReference
 	private Organization organization;
     
 	public OrgUnit () {}

@@ -176,14 +176,18 @@ public class UnitsAssociationController {
     @GetMapping(value = "/units-nodes/with-approval/{id}")
     public List<UnitNodeDTO> getUnitsWithApproval(@PathVariable Long id) {
         return unitNodeRepository.findAllByOrganizationId(id).stream()
-                .map(def -> modelMapper.map(def, UnitNodeDTO.class))
+                .map(def -> {
+                    UnitNodeDTO dto = modelMapper.map(def, UnitNodeDTO.class);
+                    dto.setOrgId(def.getOrganization().getId());
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 
     @PostMapping(value = "/units-nodes/with-approval/{id}")
     public boolean RegisterUnitsWithApproval(@PathVariable Long id, @RequestBody List<UnitNodeDTO> nodes) {
         Organization org = orgService.getOrganization(id);
-        AdministrativeUnit rootUnit = (AdministrativeUnit) administrativeUnitRepository.findAll().get(0);
+        AdministrativeUnit rootUnit = administrativeUnitRepository.findAll().get(0);
 
         ResponseEntity<AppResponse> approvalResponse = triggerApproval(org, (Employee) org.getOwner());
         if(Objects.equals(approvalResponse.getBody().getDecision(), "DENIED")){
@@ -215,11 +219,10 @@ public class UnitsAssociationController {
             node.setOrganization(org);
             boolean isOperational = isOperational(currentNode, units);
 
-            AdministrativeUnit parent = administrativeUnitRepository.findByKey(node.getParent());
-
+            AdministrativeUnit parent = administrativeUnitRepository.findFirstByKey(node.getParent()).orElse(null);
 
             if (isOperational) {
-                OperationalUnit unit = new OperationalUnit();
+                OperationalUnit unit = operationalUnitRepository.findFirstByKey(node.getKey()).orElse(new OperationalUnit());
                 unit.setName(node.getName());
                 unit.setDescription(node.getDescription());
                 unit.setKey(node.getKey());
@@ -231,7 +234,7 @@ public class UnitsAssociationController {
                 under.setSuperior(parent);
                 underService.save(under);
             } else if (node.getParent() != null){
-                AdministrativeUnit unit = new AdministrativeUnit();
+                AdministrativeUnit unit = administrativeUnitRepository.findFirstByKey(node.getKey()).orElse(new AdministrativeUnit());
                 unit.setName(node.getName());
                 unit.setDescription(node.getDescription());
                 unit.setKey(node.getKey());
@@ -251,8 +254,13 @@ public class UnitsAssociationController {
                 root.setId(root.getId());
                 root = administrativeUnitRepository.save(root);
             }
-
-            unitNodeRepository.save(node);
+            UnitNode existing = unitNodeRepository.findByKey(node.getKey()).orElse(null);
+            if(existing != null) {
+                node.setId(existing.getId());
+                unitNodeRepository.save(node);
+            } else {
+                unitNodeRepository.save(node);
+            }
             // Add child nodes to the queue
             for (UnitNodeDTO unit : units) {
                 if (unit.getParent() != null && unit.getParent().equals(currentNode.getKey())) {

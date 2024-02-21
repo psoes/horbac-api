@@ -1,22 +1,27 @@
 package com.uds.horbac.core.security;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 
 import lombok.Data;
 
-@Data
+import java.io.Serializable;
+
+@Getter
+@Setter
 //@RedisHash("LoginAttempt")
 @Entity
-public class LoginAttempt {	
+@Table(name="login_attempt")
+@NoArgsConstructor(force = true)
+public class LoginAttempt implements Serializable {
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String id;
+	@GeneratedValue(strategy= GenerationType.AUTO)
+	private Long id;
 	private String username;
 	private int attempts;
 }

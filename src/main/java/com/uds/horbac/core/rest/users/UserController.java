@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.uds.horbac.core.entities.employees.Employee;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +45,8 @@ public class UserController {
 	public UserDTO saveUser(@RequestBody UserDTO userDTO){
 		User user = modelMapper.map(userDTO, User.class);
 		user.setEmail(userDTO.getUsername());
-		user = userService.create(user);
+		Employee empl = modelMapper.map(userDTO.getEmployee(), Employee.class);
+		user = userService.create(user, empl);
 		return modelMapper.map(user, UserDTO.class);
 	}
 	

@@ -111,7 +111,8 @@ public class PermissionsController {
     public OperationalPermissionDTO createOpePermission(@Valid @RequestBody OperationalPermissionDTO defDTO) {
         OperationalPermission def = modelMapper.map(defDTO, OperationalPermission.class);
         Organization org = organizationRepository.findById(def.getOrganization().getId()).get();
-        ResponseEntity<AppResponse> approvalResponse = triggerApproval(org, (Employee) org.getOwner(), "ADD");
+        String operation = String.format("GRANT <%s> PERMISSION TO UNIT <%s> ON VIEW <%s> IN CONTEXT <%s>", def.getActivity().getName(), def.getUnit().getName(), def.getVue().getName(), def.getContext().getName());
+        ResponseEntity<AppResponse> approvalResponse = triggerApproval(org, (Employee) org.getOwner(), operation);
         if(Objects.equals(approvalResponse.getBody().getDecision(), "DENIED")){
             throw new ApiException("Policy creation request rejected by the hierarchy");
         }
@@ -126,7 +127,8 @@ public class PermissionsController {
         }
         OperationalPermission def = modelMapper.map(defDTO, OperationalPermission.class);
         Organization org = organizationRepository.findById(def.getOrganization().getId()).get();
-        ResponseEntity<AppResponse> approvalResponse = triggerApproval(org, (Employee) org.getOwner(), "UPDATE");
+        String operation = String.format("GRANT <%s> PERMISSION TO UNIT <%s> ON VIEW <%s> IN CONTEXT <%s>", def.getActivity().getName(), def.getUnit().getName(), def.getVue().getName(), def.getContext().getName());
+        ResponseEntity<AppResponse> approvalResponse = triggerApproval(org, (Employee) org.getOwner(), operation);
         if(Objects.equals(approvalResponse.getBody().getDecision(), "DENIED")){
             throw new ApiException("Policy update request rejected by the hierarchy");
         }
@@ -138,6 +140,7 @@ public class PermissionsController {
     public void deleteOperPermission(@PathVariable Long id) {
         OperationalPermission grant = opService.getOperationalPermission(id);
         Organization org = organizationRepository.findById(grant.getOrganization().getId()).get();
+        String operation = String.format("REMOTE <%s> PERMISSION TO UNIT <%s> ON VIEW <%s> IN CONTEXT <%s>", grant.getActivity().getName(), grant.getUnit().getName(), grant.getVue().getName(), grant.getContext().getName());
         ResponseEntity<AppResponse> approvalResponse = triggerApproval(org, (Employee) org.getOwner(), "REMOVE");
         if(Objects.equals(approvalResponse.getBody().getDecision(), "DENIED")){
             throw new ApiException("Policy deletion request rejected by the hierarchy");

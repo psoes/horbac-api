@@ -1,8 +1,13 @@
 package com.uds.horbac.core.service.users;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import com.uds.horbac.core.dao.employees.EmployeeRepository;
+import com.uds.horbac.core.entities.users.*;
+import com.uds.horbac.core.service.employees.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.uds.horbac.core.dao.users.UserRepository;
 import com.uds.horbac.core.entities.employees.Employee;
-import com.uds.horbac.core.entities.users.User;
 import com.uds.horbac.core.exceptions.ApiException;
 
 /**
@@ -32,31 +36,40 @@ public class UserService implements UserDetailsService{
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	EmployeeService employeeService;
+
+	@Autowired
+	GroupRepository groupRepository;
+
+	@Autowired
+	RoleRepository roleRepository;
+
+	@Autowired
+	EmployeeRepository employeeRepository;
+
 	@Transactional
-	public User create(User user0){
-		//User user_new = new User(user0.getId(), user0.getUsername(), passwordEncoder.encode(user0.getPassword()), user0.getActive(), user0.getPerson(), true, true, true, true);
-		User user_new = new User();
-		user_new.setId(null);
-		user_new.setActive(true);
-		user_new.setAccountNonExpired(true);
-		user_new.setAccountNonLocked(true);
-		user_new.setCredentialsNonExpired(true);
-		user_new.setEnabled(true);
-		/*
-		!user.isAccountNonLocked()
-		!user.isEnabled()
-		!user.isAccountNonExpired()
-		!user.isCredentialsNonExpired()
-		*/
-		user_new.setUsername(user0.getUsername());
-		user_new.setPassword(passwordEncoder.encode(user0.getPassword()));
-		user_new.setEmail(user0.getEmail());
+	public User create(User user0, Employee empl){
+
+		empl = employeeRepository.save(empl);
+
+		Set<Group> groups = new HashSet<>(groupRepository.findAll());
+		String email = user0.getEmail();
+		Set<Role> roles = new HashSet<>(roleRepository.findAll());
+		User user = User.builder().employee(empl).username(user0.getUsername())
+				.accountNonExpired(true)
+				.accountNonLocked(true)
+				.roles(roles)
+				.groups(groups)
+				.credentialsNonExpired(true)
+				.active(true).enabled(true).password(
+						passwordEncoder.encode("password")
+				).email(email).build();
 		
 		if(userRepository.existsByUsername(user0.getUsername())) {
-			
 			System.out.println("PROBLEME");
 		}
-		return userRepository.save(user_new);
+		return userRepository.save(user);
 	}
 
 	public boolean remove(Long id) {

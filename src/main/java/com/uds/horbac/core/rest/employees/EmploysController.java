@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.uds.horbac.core.dao.organizations.OrganizationRepository;
 import com.uds.horbac.core.entities.employees.Employee;
 import com.uds.horbac.core.entities.organizations.Organization;
 import com.uds.horbac.core.entities.permissions.ApprovalType;
@@ -50,6 +51,8 @@ public class EmploysController {
 
     @Autowired
     ApprovalService approvalService;
+    @Autowired
+    private OrganizationRepository organizationRepository;
 
     @RequestMapping(value = "/employs", method = GET)
     public List<EmploysDTO> getAll(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
@@ -68,8 +71,9 @@ public class EmploysController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public EmploysDTO createEmploys(@RequestBody EmploysDTO emp) {
         Employs empl = modelMapper.map(emp, Employs.class);
+        Organization org = organizationRepository.findById(empl.getOrganization().getId()).get();
         String operation = String.format("EMPLOY %s IN UNIT %s", empl.getEmployee().getFullName(), empl.getOperationalUnit().getName());
-        ResponseEntity<AppResponse> approvalResponse = triggerApproval(empl.getOrganization(), (Employee) empl.getOrganization().getOwner(), operation);
+        ResponseEntity<AppResponse> approvalResponse = triggerApproval(org, (Employee) org.getOwner(), operation);
         if (Objects.equals(approvalResponse.getBody().getDecision(), "DENIED")) {
             throw new ApiException("Employment request rejected by the hierarchy");
         }
@@ -83,7 +87,8 @@ public class EmploysController {
         Employs app = modelMapper.map(empDTO, Employs.class);
         Employs empl = service.getOne(app.getId());
         String operation = String.format("MUTATE %s IN UNIT %s", empl.getEmployee().getFullName(), empl.getOperationalUnit().getName());
-        ResponseEntity<AppResponse> approvalResponse = triggerApproval(empl.getOrganization(), (Employee) empl.getOrganization().getOwner(), operation);
+        Organization org = organizationRepository.findById(empl.getOrganization().getId()).get();
+        ResponseEntity<AppResponse> approvalResponse = triggerApproval(org, (Employee) org.getOwner(), operation);
         if (Objects.equals(approvalResponse.getBody().getDecision(), "DENIED")) {
             throw new ApiException("Employment update request rejected by the hierarchy");
         }
@@ -96,7 +101,9 @@ public class EmploysController {
 
         Employs empl = service.getOne(id);
         String operation = String.format("REMOVE %s IN UNIT %s", empl.getEmployee().getFullName(), empl.getOperationalUnit().getName());
-        ResponseEntity<AppResponse> approvalResponse = triggerApproval(empl.getOrganization(), (Employee) empl.getOrganization().getOwner(), operation);
+        Organization org = organizationRepository.findById(empl.getOrganization().getId()).get();
+        ResponseEntity<AppResponse> approvalResponse = triggerApproval(org, (Employee) org.getOwner(), operation);
+
         if (Objects.equals(approvalResponse.getBody().getDecision(), "DENIED")) {
             throw new ApiException("Employment deletion request rejected by the hierarchy");
         }
