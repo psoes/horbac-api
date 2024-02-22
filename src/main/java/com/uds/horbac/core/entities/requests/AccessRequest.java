@@ -34,6 +34,7 @@ public class AccessRequest {
     private String osVersion;
     private String clientType;
     private String clientName;
+    private String type;
     private String status;
     private String locale;
     private String userAgent;

@@ -29,9 +29,8 @@ public class ApprovalService {
     private String approvalBasePath;
     public ResponseEntity<AppResponse> handleApproval(AccessRequest.AccessRequestBuilder builder) {
         Client client = DeviceUtil.getClientInfo();
+        String type = DeviceUtil.determineDeviceType(client);
         builder.ipAddress(DeviceUtil.getClientIpAddress() != null ? DeviceUtil.getClientIpAddress() : "unknown");
-
-
         if (client != null) {
             String ua_v = client.userAgent != null ? client.userAgent.major : "unknown";
             String os = client.os != null ? client.os.family : "unknown";
@@ -46,6 +45,7 @@ public class ApprovalService {
                     .osName(os)
                     .osVersion(os_v)
                     .clientName(dev)
+                    .type(type)
                     .userAgent(userAgent);
         }
         HttpHeaders headers = new HttpHeaders();

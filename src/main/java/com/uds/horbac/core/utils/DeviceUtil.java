@@ -84,6 +84,19 @@ public class DeviceUtil {
 
     }
 
+    public static String determineDeviceType(Client client) {
+        String os = client.os.family.toLowerCase();
+        String device = client.device.family.toLowerCase();
+
+        if (device.contains("mobile") || os.contains("android") || os.contains("ios")) {
+            return "MOBILE";
+        } else if (device.contains("tablet")) {
+            return "TABLET";
+        } else {
+            return "DESKTOP";
+        }
+    }
+
     public static class Source {
         public String serverName;
         public String scheme;

@@ -92,13 +92,8 @@ public class PermissionHelperServiceImpl implements PermissionHelperService {
                 cans.getEmitter().getId(), cans.getAction().getId(), cans.getResource().getId()
         );
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
+        String username = cans.getEmitter().getFirstName();
+
         if (ops == null || ops.isEmpty()) {
             return HelperReponse.builder().decision("DENIED").build();
         }
