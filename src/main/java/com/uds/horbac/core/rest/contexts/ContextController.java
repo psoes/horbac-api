@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.uds.horbac.core.annotations.IsAllowed;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContextException;
@@ -29,6 +32,7 @@ public class ContextController {
     protected @Autowired ModelMapper modelMapper;
     
     @GetMapping(value = "/contexts")
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.CONTEXTS)
     public List<ContextDTO> getAll(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
     	return service.getAll().stream()
 				.map(ctx -> modelMapper.map(ctx, ContextDTO.class))
@@ -37,12 +41,14 @@ public class ContextController {
     
     @GetMapping("/contexts/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.CONTEXTS)
 	public ContextDTO getContextById(@PathVariable Long id){
 		return modelMapper.map(service.getContext(id), ContextDTO.class);
 	}
 	
 	@PostMapping("/contexts")
 	@ResponseStatus(value=HttpStatus.CREATED)
+	@IsAllowed(activity = ActivityType.CREATE, view = ViewType.CONTEXTS)
 	public ContextDTO createContext(@Valid @RequestBody ContextDTO ctxDTO){
 		//if(orgDTO.getUrl() != null) {orgDTO.setUrl(new URL(orgDTO.getUrl()));
 		Context ctx = modelMapper.map(ctxDTO, Context.class);
@@ -52,6 +58,7 @@ public class ContextController {
 	
 	@PutMapping("/contexts/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.UPDATE, view = ViewType.CONTEXTS)
 	public ContextDTO  updateContext(@PathVariable("id") Long id, @Valid @RequestBody ContextDTO ctxDTO) {		
 		if(service.getContext(id) == null) {
 			throw new ApplicationContextException("object not found");
@@ -62,6 +69,7 @@ public class ContextController {
 	
 	@DeleteMapping(value = "/contexts/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.DELETE, view = ViewType.CONTEXTS)
 	public void delete(@PathVariable Long id){
 		service.delete(id);
 	}

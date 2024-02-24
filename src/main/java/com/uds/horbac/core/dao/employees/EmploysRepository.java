@@ -1,5 +1,6 @@
 package com.uds.horbac.core.dao.employees;
 
+import com.uds.horbac.core.entities.employees.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -20,5 +21,7 @@ public interface EmploysRepository extends JpaRepository<Employs, Long>, JpaSpec
 	Employs findAllByOrganizationIdAndEmployeeId(Long orgId, Long empId);
 
 	Employs findAllByOrganizationAndEmployee(Organization org, Emitter emitter);
+
+	Employs findFirstByEmployee(Employee employee);
 
 }

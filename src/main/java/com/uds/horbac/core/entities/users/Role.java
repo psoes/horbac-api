@@ -1,5 +1,6 @@
 package com.uds.horbac.core.entities.users;
 
+import com.uds.horbac.core.rest.users.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +27,8 @@ public class Role {
     @Size(max = 255)
     @NotNull
     @Column(name = "name", nullable = false)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private RoleName name;
 
     @Column(name = "description")
     @Type(type = "org.hibernate.type.TextType")

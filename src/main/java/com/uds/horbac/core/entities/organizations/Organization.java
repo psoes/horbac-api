@@ -52,7 +52,12 @@ public class Organization implements Serializable {
     
     @ManyToOne(fetch = FetchType.EAGER)
     private Person owner;
-    
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Person admin;
+
+    @Column(name = "is_default")
+    private boolean isDefault = false;
     private String logo;
 
     private boolean pendingApproval;

@@ -1,5 +1,6 @@
 package com.uds.horbac.core.entities.users;
 
+import com.uds.horbac.core.rest.users.GroupName;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
@@ -26,7 +27,8 @@ public class Group {
     @Size(max = 255)
     @NotNull
     @Column(name = "name", nullable = false)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private GroupName name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")

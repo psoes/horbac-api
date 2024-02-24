@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.uds.horbac.core.annotations.IsAllowed;
 import com.uds.horbac.core.dao.organizations.OrganizationRepository;
 import com.uds.horbac.core.entities.employees.Employee;
 import com.uds.horbac.core.entities.organizations.Organization;
@@ -15,6 +16,8 @@ import com.uds.horbac.core.entities.requests.AccessRequest;
 import com.uds.horbac.core.entities.requests.AppResponse;
 import com.uds.horbac.core.entities.users.Approver;
 import com.uds.horbac.core.entities.users.User;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
 import com.uds.horbac.core.service.users.UserService;
 import com.uds.horbac.integration.ApprovalService;
 import org.modelmapper.ModelMapper;
@@ -55,6 +58,7 @@ public class PermissionsController {
     private OrganizationRepository organizationRepository;
 
     @GetMapping(value = "/admin-grants")
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.PERMISSIONS)
     public List<AdministrativePermissionDTO> getAllAdminPermissions(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
         return adminService.getAll().stream()
                 .map(def -> modelMapper.map(def, AdministrativePermissionDTO.class))
@@ -62,6 +66,7 @@ public class PermissionsController {
     }
 
     @GetMapping("/admin-grants/{id}")
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.PERMISSIONS)
     @ResponseStatus(value = HttpStatus.OK)
     public AdministrativePermissionDTO getAdminPermissionById(@PathVariable Long id) {
         return modelMapper.map(adminService.getAdminPermission(id), AdministrativePermissionDTO.class);
@@ -69,6 +74,7 @@ public class PermissionsController {
 
     @PostMapping("/admin-grants")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @IsAllowed(activity = ActivityType.CREATE, view = ViewType.PERMISSIONS)
     public AdministrativePermissionDTO createAdminPermission(@Valid @RequestBody AdministrativePermissionDTO defDTO) {
         AdministrativePermission def = modelMapper.map(defDTO, AdministrativePermission.class);
 
@@ -77,6 +83,7 @@ public class PermissionsController {
 
     @PutMapping("/admin-grants/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.UPDATE, view = ViewType.PERMISSIONS)
     public AdministrativePermissionDTO updateAdminPermission(@PathVariable("id") Long id, @Valid @RequestBody AdministrativePermissionDTO defDTO) {
         if (adminService.getAdminPermission(id) == null) {
             throw new ApiException("PERMISSION OF ID " + id + " NOT FOUND");
@@ -87,6 +94,7 @@ public class PermissionsController {
 
     @DeleteMapping(value = "/admin-grants/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.DELETE, view = ViewType.PERMISSIONS)
     public void delete(@PathVariable Long id) {
         adminService.delete(id);
     }
@@ -94,6 +102,7 @@ public class PermissionsController {
     /////
 
     @GetMapping(value = "/operational-grants")
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.PERMISSIONS)
     public List<OperationalPermissionDTO> getAllOpePermissions(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
         return opService.getAll().stream()
                 .map(def -> modelMapper.map(def, OperationalPermissionDTO.class))
@@ -102,12 +111,14 @@ public class PermissionsController {
 
     @GetMapping("/operational-grants/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.PERMISSIONS)
     public OperationalPermissionDTO getOpePermissionById(@PathVariable Long id) {
         return modelMapper.map(opService.getOperationalPermission(id), OperationalPermissionDTO.class);
     }
 
     @PostMapping("/operational-grants")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @IsAllowed(activity = ActivityType.CREATE, view = ViewType.PERMISSIONS)
     public OperationalPermissionDTO createOpePermission(@Valid @RequestBody OperationalPermissionDTO defDTO) {
         OperationalPermission def = modelMapper.map(defDTO, OperationalPermission.class);
         Organization org = organizationRepository.findById(def.getOrganization().getId()).get();
@@ -121,6 +132,7 @@ public class PermissionsController {
 
     @PutMapping("/operational-grants/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.UPDATE, view = ViewType.PERMISSIONS)
     public OperationalPermissionDTO updateOpePermission(@PathVariable("id") Long id, @Valid @RequestBody OperationalPermissionDTO defDTO) {
         if (opService.getOperationalPermission(id) == null) {
             throw new ApiException("PERMISSION OF ID " + id + " NOT FOUND");
@@ -137,6 +149,7 @@ public class PermissionsController {
 
     @DeleteMapping(value = "/operational-grants/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.DELETE, view = ViewType.PERMISSIONS)
     public void deleteOperPermission(@PathVariable Long id) {
         OperationalPermission grant = opService.getOperationalPermission(id);
         Organization org = organizationRepository.findById(grant.getOrganization().getId()).get();

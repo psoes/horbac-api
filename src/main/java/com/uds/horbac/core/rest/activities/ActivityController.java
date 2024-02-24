@@ -3,6 +3,9 @@ package com.uds.horbac.core.rest.activities;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.uds.horbac.core.annotations.IsAllowed;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +36,7 @@ public class ActivityController {
 	
 	@GetMapping("/activities")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.ACTIVITY)
 	public List<ActivityDTO> getActivities() {
 		List<Activity> cycles = activityService.getAll();
 		List<ActivityDTO> cycleDtos = cycles.stream()
@@ -43,6 +47,7 @@ public class ActivityController {
 	
 	@GetMapping("/activities/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.ACTIVITY)
 	public ActivityDTO getActivityById(@PathVariable Long id){
 		Activity activity = activityService.getActivity(id);
 		return modelMapper.map(activity, ActivityDTO.class);
@@ -50,6 +55,7 @@ public class ActivityController {
 	
 	@PostMapping("/activities")
 	@ResponseStatus(value=HttpStatus.CREATED)
+	@IsAllowed(activity = ActivityType.CREATE, view = ViewType.ACTIVITY)
 	public ActivityDTO createActivity(@RequestBody ActivityDTO activityDTO){
 		Activity activity = modelMapper.map(activityDTO, Activity.class);
 		Activity respactivity = activityService.save(activity);
@@ -59,6 +65,7 @@ public class ActivityController {
 	
 	@PutMapping("/activities")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.UPDATE, view = ViewType.ACTIVITY)
 	public ActivityDTO updateActivity(@RequestBody ActivityDTO activityDTO) {
 		Activity activity = modelMapper.map(activityDTO, Activity.class);
 		Activity respactivity = activityService.save(activity);
@@ -68,6 +75,7 @@ public class ActivityController {
 	
 	@DeleteMapping(value = "/activities/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.DELETE, view = ViewType.ACTIVITY)
 	public void delete(@PathVariable Long id){
 		activityService.delete(id);
 	}

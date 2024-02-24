@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.uds.horbac.core.annotations.IsAllowed;
 import com.uds.horbac.core.dao.organizations.OrganizationRepository;
 import com.uds.horbac.core.entities.employees.Employee;
 import com.uds.horbac.core.entities.employees.Employs;
@@ -19,6 +20,8 @@ import com.uds.horbac.core.entities.requests.AppResponse;
 import com.uds.horbac.core.entities.users.Approver;
 import com.uds.horbac.core.entities.users.User;
 import com.uds.horbac.core.exceptions.ApiException;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
 import com.uds.horbac.core.service.users.UserService;
 import com.uds.horbac.integration.ApprovalService;
 import org.modelmapper.ModelMapper;
@@ -56,6 +59,7 @@ public class AppointController {
     private OrganizationRepository organizationRepository;
 
     @RequestMapping(value = "/appoints", method = GET)
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.EMPLOYEES)
     public List<AppointsDTO> getAll(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
         return service.getAll().stream()
                 .map(emp -> modelMapper.map(emp, AppointsDTO.class))
@@ -64,12 +68,14 @@ public class AppointController {
 
     @GetMapping("/appoints/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.EMPLOYEES)
     public AppointsDTO getAppoints(@PathVariable Long id) {
         return modelMapper.map(service.getOne(id), AppointsDTO.class);
     }
 
     @PostMapping("/appoints")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.EMPLOYEES)
     public AppointsDTO createAppoints(@RequestBody AppointsDTO appoints) {
         Appoints appoint = modelMapper.map(appoints, Appoints.class);
         Organization org = organizationRepository.findById(appoint.getOrganization().getId()).get();
@@ -83,6 +89,7 @@ public class AppointController {
 
     @PutMapping("/appoints")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.EMPLOYEES)
     public AppointsDTO updateAppoints(@Valid @RequestBody AppointsDTO appDTO) {
         Appoints app = modelMapper.map(appDTO, Appoints.class);
         Organization org = organizationRepository.findById(app.getOrganization().getId()).get();
@@ -96,6 +103,7 @@ public class AppointController {
 
     @DeleteMapping(value = "/appoints/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.EMPLOYEES)
     public void delete(@PathVariable Long id) {
         Appoints app = service.getOne(id);
         Organization org = organizationRepository.findById(app.getOrganization().getId()).get();

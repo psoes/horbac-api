@@ -3,6 +3,9 @@ package com.uds.horbac.core.rest.activities;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.uds.horbac.core.annotations.IsAllowed;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +32,7 @@ public class ActionController {
 	
 	@GetMapping("/actions")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.ACTIONS)
 	public List<ActionDTO> getActions() {
 		List<Action> actions = actionService.getAll();
 		List<ActionDTO> dtos = actions.stream()
@@ -39,6 +43,7 @@ public class ActionController {
 	
 	@GetMapping("/actions/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.ACTIONS)
 	public ActionDTO getActionById(@PathVariable Long id){
 		Action action = actionService.getAction(id);
 		return modelMapper.map(action, ActionDTO.class);
@@ -46,6 +51,7 @@ public class ActionController {
 	
 	@PostMapping("/actions")
 	@ResponseStatus(value=HttpStatus.CREATED)
+	@IsAllowed(activity = ActivityType.CREATE, view = ViewType.ACTIONS)
 	public ActionDTO createAction(@RequestBody ActionDTO actionDTO){
 		Action action = modelMapper.map(actionDTO, Action.class);
 		Action respaction = actionService.save(action);		
@@ -54,6 +60,7 @@ public class ActionController {
 	
 	@PutMapping("/actions")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.UPDATE, view = ViewType.ACTIONS)
 	public ActionDTO updateAction(@RequestBody ActionDTO actionDTO) {
 		Action action = modelMapper.map(actionDTO, Action.class);
 		Action respaction = actionService.save(action);		
@@ -61,6 +68,7 @@ public class ActionController {
 	}
 	
 	@DeleteMapping(value = "/actions/{id}")
+	@IsAllowed(activity = ActivityType.DELETE, view = ViewType.ACTIONS)
 	@ResponseStatus(value=HttpStatus.OK)
 	public void delete(@PathVariable Long id){
 		actionService.delete(id);

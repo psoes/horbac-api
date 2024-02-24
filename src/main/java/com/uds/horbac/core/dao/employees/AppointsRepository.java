@@ -1,5 +1,9 @@
 package com.uds.horbac.core.dao.employees;
 
+import com.uds.horbac.core.annotations.IsAllowed;
+import com.uds.horbac.core.entities.employees.Employee;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -21,5 +25,17 @@ import io.swagger.annotations.Api;
 methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.PATCH },
 maxAge = 3600)
 public interface AppointsRepository extends JpaRepository<Appoints, Long>, JpaSpecificationExecutor<Appoints>{
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.EMPLOYEES)
 	Appoints findAllByOrganizationAndEmployee(Organization org, Approver approver);
+
+	@Override
+	@IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.EMPLOYEES)
+	Appoints save(Appoints appoints);
+
+
+	@Override
+	@IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.EMPLOYEES)
+	void deleteById(Long id);
+
+	Appoints findFirstByEmployee(Employee employee);
 }

@@ -21,4 +21,6 @@ public interface OrganizationRepository extends JpaRepository<Organization, Long
 
 	List<Organization> findByOwner(Person owner);
 
+	Organization findByIsDefault(boolean isDefault);
+
 }

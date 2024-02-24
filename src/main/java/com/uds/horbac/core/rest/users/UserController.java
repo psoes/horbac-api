@@ -5,10 +5,15 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.uds.horbac.core.annotations.IsAllowed;
 import com.uds.horbac.core.entities.employees.Employee;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,6 +57,7 @@ public class UserController {
 	
 	@GetMapping("/users")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.EMPLOYEES)
 	public List<UserDTO> getAll() throws ApiException {
 		return userService.getAll()
 			.stream()
@@ -61,6 +67,7 @@ public class UserController {
 	}
 	@GetMapping("/users/all")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.EMPLOYEES)
 	public List<UserDTO> getAllWIthAdmin() throws ApiException {
 		return userService.getAll()
 			.stream()
@@ -70,6 +77,7 @@ public class UserController {
 	
 	@GetMapping("/users/filter")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.EMPLOYEES)
 	public List<UserDTO> filterUsers(@RequestParam("query") String query) {
 		return userService.filterUsers(query)
 			.stream()
@@ -80,6 +88,7 @@ public class UserController {
 		
 	@PostMapping("/users/activate/toggle/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.EMPLOYEES)
 	public UserDTO toggleActive(@PathVariable(name="id") Long idUser) throws ApiException {
 		User user = userService.toggleActive(idUser);
 		return modelMapper.map(user, UserDTO.class);
@@ -87,6 +96,7 @@ public class UserController {
 	
 	@DeleteMapping("/users/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.DELETE, view = ViewType.EMPLOYEES)
 	public void deleteUser(@PathVariable(name="id") Long idUser) throws ApiException {
 		if(!userService.remove(idUser)) {
 			throw new ApiException("Account not found");
@@ -95,9 +105,10 @@ public class UserController {
 
 	@PostMapping("/users/password/update/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
-	public UserDTO updatePassword(@PathVariable(name="id") Long idUser, @Valid @RequestBody UserPasswordDTO userPasswordDTO) throws ApiException {
+	@PreAuthorize("#id == authentication.principal.id")
+	public UserDTO updatePassword(@PathVariable(name="id") Long id, @Valid @RequestBody UserPasswordDTO userPasswordDTO) throws ApiException {
 		if(userPasswordDTO.getOldPassword() != null && !userPasswordDTO.getOldPassword().isEmpty()) {
-			User user = userService.updatePassword(idUser, userPasswordDTO.getOldPassword(), userPasswordDTO.getNewPassword());
+			User user = userService.updatePassword(id, userPasswordDTO.getOldPassword(), userPasswordDTO.getNewPassword());
 			return modelMapper.map(user, UserDTO.class);
 		} else {
 			throw new ApiException("Old password is required");

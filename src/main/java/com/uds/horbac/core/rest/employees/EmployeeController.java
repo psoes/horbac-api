@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.uds.horbac.core.annotations.IsAllowed;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +46,7 @@ public class EmployeeController {
     protected @Autowired AddressRepository addressRepository;
     
     @RequestMapping(value = "/employees", method = GET)
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.EMPLOYEES)
     public List<EmployeeDTO> getAll(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
     	return service.getAll().stream()
 				.map(emp -> modelMapper.map(emp, EmployeeDTO.class))
@@ -51,12 +55,14 @@ public class EmployeeController {
     
     @GetMapping("/employees/{id}")
    	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.EMPLOYEES)
    	public EmployeeDTO getEmployee(@PathVariable Long id){
    		return modelMapper.map(service.getEmployee(id), EmployeeDTO.class);
    	}
    	
    	@PostMapping("/employees")
    	@ResponseStatus(value=HttpStatus.CREATED)
+	@IsAllowed(activity = ActivityType.CREATE, view = ViewType.EMPLOYEES)
    	public EmployeeCrudDTO createEmployee(@Valid @RequestBody EmployeeCrudDTO employeeDTO){
    		List<Email> emails = new ArrayList<Email>();
    		List<PhoneNumber> phones = new ArrayList<PhoneNumber>();
@@ -86,6 +92,7 @@ public class EmployeeController {
    	
    	@PutMapping("/employees")
    	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.UPDATE, view = ViewType.EMPLOYEES)
    	public EmployeeDTO  updateEmployee(@Valid @RequestBody EmployeeCrudDTO employeeDTO) {		
    		Employee emp = modelMapper.map(employeeDTO, Employee.class);		
    		return modelMapper.map(service.save(emp), EmployeeDTO.class);
@@ -93,6 +100,7 @@ public class EmployeeController {
    	
    	@DeleteMapping(value = "/employees/{id}")
    	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.DELETE, view = ViewType.EMPLOYEES)
    	public void delete(@PathVariable Long id){
    		service.delete(id);
    	}

@@ -1,5 +1,6 @@
 package com.uds.horbac.core.rest.organizations;
 
+import com.uds.horbac.core.annotations.IsAllowed;
 import com.uds.horbac.core.dao.units.AdministrativeUnitRepository;
 import com.uds.horbac.core.dao.units.OperationalUnitRepository;
 import com.uds.horbac.core.dao.units.PlaceUnderRepository;
@@ -18,6 +19,8 @@ import com.uds.horbac.core.entities.units.PlaceUnder;
 import com.uds.horbac.core.entities.users.Approver;
 import com.uds.horbac.core.entities.users.User;
 import com.uds.horbac.core.exceptions.ApiException;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
 import com.uds.horbac.core.service.common.FileService;
 import com.uds.horbac.core.service.employees.AppointsService;
 import com.uds.horbac.core.service.employees.EmployeeService;
@@ -84,6 +87,7 @@ public class OrganizationController {
 
     @GetMapping("/organizations")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.ORGANIZATIONS)
     public List<OrganizationDTO> getOrganizations() {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Organization> orgs = organizationService.getAll();
@@ -96,6 +100,7 @@ public class OrganizationController {
 
     @GetMapping("/organizations/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.ORGANIZATIONS)
     public OrganizationDTO getOrganizationById(@PathVariable Long id) {
         Organization organization = organizationService.getOrganization(id);
         return modelMapper.map(organization, OrganizationDTO.class);
@@ -103,6 +108,7 @@ public class OrganizationController {
 
     @PostMapping("/organizations")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @IsAllowed(activity = ActivityType.CREATE, view = ViewType.ORGANIZATIONS)
     public OrganizationDTO createOrganization(@Valid @RequestBody OrganizationDTO orgDTO) {
         //if(orgDTO.getUrl() != null) {orgDTO.setUrl(new URL(orgDTO.getUrl()));
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -114,6 +120,7 @@ public class OrganizationController {
 
     @PostMapping("/organizations/new")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @IsAllowed(activity = ActivityType.CREATE, view = ViewType.ORGANIZATIONS)
     public OrganizationDTO createOrganizationWithApproval(@Valid @RequestBody NewOrganizationDTO orgRequest) {
         //if(orgDTO.getUrl() != null) {orgDTO.setUrl(new URL(orgDTO.getUrl()));
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -174,6 +181,7 @@ public class OrganizationController {
 
     @PutMapping("/organizations")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.UPDATE, view = ViewType.ORGANIZATIONS)
     public OrganizationDTO updateOrganization(@Valid @RequestBody OrganizationDTO organizationDTO) {
 
         Organization organization = modelMapper.map(organizationDTO, Organization.class);
@@ -182,10 +190,12 @@ public class OrganizationController {
 
     @DeleteMapping(value = "/organizations/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.DELETE, view = ViewType.ORGANIZATIONS)
     public void delete(@PathVariable Long id) {
         organizationService.delete(id);
     }
 
+    @IsAllowed(activity = ActivityType.UPDATE, view = ViewType.ORGANIZATIONS)
     @PostMapping(value = "/organizations/{id}/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Resource> postImage(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file) throws IOException {
         Resource r = fileService.uploadFile("ORG" + id, file);

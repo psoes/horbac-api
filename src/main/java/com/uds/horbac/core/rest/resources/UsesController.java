@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.uds.horbac.core.annotations.IsAllowed;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +36,7 @@ public class UsesController {
     protected @Autowired ModelMapper modelMapper;
     
     @GetMapping(value = "/uses")
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.VIEWS)
     public List<UsesDTO> get(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
     	return service.getAll().stream()
 				.map(clt -> modelMapper.map(clt, UsesDTO.class))
@@ -41,12 +45,14 @@ public class UsesController {
     
     @GetMapping("/uses/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.VIEW, view = ViewType.VIEWS)
 	public UsesDTO getUsesById(@PathVariable Long id){
 		return modelMapper.map(service.getUses(id), UsesDTO.class);
 	}
 	
 	@PostMapping("/uses")
 	@ResponseStatus(value=HttpStatus.CREATED)
+	@IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.VIEWS)
 	public UsesDTO createUses(@Valid @RequestBody UsesDTO usesDTO){
 		//if(orgDTO.getUrl() != null) {orgDTO.setUrl(new URL(orgDTO.getUrl()));
 		Uses clt = modelMapper.map(usesDTO, Uses.class);
@@ -56,6 +62,7 @@ public class UsesController {
 	
 	@PutMapping("/uses")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.VIEWS)
 	public UsesDTO  updateUses(@Valid @RequestBody UsesDTO usesDTO) {		
 		Uses clt = modelMapper.map(usesDTO, Uses.class);		
 		return modelMapper.map(service.save(clt), UsesDTO.class);
@@ -63,6 +70,7 @@ public class UsesController {
 	
 	@DeleteMapping(value = "/uses/{id}")
 	@ResponseStatus(value=HttpStatus.OK)
+	@IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.VIEWS)
 	public void delete(@PathVariable Long id){
 		service.delete(id);
 	}

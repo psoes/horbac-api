@@ -22,4 +22,6 @@ import java.util.Optional;
 maxAge = 3600)
 public interface AdministrativeUnitRepository extends JpaRepository<AdministrativeUnit, Long>, JpaSpecificationExecutor<AdministrativeUnit> {
     Optional<AdministrativeUnit>  findFirstByKey(String parent);
+
+    AdministrativeUnit findBykeyAndOrganizationId(String key, Long orgId);
 }

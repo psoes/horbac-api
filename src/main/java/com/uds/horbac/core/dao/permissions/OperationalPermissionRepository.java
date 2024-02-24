@@ -31,4 +31,6 @@ public interface OperationalPermissionRepository extends JpaRepository<Operation
             @Param("actionId") Long actionId,
             @Param("resourceId") Long resourceId
     );
+
+    OperationalPermission findFirstByActivityIdAndVueIdAndUnitId(Long activityId, Long vueId, Long unitId);
 }

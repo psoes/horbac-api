@@ -25,6 +25,9 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     @Query(value = "SELECT u FROM User u WHERE u.username LIKE %?1%")
     List<User> filterUsers(String query);
 
+    @Query("SELECT COUNT(e) FROM User e")
+    long countAll();
+
     Optional<User> findByEmployee(Employee employee);
 
     User findByEmployeeId(Long id);

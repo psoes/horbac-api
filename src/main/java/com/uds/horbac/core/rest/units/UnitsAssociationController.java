@@ -1,21 +1,28 @@
 package com.uds.horbac.core.rest.units;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
-
+import com.uds.horbac.core.annotations.IsAllowed;
 import com.uds.horbac.core.dao.units.AdministrativeUnitRepository;
 import com.uds.horbac.core.dao.units.OperationalUnitRepository;
 import com.uds.horbac.core.dao.units.UnitNodeRepository;
+import com.uds.horbac.core.dto.contexts.DefineDTO;
+import com.uds.horbac.core.dto.units.PlaceUnderDTO;
+import com.uds.horbac.core.dto.units.SubordinateDTO;
 import com.uds.horbac.core.dto.units.UnitNodeDTO;
 import com.uds.horbac.core.entities.employees.Employee;
+import com.uds.horbac.core.entities.organizations.Organization;
 import com.uds.horbac.core.entities.permissions.ApprovalType;
 import com.uds.horbac.core.entities.requests.AccessRequest;
 import com.uds.horbac.core.entities.requests.AppResponse;
 import com.uds.horbac.core.entities.units.*;
 import com.uds.horbac.core.entities.users.Approver;
 import com.uds.horbac.core.entities.users.User;
+import com.uds.horbac.core.exceptions.ApiException;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
+import com.uds.horbac.core.service.organizations.OrganizationService;
+import com.uds.horbac.core.service.units.OrgTreeService;
+import com.uds.horbac.core.service.units.PlaceUnderService;
+import com.uds.horbac.core.service.units.SubordinateService;
 import com.uds.horbac.core.service.users.UserService;
 import com.uds.horbac.integration.ApprovalService;
 import org.modelmapper.ModelMapper;
@@ -23,25 +30,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.uds.horbac.core.dto.contexts.DefineDTO;
-import com.uds.horbac.core.dto.units.PlaceUnderDTO;
-import com.uds.horbac.core.dto.units.SubordinateDTO;
-import com.uds.horbac.core.entities.organizations.Organization;
-import com.uds.horbac.core.exceptions.ApiException;
-import com.uds.horbac.core.service.organizations.OrganizationService;
-import com.uds.horbac.core.service.units.OrgTreeService;
-import com.uds.horbac.core.service.units.PlaceUnderService;
-import com.uds.horbac.core.service.units.SubordinateService;
+import javax.validation.Valid;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class UnitsAssociationController {
@@ -66,6 +59,7 @@ public class UnitsAssociationController {
     private OperationalUnitRepository operationalUnitRepository;
 
     @GetMapping(value = "/place-unders")
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.UNITS)
     public List<PlaceUnderDTO> getAllPlaceUnders(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
         return underService.getAll().stream()
                 .map(def -> modelMapper.map(def, PlaceUnderDTO.class))
@@ -74,12 +68,14 @@ public class UnitsAssociationController {
 
     @GetMapping("/place-unders/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.UNITS)
     public PlaceUnderDTO getOnePlaceUnderById(@PathVariable Long id) {
         return modelMapper.map(underService.getPlaceUnder(id), PlaceUnderDTO.class);
     }
 
     @PostMapping("/place-unders")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.UNITS)
     public PlaceUnderDTO create(@Valid @RequestBody PlaceUnderDTO defDTO) {
         PlaceUnder def = modelMapper.map(defDTO, PlaceUnder.class);
         return modelMapper.map(underService.save(def), PlaceUnderDTO.class);
@@ -87,6 +83,7 @@ public class UnitsAssociationController {
 
     @PutMapping("/place-unders")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.UNITS)
     public PlaceUnderDTO updatePlaceUnder(@Valid @RequestBody PlaceUnderDTO defDTO) {
         PlaceUnder def = modelMapper.map(defDTO, PlaceUnder.class);
         return modelMapper.map(underService.save(def), PlaceUnderDTO.class);
@@ -94,12 +91,14 @@ public class UnitsAssociationController {
 
     @DeleteMapping(value = "/place-unders/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.UNITS)
     public void deletePlaceUnder(@PathVariable Long id) {
         underService.delete(id);
     }
 
     @PostMapping("/place-unders/many")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.UNITS)
     public List<PlaceUnderDTO> createManyPlaceUnders(@Valid @RequestBody List<PlaceUnderDTO> defDTOs) {
         List<PlaceUnder> subs = defDTOs.stream()
                 .map(def -> modelMapper.map(def, PlaceUnder.class))
@@ -116,6 +115,7 @@ public class UnitsAssociationController {
      */
 
     @GetMapping(value = "/subordinates")
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.UNITS)
     public List<SubordinateDTO> getAll(@RequestParam(value = "start", defaultValue = "0") long start, @RequestParam(value = "limit", defaultValue = "25") long limit) {
         return subService.getAll().stream()
                 .map(def -> modelMapper.map(def, SubordinateDTO.class))
@@ -123,12 +123,14 @@ public class UnitsAssociationController {
     }
 
     @GetMapping("/subordinates/{id}")
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.UNITS)
     public SubordinateDTO getOneById(@PathVariable Long id) {
         return modelMapper.map(subService.getOne(id), SubordinateDTO.class);
     }
 
     @PostMapping("/subordinates")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.UNITS)
     public SubordinateDTO create(@Valid @RequestBody SubordinateDTO defDTO) {
         Subordinate def = modelMapper.map(defDTO, Subordinate.class);
         def = subService.save(def);
@@ -137,6 +139,7 @@ public class UnitsAssociationController {
 
     @PostMapping("/subordinates/many")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.UNITS)
     public List<SubordinateDTO> createMany(@Valid @RequestBody List<SubordinateDTO> defDTOs) {
         List<Subordinate> subs = defDTOs.stream()
                 .map(def -> modelMapper.map(def, Subordinate.class))
@@ -149,6 +152,7 @@ public class UnitsAssociationController {
 
     @PutMapping("/subordinates")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.UNITS)
     public SubordinateDTO updateDefine(@Valid @RequestBody DefineDTO defDTO) {
         Subordinate def = modelMapper.map(defDTO, Subordinate.class);
         return modelMapper.map(subService.save(def), SubordinateDTO.class);
@@ -156,11 +160,13 @@ public class UnitsAssociationController {
 
     @DeleteMapping(value = "/subordinates/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.UNITS)
     public void delete(@PathVariable Long id) {
         subService.delete(id);
     }
 
     @GetMapping(value = "/tree/organization/{id}")
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.UNITS)
     public ResponseEntity<OrgTree> getOrgTree(@PathVariable Long id) {
         Organization org = orgService.getOrganization(id);
         if (org == null) {
@@ -174,6 +180,7 @@ public class UnitsAssociationController {
 
 
     @GetMapping(value = "/units-nodes/with-approval/{id}")
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.UNITS)
     public List<UnitNodeDTO> getUnitsWithApproval(@PathVariable Long id) {
         return unitNodeRepository.findAllByOrganizationId(id).stream()
                 .map(def -> {
@@ -185,12 +192,13 @@ public class UnitsAssociationController {
     }
 
     @PostMapping(value = "/units-nodes/with-approval/{id}")
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.UNITS)
     public boolean RegisterUnitsWithApproval(@PathVariable Long id, @RequestBody List<UnitNodeDTO> nodes) {
         Organization org = orgService.getOrganization(id);
         AdministrativeUnit rootUnit = administrativeUnitRepository.findAll().get(0);
 
         ResponseEntity<AppResponse> approvalResponse = triggerApproval(org, (Employee) org.getOwner());
-        if(Objects.equals(approvalResponse.getBody().getDecision(), "DENIED")){
+        if (Objects.equals(approvalResponse.getBody().getDecision(), "DENIED")) {
             throw new ApiException("Units creation request rejected by the hierarchy");
         }
         saveUnits(nodes, org, rootUnit);
@@ -233,7 +241,7 @@ public class UnitsAssociationController {
                 under.setSubordinate(unit);
                 under.setSuperior(parent);
                 underService.save(under);
-            } else if (node.getParent() != null){
+            } else if (node.getParent() != null) {
                 AdministrativeUnit unit = administrativeUnitRepository.findFirstByKey(node.getKey()).orElse(new AdministrativeUnit());
                 unit.setName(node.getName());
                 unit.setDescription(node.getDescription());
@@ -245,8 +253,7 @@ public class UnitsAssociationController {
                 subordinate.setSubordinate(unit);
                 subordinate.setSuperior(parent);
                 subService.save(subordinate);
-            }
-            else {
+            } else {
                 root.setName(node.getName());
                 root.setDescription(node.getDescription());
                 root.setKey(node.getKey());
@@ -255,7 +262,7 @@ public class UnitsAssociationController {
                 root = administrativeUnitRepository.save(root);
             }
             UnitNode existing = unitNodeRepository.findByKey(node.getKey()).orElse(null);
-            if(existing != null) {
+            if (existing != null) {
                 node.setId(existing.getId());
                 unitNodeRepository.save(node);
             } else {

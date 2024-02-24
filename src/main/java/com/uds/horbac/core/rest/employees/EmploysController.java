@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.uds.horbac.core.annotations.IsAllowed;
 import com.uds.horbac.core.dao.organizations.OrganizationRepository;
 import com.uds.horbac.core.entities.employees.Employee;
 import com.uds.horbac.core.entities.organizations.Organization;
@@ -18,6 +19,8 @@ import com.uds.horbac.core.entities.requests.AppResponse;
 import com.uds.horbac.core.entities.users.Approver;
 import com.uds.horbac.core.entities.users.User;
 import com.uds.horbac.core.exceptions.ApiException;
+import com.uds.horbac.core.security.ActivityType;
+import com.uds.horbac.core.security.ViewType;
 import com.uds.horbac.core.service.users.UserService;
 import com.uds.horbac.integration.ApprovalService;
 import org.modelmapper.ModelMapper;
@@ -63,12 +66,14 @@ public class EmploysController {
 
     @GetMapping("/employs/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.VIEW, view = ViewType.EMPLOYEES)
     public EmploysDTO getEmploys(@PathVariable Long id) {
         return modelMapper.map(service.getOne(id), EmploysDTO.class);
     }
 
     @PostMapping("/employs")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.EMPLOYEES)
     public EmploysDTO createEmploys(@RequestBody EmploysDTO emp) {
         Employs empl = modelMapper.map(emp, Employs.class);
         Organization org = organizationRepository.findById(empl.getOrganization().getId()).get();
@@ -83,6 +88,7 @@ public class EmploysController {
 
     @PutMapping("/employs")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.EMPLOYEES)
     public EmploysDTO updateEmploys(@Valid @RequestBody EmploysDTO empDTO) {
         Employs app = modelMapper.map(empDTO, Employs.class);
         Employs empl = service.getOne(app.getId());
@@ -97,6 +103,7 @@ public class EmploysController {
 
     @DeleteMapping(value = "/employs/{id}")
     @ResponseStatus(value = HttpStatus.OK)
+    @IsAllowed(activity = ActivityType.ADMINISTER, view = ViewType.EMPLOYEES)
     public void delete(@PathVariable Long id) {
 
         Employs empl = service.getOne(id);
